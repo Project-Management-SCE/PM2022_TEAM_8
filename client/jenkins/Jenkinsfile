@@ -9,24 +9,39 @@ pipeline {
         CI = 'true'
     }
     stages {
-        stage('Build') {
+        stage('Build FE and BE') {
             steps {
                             sh "cd client && npm install"
+                            sh "cd server && npm install"
                         }
         }
-        stage('Test') {
+        stage('Test FE') {
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
-                sh './client/jenkins/scripts/test.sh'
+                sh './client/jenkins/scripts/testFE.sh'
             }
         }
-        stage('Deliver') {
+        //stage('Test BE') {
+                    //steps {
+                       // sh "chmod +x -R ${env.WORKSPACE}"
+                        //sh './client/jenkins/scripts/testBE.sh'
+                    //}
+               // }
+        stage('Deliver FE') {
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
-                sh './client/jenkins/scripts/deliver.sh'
+                sh './client/jenkins/scripts/deliverFE.sh'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh './client/jenkins/scripts/kill.sh'
+                sh './client/jenkins/scripts/killFE.sh'
             }
         }
+        stage('Deliver BE') {
+                    steps {
+                        sh "chmod +x -R ${env.WORKSPACE}"
+                        sh './client/jenkins/scripts/deliverBE.sh'
+                        input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                        sh './client/jenkins/scripts/killBE.sh'
+                    }
+                }
     }
 }
