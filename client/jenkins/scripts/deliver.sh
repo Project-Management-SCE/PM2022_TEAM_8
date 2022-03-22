@@ -20,7 +20,8 @@ echo 'the file ".pidfile".'
 set -x
 cd client && npm start &
 sleep 1
-echo client && $! > .pidfile
+echo $! > .pidfile
+ls
 set +x
 
 echo 'Now...'
