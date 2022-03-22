@@ -16,14 +16,14 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'sudo ./client/jenkins/scripts/test.sh'
+                sh "cd client && npm test"
             }
         }
         stage('Deliver') {
             steps {
-                sh 'sudo ./client/jenkins/scripts/deliver.sh'
+                sh './client/jenkins/scripts/deliver.sh'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
-               sh 'sudo ./client/jenkins/scripts/kill.sh'
+               sh './client/jenkins/scripts/kill.sh'
             }
         }
     }
