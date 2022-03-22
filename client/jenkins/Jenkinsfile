@@ -21,12 +21,12 @@ pipeline {
                 sh './client/jenkins/scripts/testFE.sh'
             }
         }
-        //stage('Test BE') {
-                    //steps {
-                       // sh "chmod +x -R ${env.WORKSPACE}"
-                        //sh './client/jenkins/scripts/testBE.sh'
-                    //}
-               // }
+        stage('Test BE') {
+                    steps {
+                        sh "chmod +x -R ${env.WORKSPACE}"
+                        sh './client/jenkins/scripts/testBE.sh'
+                    }
+                }
         stage('Deliver FE') {
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
