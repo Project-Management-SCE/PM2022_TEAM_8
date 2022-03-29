@@ -1,0 +1,176 @@
+.container {
+  padding-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: center;
+  direction: rtl;
+  background-color: white;
+  width: 100%;
+  margin: auto;
+}
+
+.container h1 {
+  color: gray;
+  padding-bottom: 2rem;
+}
+
+.container h2 {
+  width: 90%;
+  text-align: left;
+  margin: auto;
+}
+
+.container form {
+  direction: rtl;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 50rem;
+}
+
+.container form h2 {
+  width: 90%;
+  margin: auto;
+}
+
+.formDiv {
+  width: 90%;
+  margin: 1rem auto;
+  max-width: 100%;
+  height: 5rem;
+  border: 1px solid lightgray;
+  padding-right: 1.5rem;
+  display: flex;
+  align-items: center;
+  color: lightgray;
+  transition: all 200ms ease;
+  direction: ltr;
+}
+
+.formDivHalfContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 1rem auto;
+  direction: ltr;
+}
+
+.formDivHalf {
+  width: 48%;
+  max-width: 100%;
+  height: 5rem;
+  border: 1px solid lightgray;
+  padding-right: 1.5rem;
+  display: flex;
+  align-items: center;
+  color: lightgray;
+  transition: all 200ms ease;
+}
+
+.container form div .formHalfInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 1.5rem;
+  padding: 1rem;
+}
+
+.formDivHalf:focus,
+.formDivHalf:after,
+.formDivHalf:hover {
+  border: 1px solid #DA0037;
+}
+
+.container form div .formInput {
+  width: 90%;
+  border: none;
+  outline: none;
+  font-size: 1.5rem;
+  padding: 1rem;
+}
+
+.formDiv:focus,
+.formDiv:after,
+.formDiv:hover {
+  border: 1px solid #DA0037;
+}
+
+.checkBoxDiv {
+  width: 90%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  margin: auto;
+  padding: 1rem 1rem;
+  direction: ltr;
+}
+
+.checkBoxDiv input {
+  border: 1px solid lightgray;
+}
+
+.checkBoxDiv span {
+  flex: 1;
+  text-align: left;
+  margin-left: 1rem;
+  color: gray;
+}
+
+.submit {
+  width: 90%;
+  margin: 0.5rem auto;
+  font-size: 1.8rem;
+  font-weight: 700;
+  padding: 1rem 0;
+  background: gray;
+  color: white;
+  border: none;
+  outline: none;
+  transition: all 200ms ease;
+}
+
+.submit:hover {
+  background-color: black;
+  color: white;
+}
+
+.linkStyle {
+  width: 100%;
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.linkStyle button {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  color: #DA0037;
+  border: none;
+  outline: none;
+  transition: all 200ms ease;
+  background: transparent;
+
+}
+
+.formInput::-webkit-inner-spin-button,
+.formInput[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@media only screen and (max-width: 720px) {
+  .container form {
+    width: 100%;
+  }
+
+  .container form h2 {
+    margin: 2rem auto 0;
+  }
+
+  .container h2 {
+    margin: 2rem auto 0;
+  }
+}
