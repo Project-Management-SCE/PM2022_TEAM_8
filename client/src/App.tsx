@@ -11,8 +11,8 @@ function App() {
     <BrowserRouter>
       <MainNavigation />
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Navigate replace to="/" />} />
       </Routes>
