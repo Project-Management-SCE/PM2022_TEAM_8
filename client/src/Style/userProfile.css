@@ -1,0 +1,67 @@
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    height: 87vh;
+
+
+}
+
+.left {
+    width: 12rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    background-color: rgba(61, 58, 41, 0.227);
+    padding-top: 2rem;
+}
+
+.profile-links {}
+
+.iconDiv {
+    width: 7rem;
+    margin: 1rem 0 3rem 0;
+}
+
+.left .iconDiv img {
+    max-width: 100%;
+}
+
+.left p {
+    font-weight: 700;
+    font-size: 18px;
+    margin: -3px 0;
+    color: white;
+}
+
+.right {
+    flex: 1;
+    padding-top: 5rem;
+    margin-left: 5rem;
+}
+
+.page-selected-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.page-selected-container h4 {
+    color: black;
+    font-weight: 700;
+}
+
+.user-details {
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+
+}
+
+.user-details input {
+    margin: 8px 0;
+    box-sizing: border-box;
+    width: 40%;
+    padding: 12px 20px;
+}
