@@ -4,7 +4,8 @@ import { NavLink } from "react-router-dom";
 import IconContainer from "../util/IconContainer";
 import { colors } from "../Style/colors";
 import home from "../assets/icons/home.png";
-import playlist from "../assets/icons/playlist.png";
+import logout from "../assets/icons/logout.png";
+
 import user from "../assets/icons/user.png";
 
 const NavLinks = (props) => {
@@ -33,6 +34,18 @@ const NavLinks = (props) => {
           borderColor={colors.white}
           imageDimensions={{ width: 25, height: 25 }}
           title="User Profile"
+        />
+      </NavLink>
+      <NavLink to="/" exact>
+        <IconContainer
+          image={logout}
+          width={45}
+          height={45}
+          backgroundColor={colors.primaryColor}
+          border={true}
+          borderColor={colors.white}
+          imageDimensions={{ width: 25, height: 25 }}
+          title="Log Out"
         />
       </NavLink>
 
