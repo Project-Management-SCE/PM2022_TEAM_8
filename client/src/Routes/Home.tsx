@@ -1,36 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-// import {
-//   TopRatedMovies,
-//   PopularTVshows,
-// } from "../api/ExternalApiResponseTypes";
-// import ExternalApiService from "../api/ExternalApiService";
+import {
+  TopRatedMovies,
+  PopularTVshows,
+} from "../api/ExternalApiResponseTypes";
+import ExternalApiService from "../api/ExternalApiService";
 import CarouselMovies from "../components/CarouselMovies";
 // import MovieCard from "../components/MovieCard";
 import "../Style/home.css";
 
 const Home = () => {
-  //   const [topMovies, setTopMovies] = React.useState<TopRatedMovies[]>([]);
-  //   const [topSeries, setTopSeries] = React.useState<PopularTVshows[]>([]);
+  const [topMovies, setTopMovies] = React.useState<TopRatedMovies[]>([]);
+  const [topSeries, setTopSeries] = React.useState<PopularTVshows[]>([]);
 
-  //   useEffect(() => {
-  //     try {
-  //       ExternalApiService.getUpcomingMovies().then((response) => {
-  //         setTopMovies(response.results.slice(0, 5) as TopRatedMovies[]);
-  //       });
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //     try {
-  //       ExternalApiService.getPopularTVshows().then((response) => {
-  //         setTopSeries(
-  //           response.results.slice(0, 5) as unknown as PopularTVshows[]
-  //         );
-  //       });
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   }, []);
+  useEffect(() => {
+    try {
+      ExternalApiService.getUpcomingMovies().then((response) => {
+        setTopMovies(response.results.slice(0, 5) as TopRatedMovies[]);
+      });
+    } catch (e) {
+      console.log(e);
+    }
+    try {
+      ExternalApiService.getPopularTVshows().then((response) => {
+        setTopSeries(
+          response.results.slice(0, 5) as unknown as PopularTVshows[]
+        );
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
 
   return (
     <div className="home-container">
@@ -43,7 +43,7 @@ const Home = () => {
           </NavLink>
         </div>
         <div className="movies-flex">
-          {/* {topMovies.length
+          {topMovies.length
             ? topMovies.map((movie) => (
                 <div className="col-md-4" key={movie.id}>
                   <div className="card">
@@ -58,7 +58,7 @@ const Home = () => {
                   </div>
                 </div>
               ))
-            : ""} */}
+            : ""}
         </div>
         <div className="category-row">
           <span className="category-header">Series</span>
@@ -67,7 +67,7 @@ const Home = () => {
           </NavLink>
         </div>
         <div className="movies-flex">
-          {/* {topSeries.length
+          {topSeries.length
             ? topSeries.map((movie) => (
                 <div className="col-md-4" key={movie.id}>
                   <div className="card">
@@ -82,7 +82,7 @@ const Home = () => {
                   </div>
                 </div>
               ))
-            : ""} */}
+            : ""}
         </div>
       </div>
     </div>

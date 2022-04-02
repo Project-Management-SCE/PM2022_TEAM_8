@@ -1,0 +1,16 @@
+.card {
+  display: flex;
+  width: 15rem;
+  height: 30rem;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: .5rem auto;
+  background-color: #171717;
+  color: white;
+  border: none;
+}
+.card img {
+  width: 100%;
+  max-height: 22rem;
+}

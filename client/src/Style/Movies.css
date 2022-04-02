@@ -1,0 +1,35 @@
+.movies-container {
+    padding-top: 5rem;
+    background-color: #171717;
+
+}
+
+.movies-container h1,
+h3 {
+    margin: 2rem;
+    color: white;
+    filter: drop-shadow(0 0 0.2rem white);
+}
+
+.row {
+    padding-bottom: 5rem;
+    margin: 3rem;
+}
+
+.col-md-4 {
+    width: 20%;
+}
+
+.card {
+    width: 20rem;
+    height: 40rem;
+    margin: 1rem;
+}
+
+.card-body {
+    background-color: #171717;
+    color: white;
+}
+
+/* TODO: limit text to fit container */
+.card-text {}

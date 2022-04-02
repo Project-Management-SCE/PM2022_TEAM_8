@@ -10,6 +10,8 @@ import Register from "./Routes/Register";
 import UserProfile from "./Routes/UserProfile";
 import Admin from "./Routes/Admin";
 import AdminLogin from "./admin/AdminLogin";
+import Movies from "./Routes/Movies";
+import Series from "./Routes/Series";
 
 function App() {
   const [adminON, setAdminON] = useState<boolean>(false);
@@ -31,6 +33,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/user_profile" element={<UserProfile />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/movies" element={<Movies />} />
+        <Route path="/series" element={<Series />} />
         <Route path="/admin_login" element={<AdminLogin />} />
         <Route path="/" element={<Navigate replace to="/" />} />
       </Routes>
