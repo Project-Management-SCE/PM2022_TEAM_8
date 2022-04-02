@@ -29,6 +29,9 @@ const MainFooter = () => {
             <li>
               <NavLink to="/movies">Series</NavLink>
             </li>
+            <li>
+              <NavLink to="/admin_login">Admin</NavLink>
+            </li>
           </ul>
         </div>
         <div className="about-list-div">
