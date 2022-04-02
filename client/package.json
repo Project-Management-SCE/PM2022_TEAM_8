@@ -14,7 +14,7 @@
     "@types/react": "^17.0.41",
     "@types/react-dom": "^17.0.14",
     "antd": "^4.19.3",
-    "axios": "^0.26.1",
+    "axios": "^0.21.1",
     "bootstrap": "^5.1.3",
     "react": "^17.0.2",
     "react-bootstrap": "^2.2.2",
@@ -29,9 +29,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "echo \"No test specified\"",
+    "start": "react-dotenv && react-scripts start",
+    "build": "react-dotenv && react-scripts build",
+    "serve": "react-dotenv && serve build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -50,6 +51,12 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "react-dotenv": {
+    "whitelist": [
+      "API_KEY",
+      "TMDB"
     ]
   }
 }
