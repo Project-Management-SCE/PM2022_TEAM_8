@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 //   PopularTVshows,
 // } from "../api/ExternalApiResponseTypes";
 // import ExternalApiService from "../api/ExternalApiService";
-// import CarouselMovies from "../components/CarouselMovies";
+import CarouselMovies from "../components/CarouselMovies";
 // import MovieCard from "../components/MovieCard";
 import "../Style/home.css";
 
@@ -34,7 +34,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      {/* <CarouselMovies /> */}
+      <CarouselMovies />
       <div className="category-container">
         <div className="category-row">
           <span className="category-header">Movies</span>

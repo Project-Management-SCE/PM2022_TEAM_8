@@ -1,8 +1,11 @@
 import React, { FC, useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import "./App.css";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Home from "./Routes/Home";
 import MainNavigation from "./NavBar/MainNavigation";
+import MainFooter from "./Footer/MainFooter";
 import Login from "./Routes/Login";
 import Register from "./Routes/Register";
 import UserProfile from "./Routes/UserProfile";
@@ -30,6 +33,7 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/" element={<Navigate replace to="/" />} />
       </Routes>
+      {!adminON && <MainFooter />}
     </BrowserRouter>
   );
 }

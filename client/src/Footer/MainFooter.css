@@ -1,0 +1,109 @@
+.footer-container {
+    padding: 70px 200px;
+    color: #f0f9ff;
+    background-color: #171717;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #DA0037;
+
+
+}
+
+.inside-footer-container {
+    background-color: #171717;
+    height: 15rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.row {}
+
+.company-details-div,
+.services-list-div,
+.about-list-div {
+    height: 10rem;
+    padding: 3rem;
+}
+
+.company-details-div h3 {
+    font-weight: 700;
+
+}
+
+.about-list-div ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.about-list-div h3 {
+    font-weight: 700;
+}
+
+.services-list-div h3 {
+    font-weight: 700;
+}
+
+.services-list-div ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.company-details-div {
+
+    width: 50%;
+}
+
+li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+
+a:hover {
+    color: #DA0037;
+    text-decoration: underline;
+}
+
+.social-media-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    background-color: #171717;
+
+    color: white;
+    padding: 25px 50px
+}
+
+.social {
+    padding: 25px 15px
+}
+
+.social-icon {
+    margin: 0 1rem;
+    transition: transform 250ms;
+    display: inline-block;
+}
+
+
+
+a.youtube {
+    color: #eb3223;
+}
+
+a.facebook {
+    color: #4968ad;
+}
+
+a.twitter {
+    color: #49a1eb;
+}
+
+a.instagram {
+    color: white;
+}
