@@ -48,6 +48,10 @@ class AuthService {
         return new UserDto(user.email, user.firstName,user.lastName,user.type)
 
     }
+    async getUsers() {
+        const users = await User.find({});
+        return users.map(user => new UserDto(user.email, user.firstName,user.lastName,user.type))
+    }
 
 }
 

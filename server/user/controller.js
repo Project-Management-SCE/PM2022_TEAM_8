@@ -35,6 +35,14 @@ class AuthController{
             next(err);
         }
     }
+    async getUsers(req,res,next){
+        try{
+            const users = await authService.getUsers();
+            res.json({users})
+        }catch (err) {
+            next(err);
+        }
+    }
 }
 
 module.exports = new AuthController()
