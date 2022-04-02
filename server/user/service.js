@@ -18,7 +18,13 @@ class AuthService {
         return jwt.sign(payload, process.env.TOKEN_KEY, {expiresIn: "48h",});
     }
 
-
+    async login(email, password) {
+        const user = await User.findOne({email});
+        if (!user || !(await bcrypt.compare(password.toString(), user.password))) {
+            throw ApiError.BadRequest("Invalid ID or password")
+        }
+        return this.signToken(user);
+    }
 
     async register(email,password,lastName, firstName) {
         const encryptedPassword = await this.registerBody(email,password);
@@ -34,6 +40,14 @@ class AuthService {
         return this.signToken(newUser)
     }
 
+    async me(userId) {
+        const user = await User.findOne({cid:userId});
+        if (!user) {
+            throw ApiError.BadRequest("User does not exist")
+        }
+        return new UserDto(user.email, user.firstName,user.lastName,user.type)
+
+    }
 
 }
 

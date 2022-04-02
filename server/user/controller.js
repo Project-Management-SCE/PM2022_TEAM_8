@@ -16,6 +16,25 @@ class AuthController{
             next(err)
         }
     }
+
+    async login(req,res,next){
+        try {
+            const {email, password} = req.body;
+            const token = await authService.login(email,password)
+            res.json({accessToken:token});
+        } catch (err) {
+            next(err)
+        }
+    }
+    async me(req,res,next){
+        try{
+            const {email} = req.user
+            const user = await authService.me(email)
+            res.json({user})
+        }catch (err) {
+            next(err);
+        }
+    }
 }
 
 module.exports = new AuthController()
