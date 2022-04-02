@@ -25,7 +25,7 @@ const Register = () => {
 
   const on_submit = async (e: any) => {
     e.preventDefault();
-    //   const res =  await axios.post('/api/auth/register', registerForm)
+    //   const res =  await axios.post('/api/user/register', registerForm)
 
     //   console.log(res);
   };
