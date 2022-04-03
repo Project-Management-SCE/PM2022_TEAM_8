@@ -4,11 +4,17 @@ import { NavLink } from "react-router-dom";
 import IconContainer from "../util/IconContainer";
 import { colors } from "../Style/colors";
 import home from "../assets/icons/home.png";
-import logout from "../assets/icons/logout.png";
+import logoutImg from "../assets/icons/logout.png";
 
 import user from "../assets/icons/user.png";
+import {useDispatch} from "react-redux";
+import {logout} from "../redux/reducers/auth-reducer";
 
 const NavLinks = (props) => {
+    const dispatch = useDispatch()
+    const onLogout = () => {
+        dispatch(logout())
+    }
   return (
     <div className="nav-links">
 
@@ -36,9 +42,9 @@ const NavLinks = (props) => {
           title="User Profile"
         />
       </NavLink>
-      <NavLink to="/" exact>
+      <NavLink to="/" exact onClick={onLogout}>
         <IconContainer
-          image={logout}
+          image={logoutImg}
           width={45}
           height={45}
           backgroundColor={colors.primaryColor}

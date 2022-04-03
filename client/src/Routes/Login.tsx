@@ -2,35 +2,33 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Eye } from "react-bootstrap-icons";
 import "../Style/registerStyle.css";
+import {useDispatch} from "react-redux";
+import {login} from "../redux/reducers/auth-reducer";
 
 const Login = () => {
+    const dispatch = useDispatch()
+    const [email, setEmailInput] = useState("")
   const [passwordInput, setPasswordInput] = useState<string>("password");
+    function onFinish() {
+        dispatch(login(email,passwordInput))
+    }
   return (
     <div className="container">
       {" "}
       <h1>Log in to your account</h1>
       <form>
         <div className="formDiv">
-          <input type="email" className="formInput" placeholder="Email" />
+          <input type="email" className="formInput" placeholder="Email"
+                 onChange={(e) => setEmailInput(e.target.value)}/>
         </div>
         <div className="formDiv">
           <input
-            type={passwordInput}
+            type={"password"}
             className="formInput"
             placeholder="Password"
+              onChange={(e) => setPasswordInput(e.target.value)}
           />
-          <Eye
-            size={20}
-            onMouseEnter={() => setPasswordInput("text")}
-            onMouseLeave={() => setPasswordInput("password")}
-            onClick={() => {
-              if (passwordInput === "password") {
-                setPasswordInput("text");
-              } else {
-                setPasswordInput("password");
-              }
-            }}
-          />
+
         </div>
         <div className="checkBoxDiv">
           <input type="checkbox" />
@@ -39,7 +37,7 @@ const Login = () => {
             data by this site.
           </span>
         </div>
-        <input type="submit" value="Connect" className="submit" />
+        <input type="submit" value="Connect" className="submit" onClick={onFinish}/>
       </form>
       <NavLink to="/register" className="linkStyle">
         <button>Create Account</button>
