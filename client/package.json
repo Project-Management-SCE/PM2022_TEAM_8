@@ -32,7 +32,7 @@
     "start": "react-dotenv && react-scripts start",
     "build": "react-dotenv && react-scripts build",
     "serve": "react-dotenv && serve build",
-    "test": "react-scripts test",
+    "test": "echo \"No test specified\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const authRoute = require('./user/routes')
 const app = express();
 require('dotenv').config()
-const PORT = 3001
+const PORT = 3001 || process.env.PORT
 const cors = require('cors')
 app.use(express.json())
 app.use(cors({

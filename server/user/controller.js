@@ -1,7 +1,6 @@
 const authService = require('./service');
 const {validationResult} = require('express-validator');
 const ApiError = require('../exceptions/api-error');
-
 class AuthController{
     async register(req,res,next){
         try {
@@ -39,6 +38,53 @@ class AuthController{
         try{
             const users = await authService.getUsers();
             res.json({users})
+        }catch (err) {
+            next(err);
+        }
+    }
+    async deleteUser(req,res,next){
+        try{
+            const {email} = req.user
+            const user = await authService.deleteUser(email)
+            res.json({user})
+        }catch (err) {
+            next(err);
+        }
+    }
+    async updateUser(req,res,next){
+        try{
+            const {email} = req.user
+            const {firstName,lastName} = req.body
+            const user = await authService.updateUser(email,firstName,lastName)
+            res.json({user})
+        }catch (err) {
+            next(err);
+        }
+    }
+    async updatePassword(req,res,next){
+        try{
+            const {email} = req.user
+            const {password} = req.body
+            const user = await authService.updatePassword(email,password)
+            res.json({user})
+        }catch (err) {
+            next(err);
+        }
+    }
+    async recoverPassword(req,res,next){
+        try{
+            const {email,password} = req.body
+            await authService.updatePassword(email,password)
+            res.json("Password Updated")
+        }catch (err) {
+            next(err);
+        }
+    }
+    async getRecoverToken(req,res,next){
+        try{
+            const {email} = req.body
+            const msg = await authService.getRecoverToken(email)
+            res.json(msg)
         }catch (err) {
             next(err);
         }
