@@ -9,7 +9,6 @@ import React from "react";
 export const AppRouter = () => {
     const isAuth = useSelector<AppStateType>(state => state.auth.isAuth) as boolean
     const type = useSelector<AppStateType>(state => state.auth.user?.type) as string
-   // const isLoading = useSelector<AppStateType>(state => state.app.isLoading) as boolean
     return (
         isAuth &&   type === "User" ?
                 <Routes>

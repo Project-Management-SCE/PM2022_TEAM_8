@@ -9,7 +9,8 @@ const Login = () => {
     const dispatch = useDispatch()
     const [email, setEmailInput] = useState("")
   const [passwordInput, setPasswordInput] = useState<string>("password");
-    function onFinish() {
+    function onFinish(e: any) {
+        e.preventDefault();
         dispatch(login(email,passwordInput))
     }
   return (
