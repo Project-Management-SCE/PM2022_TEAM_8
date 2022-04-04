@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Eye } from "react-bootstrap-icons";
 import "../Style/registerStyle.css";
+import {register} from "../redux/reducers/auth-reducer";
+import {useDispatch} from "react-redux";
 // import axios from 'axios'
 
 const Register = () => {
+  const dispatch = useDispatch()
   const [passwordInput, setPasswordInput] = useState<string>("password");
   const [checkBoxState, setCheckBoxState] = useState<any>(false);
   const [registerForm, setRegisterForm] = useState<any>({
@@ -25,9 +28,7 @@ const Register = () => {
 
   const on_submit = async (e: any) => {
     e.preventDefault();
-    //   const res =  await axios.post('/api/user/register', registerForm)
-
-    //   console.log(res);
+    dispatch(register(registerForm.email,registerForm.password,registerForm.first_name,registerForm.last_name))
   };
   return (
     <div>

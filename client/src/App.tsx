@@ -2,16 +2,18 @@ import React, { FC, useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import Home from "./Routes/Home";
+import Home from "./Pages/Home";
 import MainNavigation from "./NavBar/MainNavigation";
 import MainFooter from "./Footer/MainFooter";
-import Login from "./Routes/Login";
-import Register from "./Routes/Register";
-import UserProfile from "./Routes/UserProfile";
-import Admin from "./Routes/Admin";
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
+import UserProfile from "./Pages/UserProfile";
+import Admin from "./Pages/Admin";
 import AdminLogin from "./admin/AdminLogin";
-import Movies from "./Routes/Movies";
-import Series from "./Routes/Series";
+import Movies from "./Pages/Movies";
+import Series from "./Pages/Series";
+import {AppRouter} from "./Routes/AppRouter";
+
 
 function App() {
   const [adminON, setAdminON] = useState<boolean>(false);
@@ -27,17 +29,7 @@ function App() {
   return (
     <BrowserRouter>
       {!adminON && <MainNavigation />}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/user_profile" element={<UserProfile />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/series" element={<Series />} />
-        <Route path="/admin_login" element={<AdminLogin />} />
-        <Route path="/" element={<Navigate replace to="/" />} />
-      </Routes>
+      <AppRouter/>
       {!adminON && <MainFooter />}
     </BrowserRouter>
   );
