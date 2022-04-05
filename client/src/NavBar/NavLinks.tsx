@@ -49,6 +49,7 @@ const NavLinks : FC = () => {
                     />
                 </Link>
                 <p className={"user-welcome"}>Welcome, {curr_user.firstName}</p>
+                <p className={"user-welcome"}>User Type, {curr_user.type}</p>
             </>
 
         : <>

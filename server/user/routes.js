@@ -13,6 +13,7 @@ router.post("/register",
 );
 router.get("/me",auth,userController.me);
 router.post("/login", userController.login);
+router.post("/login-admin", userController.loginAdmin);
 router.get("/users",auth,verifyAdmin,userController.getUsers);
 router.delete("/delete/:email",auth,verifyAdmin,userController.deleteUser);
 router.put("/update/",auth,userController.updateUser);

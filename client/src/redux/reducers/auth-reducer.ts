@@ -49,10 +49,15 @@ export const getAuthUserData = (): ThunkTypeAuth => async (dispatch) => {
     }
 }
 
-export const login = (email: string, password: string): ThunkTypeAuth => async (dispatch) => {
-    try {
 
-        let data = await AuthService.login(email, password);
+export const login = (email: string, password: string ,isAdminLogin:boolean = false): ThunkTypeAuth => async (dispatch) => {
+    try {
+        let data;
+        if(isAdminLogin){
+            data = await AuthService.loginAdmin(email, password);
+        }else{
+            data = await AuthService.login(email, password);
+        }
         const accessToken = data.accessToken || ''
         localStorage.setItem('accessToken', accessToken)
         let meData
@@ -66,6 +71,7 @@ export const login = (email: string, password: string): ThunkTypeAuth => async (
         dispatch(appActions.setError(msg))
     }
 }
+
 export const logout = ():ThunkTypeAuth => async (dispatch ) => {
     localStorage.removeItem("accessToken")
     dispatch(authActions.logout())

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Eye } from "react-bootstrap-icons";
 import "../Style/registerStyle.css";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/reducers/auth-reducer";
@@ -11,7 +10,7 @@ const Login = () => {
   const [passwordInput, setPasswordInput] = useState<string>("password");
     function onFinish(e: any) {
         e.preventDefault();
-        dispatch(login(email,passwordInput))
+        dispatch(login(email,passwordInput,false))
     }
   return (
     <div className="container">

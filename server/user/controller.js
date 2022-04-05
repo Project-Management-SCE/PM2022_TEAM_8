@@ -25,10 +25,19 @@ class AuthController {
             next(err)
         }
     }
+    async loginAdmin(req, res, next) {
+        try {
+            const { email, password } = req.body;
+            const token = await authService.loginAdmin(email, password)
+            res.json({ accessToken: token });
+        } catch (err) {
+            next(err)
+        }
+    }
     async me(req, res, next) {
         try {
-            const { email } = req.user
-            const user = await authService.me(email)
+            const { email,type } = req.user
+            const user = await authService.me(email,type)
             res.json({ user })
         } catch (err) {
             next(err);

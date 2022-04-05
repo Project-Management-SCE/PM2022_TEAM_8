@@ -14,8 +14,8 @@ class AuthService {
         const encryptedPassword = await bcrypt.hash(password.toString(), 7);
         return encryptedPassword
     }
-    signToken(user) {
-        const payload = { user: { email: user.email, type: user.type } }
+    signToken(user,type) {
+        const payload = { user: { email: user.email, type } }
         return jwt.sign(payload, process.env.TOKEN_KEY, { expiresIn: "48h", });
     }
     signRecoverToken(user) {
@@ -27,7 +27,17 @@ class AuthService {
         if (!user || !(await bcrypt.compare(password.toString(), user.password))) {
             throw ApiError.BadRequest("Invalid ID or password")
         }
-        return this.signToken(user);
+        return this.signToken(user,"User");
+    }
+    async loginAdmin(email, password) {
+        const user = await User.findOne({ email });
+        if (!user || !(await bcrypt.compare(password.toString(), user.password))) {
+            throw ApiError.BadRequest("Invalid ID or password")
+        }
+        if(user.type !== "Admin"){
+            throw ApiError.UnauthorizedError("You don't have admin privileges!, Use regular users login page!")
+        }
+        return this.signToken(user,"Admin");
     }
 
     async register(email, password, lastName, firstName,address,phone) {
@@ -46,12 +56,12 @@ class AuthService {
         return this.signToken(newUser)
     }
 
-    async me(email) {
+    async me(email,type) {
         const user = await User.findOne({ email });
         if (!user) {
             throw ApiError.BadRequest("User does not exist")
         }
-        return new UserDto(user.email, user.firstName, user.lastName, user.type, user.address, user.phone)
+        return new UserDto(user.email, user.firstName, user.lastName, type, user.address, user.phone)
 
     }
     async getUsers() {
