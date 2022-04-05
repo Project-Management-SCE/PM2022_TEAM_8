@@ -9,9 +9,10 @@ const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState<string>("password");
-  function onFinish() {
-    dispatch(login(email, passwordInput));
-  }
+    function onFinish(e: any) {
+        e.preventDefault();
+        dispatch(login(email,passwordInput))
+    }
   return (
     <div className="container">
       {" "}

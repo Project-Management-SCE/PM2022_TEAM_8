@@ -1,24 +1,22 @@
 import {BaseThunkType, InferActionsTypes} from '../Store';
 import AuthService from "../../api/internalAPI/authApi";
 import {IUser} from "../../api/internalAPI/internalApiTypes";
+import {appActions} from "./app-reducer";
 
 
 let initialState = {
     user: null as (IUser | null),
     isAuth: false,
-    error: '',
 };
 
 export enum AuthActions {
     SET_USER_DATA,
-    LOGOUT,
-    SET_AUTH_ERROR
+    LOGOUT
 }
 
 const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case AuthActions.SET_USER_DATA:
-        case AuthActions.SET_AUTH_ERROR:
         case AuthActions.LOGOUT:
             return {
                 ...state,
@@ -37,10 +35,6 @@ export const authActions = {
     logout: () => ({
         type: AuthActions.LOGOUT,
         payload: {user: null, isAuth: false}
-    } as const),
-    setAuthError: (msg: string) => ({
-        type: AuthActions.SET_AUTH_ERROR,
-        payload: {error: msg}
     } as const),
 }
 
@@ -65,10 +59,11 @@ export const login = (email: string, password: string): ThunkTypeAuth => async (
         if (localStorage.getItem('accessToken')) {
             meData = await AuthService.me()
             dispatch(authActions.setAuthUserData(meData.user,true))
+            dispatch(appActions.setSuccess('Login successful'))
         }
     } catch (e: any) {
         const msg = e.response?.data?.message || 'Incorrect login or password'
-        dispatch(authActions.setAuthError(msg))
+        dispatch(appActions.setError(msg))
     }
 }
 export const logout = ():ThunkTypeAuth => async (dispatch ) => {
@@ -81,9 +76,10 @@ export const register = (email: string, password: string,firstName:string,lastNa
         const accessToken = data.accessToken as string
         localStorage.setItem('accessToken', accessToken)
         await dispatch(getAuthUserData())
+        dispatch(appActions.setSuccess(`Registration successful\n You are logged in automatically`))
     }catch (e:any) {
         const msg = e.response?.data?.message || 'Unknown registration error'
-        dispatch(authActions.setAuthError(msg))
+        dispatch(appActions.setError(msg))
     }
 
 }
@@ -92,7 +88,7 @@ export const register = (email: string, password: string,firstName:string,lastNa
 
 
 export type InitialStateType = typeof initialState
-type ActionsType = InferActionsTypes<typeof authActions >
+type ActionsType = InferActionsTypes<typeof authActions | typeof appActions>
 type ThunkTypeAuth = BaseThunkType<ActionsType>
 
 export default authReducer;
