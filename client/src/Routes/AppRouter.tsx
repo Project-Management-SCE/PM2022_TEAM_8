@@ -2,7 +2,6 @@ import {Route, Routes, Navigate} from "react-router-dom";
 import {adminRoutes, userRoutes, publicRoutes, RouteNames} from "./routes";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../redux/Store";
-import Admin from "../Pages/Admin";
 import React from "react";
 
 
@@ -21,7 +20,7 @@ export const AppRouter = () => {
                     <Route path="*" element={<Navigate replace to={RouteNames.HOME} />} />
                 </Routes>
             :
-                isAuth &&   type === "Admin" ?
+             isAuth &&   type === "Admin" ?
                         <Routes>
                         {adminRoutes.map(route =>
                             <Route path={route.path}
@@ -29,7 +28,7 @@ export const AppRouter = () => {
                                    key={route.path}
                             />
                         )}
-                            <Route path="*" element={<Navigate replace to={RouteNames.HOME} />} />
+                            <Route path="*" element={<Navigate replace to={RouteNames.ADMINCONTROL} />} />
                         </Routes>
                     :
                         <Routes>

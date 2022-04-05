@@ -5,8 +5,10 @@ import Home from "../Pages/Home";
 import Movies from "../Pages/Movies";
 import Series from "../Pages/Series";
 import UserProfile from "../Pages/UserProfile";
-import Admin from "../Pages/Admin";
 import AdminLogin from "../admin/AdminLogin";
+import AdminControl from "../admin/AdminControl";
+import {ReviewsList} from "../admin/ReviewsList";
+import {UsersList} from "../admin/UsersList";
 
 export interface IRoute {
     path: string;
@@ -14,7 +16,6 @@ export interface IRoute {
 }
 
 export enum RouteNames {
-    ADMIN = '/admin',
     REGISTER = '/register',
     HOME = '/',
     LOGIN = '/login',
@@ -22,6 +23,9 @@ export enum RouteNames {
     SERIES = '/series',
     USERPROFILE = '/user_profile',
     ADMINLOGIN = '/admin_login',
+    ADMINCONTROL = '/admin_control',
+    REVIEWSLIST = '/admin_control/reviews_list',
+    USERSLIST = '/admin_control/users_list',
 }
 
 
@@ -40,7 +44,10 @@ export const userRoutes: IRoute[] = [
 ]
 export const adminRoutes: IRoute[] = [
     {path: RouteNames.HOME,  element: Home},
-    {path: RouteNames.ADMIN,  element: Admin},
     {path: RouteNames.MOVIES,  element: Movies},
     {path: RouteNames.SERIES,  element: Series},
+    {path: RouteNames.ADMINLOGIN,  element: AdminLogin},
+    {path: RouteNames.ADMINCONTROL,  element: AdminControl},
+    {path: RouteNames.REVIEWSLIST,  element: ReviewsList},
+    {path: RouteNames.USERSLIST,  element: UsersList},
 ]
