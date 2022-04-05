@@ -3,18 +3,7 @@ import DashboardRoutesReusableTemplate from "../components/DashboardRoutesReusab
 import { IUser } from "../api/internalAPI/internalApiTypes";
 import { useSelector } from "react-redux";
 import { AppStateType } from "../redux/Store";
-import {
-  Form,
-  Input,
-  Button,
-  Radio,
-  Select,
-  Cascader,
-  DatePicker,
-  InputNumber,
-  TreeSelect,
-  Switch,
-} from "antd";
+import { Form, Input, Button, Radio, Switch } from "antd";
 import "../Style/userProfile.css";
 
 type SizeType = Parameters<typeof Form>[0]["size"];

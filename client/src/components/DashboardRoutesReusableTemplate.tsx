@@ -28,15 +28,30 @@ const DashboardRoutesReusableTemplate = ({
           <p>My Reviews: 10</p>
         </div>
         <div className="profile-links">
-          <p>
-            <NavLink to="/user_profile/watch_list">WatchList</NavLink>
-          </p>
-          <p>
-            <NavLink to="/user_profile/user_reviews">My Reviews</NavLink>
-          </p>
-          <p>
-            <NavLink to="/user_profile">User Profile</NavLink>
-          </p>
+          {/* <span>Select:</span> */}
+          <ul>
+            <li>
+              <p>
+                <NavLink className="user-links" to="/user_profile/watch_list">
+                  WatchList
+                </NavLink>
+              </p>
+            </li>
+            <li>
+              <p>
+                <NavLink className="user-links" to="/user_profile/user_reviews">
+                  My Reviews
+                </NavLink>
+              </p>
+            </li>
+            <li>
+              <p>
+                <NavLink className="user-links" to="/user_profile">
+                  User Dashboard
+                </NavLink>
+              </p>
+            </li>
+          </ul>
         </div>
       </div>
       <div className="right">{children}</div>

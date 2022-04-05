@@ -13,11 +13,12 @@
     align-items: center;
     justify-content: flex-start;
     height: 100%;
-    background-color: rgba(61, 58, 41, 0.227);
+    background-color: rgb(100, 44, 44);
     padding-top: 2rem;
 }
 
-.profile-links {}
+
+.user-links {}
 
 .iconDiv {
     width: 7rem;
@@ -31,9 +32,36 @@
 .left p {
     font-weight: 700;
     font-size: 18px;
-    margin: -3px 0;
+    margin: -1px 0;
     color: white;
+    font-size: 22px;
 }
+
+.profile-links {
+    margin: 1.5rem;
+    padding-right: 3rem;
+}
+
+.profile-links span {
+    color: white;
+    margin: -2.5rem;
+    font-weight: 700;
+    font-size: 18px;
+    font-size: 26px;
+
+}
+
+.user-links {
+    color: white;
+
+}
+
+
+
+
+
+
+
 
 .right {
     flex: 1;
