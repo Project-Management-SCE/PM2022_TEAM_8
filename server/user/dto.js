@@ -3,10 +3,14 @@ module.exports = class UserDto {
     type;
     firstName;
     lastName;
-    constructor(email, firstName, lastName,type) {
+    address;
+    phone;
+    constructor(email, firstName, lastName, type, address, phone) {
         this.email = email;
-        this.type = type;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.type = type;
+        this.address = address;
+        this.phone = phone;
     }
 }

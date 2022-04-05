@@ -7,7 +7,7 @@
 }
 
 .left {
-    width: 12rem;
+    width: 20rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,7 +38,7 @@
 .right {
     flex: 1;
     padding-top: 5rem;
-    margin-left: 5rem;
+
 }
 
 .page-selected-container {
@@ -58,6 +58,11 @@
     flex-direction: column;
 
 }
+
+.dashboard-container h1 {
+    padding-left: 5rem;
+}
+
 
 .user-details input {
     margin: 8px 0;

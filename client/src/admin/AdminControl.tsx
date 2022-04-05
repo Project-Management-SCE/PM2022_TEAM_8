@@ -4,13 +4,15 @@ import IconContainer from "../util/IconContainer";
 import { colors } from "../Style/colors";
 import logoutImg from "../assets/icons/logout.png";
 import { logout } from "../redux/reducers/auth-reducer";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./admin.css";
-import {AppStateType} from "../redux/Store";
-import {IUser} from "../api/internalAPI/internalApiTypes";
+import { AppStateType } from "../redux/Store";
+import { IUser } from "../api/internalAPI/internalApiTypes";
 
 const AdminControl = () => {
-  const curr_user = useSelector<AppStateType>(state => state.auth.user) as IUser
+  const curr_user = useSelector<AppStateType>(
+    (state) => state.auth.user
+  ) as IUser;
   const dispatch = useDispatch();
   const onLogout = () => {
     dispatch(logout());
