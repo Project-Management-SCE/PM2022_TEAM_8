@@ -8,10 +8,12 @@ import MainFooter from "./Footer/MainFooter";
 import Login from "./Routes/Login";
 import Register from "./Routes/Register";
 import UserProfile from "./Routes/UserProfile";
-import Admin from "./Routes/Admin";
 import AdminLogin from "./admin/AdminLogin";
 import Movies from "./Routes/Movies";
 import Series from "./Routes/Series";
+import AdminControl from "./admin/AdminControl";
+import { UsersList } from "./admin/UsersList";
+import { ReviewsList } from "./admin/ReviewsList";
 
 function App() {
   const [adminON, setAdminON] = useState<boolean>(false);
@@ -19,7 +21,11 @@ function App() {
   useEffect(() => {
     pathArray = window.location.pathname.split("/");
     adminUrl = pathArray[1];
-    if (adminUrl == "admin") {
+    if (
+      adminUrl == "admin" ||
+      adminUrl == "users-list" ||
+      adminUrl == "reviews-list"
+    ) {
       setAdminON(true);
     }
   }, [pathArray]);
@@ -32,7 +38,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/user_profile" element={<UserProfile />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin" element={<AdminControl />} />
+        <Route path="/reviews-list" element={<ReviewsList />} />
+        <Route path="/users-list" element={<UsersList />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/series" element={<Series />} />
         <Route path="/admin_login" element={<AdminLogin />} />

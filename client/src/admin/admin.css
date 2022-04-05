@@ -1,0 +1,50 @@
+.admin_nav {
+    display: flex;
+    justify-content: baseline;
+    width: 100%;
+    background-color: rgb(99, 89, 89);
+    padding-top: 1rem;
+}
+
+.admin_nav h1 {
+    margin: 1rem;
+}
+
+.nav-div {
+    display: flex;
+    justify-content: baseline;
+    margin: .5rem;
+    width: 80%;
+}
+
+.nav-link {
+    color: white;
+    margin: 1rem;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.admin_service {
+    width: 20%;
+
+}
+
+.admin_service span {
+    margin: 0.5rem;
+    font-size: 22px;
+    font-weight: 900;
+    color: white;
+}
+
+.admin_btn {
+    margin: 0.3rem 0.5rem;
+}
+
+.info_container {
+    width: 90%;
+    margin: 2rem;
+}
+
+.info_container h1 {
+    margin: 2rem;
+}

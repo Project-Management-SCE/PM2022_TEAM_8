@@ -27,7 +27,7 @@ const MainFooter = () => {
               <NavLink to="/movies">Movies</NavLink>
             </li>
             <li>
-              <NavLink to="/movies">Series</NavLink>
+              <NavLink to="/series">Series</NavLink>
             </li>
             <li>
               <NavLink to="/admin_login">Admin</NavLink>
@@ -38,13 +38,13 @@ const MainFooter = () => {
           <h3>About</h3>
           <ul>
             <li>
-              <a href="#">Company</a>
+              <a href="#">AboutUs</a>
             </li>
             <li>
-              <a href="#">Team</a>
+              <a href="#">Terms</a>
             </li>
             <li>
-              <a href="#">Careers</a>
+              <a href="#">Privacy Policy</a>
             </li>
           </ul>
         </div>

@@ -6,9 +6,7 @@ import "../Style/userProfile.css";
 type ReusableDashboardProps = {
   children: any;
 };
-const DashboardRoutesReusableTemplate = ({
-  children,
-}: ReusableDashboardProps) => {
+const DashboardRoutesReusableTemplate = ({children,}: ReusableDashboardProps) => {
   const img4: string = require("../assets/img/img4.jpg");
 
   return (
