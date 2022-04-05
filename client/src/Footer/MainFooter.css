@@ -1,5 +1,5 @@
 .footer-container {
-    padding: 70px 200px;
+    padding: 50px 200px;
     color: #f0f9ff;
     background-color: #171717;
     display: flex;
@@ -26,10 +26,24 @@
     padding: 3rem;
 }
 
-.company-details-div h3 {
+.footer_header {
+    margin: 0;
+    padding-bottom: 2rem;
     font-weight: 700;
-
+    color: white;
 }
+
+.company-details-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.company-details-div p {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
 
 .about-list-div ul {
     list-style-type: none;
@@ -38,10 +52,14 @@
 }
 
 .about-list-div h3 {
+    padding-bottom: 1rem;
+    margin: 0;
     font-weight: 700;
 }
 
 .services-list-div h3 {
+    padding-bottom: 1rem;
+    margin: 0;
     font-weight: 700;
 }
 
@@ -106,4 +124,9 @@ a.twitter {
 
 a.instagram {
     color: white;
+}
+
+.copyright {
+    margin: 1rem;
+    text-align: center;
 }

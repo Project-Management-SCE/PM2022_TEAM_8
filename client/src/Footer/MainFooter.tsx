@@ -13,11 +13,14 @@ const MainFooter = () => {
     <div className="footer-container">
       <div className="inside-footer-container">
         <div className="company-details-div">
-          <h3>What To Watch</h3>
+          <h3 className="footer_header">What To Watch</h3>
+          <p>Welcome to What to Watch, worldwide media content.</p>
           <p>
-            Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus
-            ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique
-            lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.
+            Feel free to find movies and series, add to your watch list and
+            write a reviews.
+          </p>
+          <p>
+            All you need Is quick registration and log in to enjoy the service.
           </p>
         </div>
         <div className="services-list-div">
@@ -75,10 +78,9 @@ const MainFooter = () => {
           >
             <FontAwesomeIcon icon={faInstagram} size="2x" />
           </a>
+          <p className="copyright">Company Name © 2018</p>
         </div>
       </div>
-
-      <p className="copyright">Company Name © 2018</p>
     </div>
   );
 };
