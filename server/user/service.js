@@ -30,7 +30,7 @@ class AuthService {
         return this.signToken(user);
     }
 
-    async register(email, password, lastName, firstName) {
+    async register(email, password, lastName, firstName,address,phone) {
         const encryptedPassword = await this.registerBody(email, password);
         const newUser = await new User(
             {
@@ -38,6 +38,8 @@ class AuthService {
                 firstName,
                 email,
                 password: encryptedPassword,
+                address,
+                phone,
                 userType: "User"
             })
         await newUser.save()
@@ -64,12 +66,12 @@ class AuthService {
         await User.deleteOne({ email })
         return "User Deleted"
     }
-    async updateUser(email, firstName, lastName) {
+    async updateUser(email, firstName, lastName,address,phone) {
         const user = await User.findOne({ email });
         if (!user) {
             throw ApiError.BadRequest("User does not exist")
         }
-        await User.updateOne({ email }, { firstName, lastName })
+        await User.updateOne({ email }, { firstName, lastName ,address, phone})
         return "User Updated"
     }
     async updatePassword(email, password) {

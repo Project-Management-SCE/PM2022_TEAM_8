@@ -29,13 +29,13 @@ const DashboardRoutesReusableTemplate = ({
         </div>
         <div className="profile-links">
           <p>
-            <NavLink to="/watch_list">WatchList</NavLink>
+            <NavLink to="/user_profile/watch_list">WatchList</NavLink>
           </p>
           <p>
-            <NavLink to="/user_reviews">My Reviews</NavLink>
+            <NavLink to="/user_profile/user_reviews">My Reviews</NavLink>
           </p>
           <p>
-            <NavLink to="/edit_profile">Edit Profile</NavLink>
+            <NavLink to="/user_profile">User Profile</NavLink>
           </p>
         </div>
       </div>
