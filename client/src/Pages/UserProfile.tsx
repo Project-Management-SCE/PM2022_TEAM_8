@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import DashboardRoutesReusableTemplate from "../components/DashboardRoutesReusableTemplate";
 import { IUser } from "../api/internalAPI/internalApiTypes";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { AppStateType } from "../redux/Store";
 import { Form, Input, Button, Radio, Switch } from "antd";
 import "../Style/userProfile.css";
+import {updateProfile} from "../redux/reducers/user-reducer";
+
 
 type SizeType = Parameters<typeof Form>[0]["size"];
 
 //TODO: enter inside user profile main page other stuff like newsletters, user details...
 const UserProfile = () => {
+  const dispatch = useDispatch()
   const curr_user = useSelector<AppStateType>(
     (state) => state.auth.user
   ) as IUser;
@@ -20,7 +23,9 @@ const UserProfile = () => {
   const onFormLayoutChange = ({ size }: { size: SizeType }) => {
     setComponentSize(size);
   };
-
+  const onUpdate = async (e: any) => {
+    dispatch(updateProfile(curr_user as IUser)) //TODO: Check functionality
+  };
   return (
     <DashboardRoutesReusableTemplate
       children={
@@ -66,7 +71,7 @@ const UserProfile = () => {
               />
             </Form.Item>
             <Form.Item label="Save Changes">
-              <Button>Update</Button>
+              <Button onClick={onUpdate}>Update</Button>
             </Form.Item>
           </Form>
         </div>
