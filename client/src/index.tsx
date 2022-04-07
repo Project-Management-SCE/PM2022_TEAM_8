@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import 'antd/dist/antd.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import App from './App';
-import 'antd/dist/antd.css';
 import {Provider} from "react-redux";
 import store from "./redux/Store";
 

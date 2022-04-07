@@ -1,6 +1,5 @@
 import React, {FC, useEffect} from "react";
-import { Table, Tag, Space } from "antd";
-import "antd/dist/antd.css";
+import { Table, Space } from "antd";
 import "./admin.css";
 import {deleteUser, getUsers} from "../redux/reducers/admin-reducer";
 import {AppStateType} from "../redux/Store";

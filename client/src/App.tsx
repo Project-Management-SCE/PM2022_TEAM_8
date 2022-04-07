@@ -1,5 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { FC, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter} from "react-router-dom";
 import MainNavigation from "./NavBar/MainNavigation";
@@ -8,7 +7,6 @@ import {AppRouter} from "./Routes/AppRouter";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "./redux/Store";
 import {initializeApp} from "./redux/reducers/app-reducer";
-import Notifications from "./util/Notifications";
 import AdminControl from "./admin/AdminControl";
 
 
@@ -26,7 +24,6 @@ const App:FC = ()=>{
       {isLoading ? <h1>Loading...</h1>
           :
           <>
-            <Notifications/>
             {userType!=="Admin" ?
                 <MainNavigation />
                 :

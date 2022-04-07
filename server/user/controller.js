@@ -37,6 +37,7 @@ class AuthController {
     async me(req, res, next) {
         try {
             const { email,type } = req.user
+            console.log(type);
             const user = await authService.me(email,type)
             res.json({ user })
         } catch (err) {

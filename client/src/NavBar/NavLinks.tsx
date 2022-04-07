@@ -13,7 +13,7 @@ import {IUser} from "../api/internalAPI/internalApiTypes";
 
 const NavLinks : FC = () => {
     const isAuth = useSelector<AppStateType>(state => state.auth.isAuth) as boolean
-    const curr_user = useSelector<AppStateType>(state => state.auth.user) as IUser
+    const curr_user = useSelector<AppStateType>(state => state.auth.user) as IUser | null
     const dispatch = useDispatch()
     const onLogout = () => {
         dispatch(logout())
@@ -21,7 +21,7 @@ const NavLinks : FC = () => {
     return (
 
     <div className="nav-links">
-        {isAuth && (curr_user.type === "User" || curr_user.type === "Admin")?
+        {isAuth && (curr_user?.type === "User" || curr_user?.type === "Admin")?
             <>
                 <Link to="/user_profile" >
 

@@ -53,7 +53,7 @@ class AuthService {
                 userType: "User"
             })
         await newUser.save()
-        return this.signToken(newUser)
+        return this.signToken(newUser,"User");
     }
 
     async me(email,type) {

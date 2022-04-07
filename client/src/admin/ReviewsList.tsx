@@ -1,7 +1,5 @@
 import React from "react";
-import AdminControl from "./AdminControl";
-import { Table, Tag, Space } from "antd";
-import "antd/dist/antd.css";
+import { Table, Space } from "antd";
 import "./admin.css";
 
 const data = [
