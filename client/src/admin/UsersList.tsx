@@ -1,71 +1,75 @@
-import React from "react";
-import AdminControl from "./AdminControl";
+import React, {FC, useEffect} from "react";
 import { Table, Tag, Space } from "antd";
 import "antd/dist/antd.css";
 import "./admin.css";
-const data = [
-  {
-    key: "1",
-    first_name: "Tal",
-    last_name: "Ohana",
-    phone: "0544436188",
-    address: "New York No. 1 Lake Park(I Wish)",
-    email: "taloh13@gmail.com",
-  },
-];
-const columns = [
-  //Fit data structure to backend
-  {
-    title: "First Name",
-    dataIndex: "first_name",
-    key: "first_name",
-    render: (text: String) => <a>{text}</a>,
-  },
-  {
-    title: "Last Name",
-    key: "last_name",
-    dataIndex: "last_name",
-  },
-  {
-    title: "Phone",
-    dataIndex: "phone",
-    key: "phone",
-  },
-  {
-    title: "Address",
-    dataIndex: "address",
-    key: "address",
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-    key: "email",
-  },
+import {deleteUser, getUsers} from "../redux/reducers/admin-reducer";
+import {AppStateType} from "../redux/Store";
+import {useDispatch, useSelector} from "react-redux";
+import {IUser} from "../api/internalAPI/internalApiTypes";
 
-  {
-    title: "Action",
-    key: "action",
-    render: (
-      text: any,
-      record: {
-        first_name: String;
-      }
-    ) => (
-      <Space size="middle">
-        <a>Ban {record.first_name}</a>
-        <a>Delete</a>
-      </Space>
-    ),
-  },
-];
-export const UsersList = () => {
+
+let date = Date.now();
+function getDate(){
+  date++;
+  return date.toString()
+}
+export const UsersList:FC = () => {
+  const dispatch = useDispatch();
+  const onDelete = (email:string) => {
+    dispatch(deleteUser(email));
+  };
+  const isFetching = useSelector((state:AppStateType) => state.admin.isFetching) as boolean;
+  const columns = [
+    //Fit data structure to backend
+    {
+      title: "First Name",
+      dataIndex: "firstName",
+      key: getDate(),
+    },
+    {
+      title: "Last Name",
+      key: "lastName",
+      dataIndex: getDate(),
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+      key: getDate(),
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: getDate(),
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: getDate(),
+    },
+
+    {
+      title: "Action",
+      key: getDate(),
+      render: (_: any, record: IUser) => (
+          <Space size="middle">
+            <a >Ban</a>
+            <a onClick={()=>{onDelete(record.email as string)}}>Delete</a>
+          </Space>
+      ),
+    },
+  ];
+  const users = useSelector<AppStateType>(state => state.admin.users) as IUser[];
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
   return (
     <div>
-      <AdminControl />
       <div className="info_container">
         <h2>Users List</h2>
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={users} loading={isFetching}/>
       </div>
     </div>
   );
 };
+
+

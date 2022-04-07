@@ -4,6 +4,7 @@ import ExternalApiService from "../api/ExternalApiService";
 import LoadingSpinner from "../components/LoadingSpinner";
 import GenresList from "../components/GenresList";
 import "../Style/Movies.css";
+import {Link} from "react-router-dom";
 const Movies: FC = () => {
   const [movies, setMovies] = React.useState<UpcomingMovie[]>([]);
 
@@ -30,13 +31,16 @@ const Movies: FC = () => {
               temp2 = `${temp1}...`;
             }
             return (
+
               <div className="col-md-4" key={movie.id}>
                 <div className="card">
+                    <Link to={`/movie/${movie.id}`}>
                   <img
                     className="card-img-top"
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                     alt="Card image cap"
                   />
+                  </Link>
                   <div className="card-body">
                     <h5 className="card-title">{movie.title}</h5>
                     <p className="card-text">{temp2}</p>

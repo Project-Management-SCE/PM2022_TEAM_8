@@ -65,7 +65,7 @@ class AuthService {
 
     }
     async getUsers() {
-        const users = await User.find({});
+        const users = await User.find({type:"User"})
         return users.map(user => new UserDto(user.email, user.firstName, user.lastName, user.type, user.address, user.phone))
     }
     async deleteUser(email) {

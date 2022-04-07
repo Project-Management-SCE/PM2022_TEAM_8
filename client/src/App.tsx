@@ -12,22 +12,11 @@ import Notifications from "./util/Notifications";
 import AdminControl from "./admin/AdminControl";
 
 
+
 const App:FC = ()=>{
-  const [adminON, setAdminON] = useState<boolean>(false);
-  // ********************************************TODO: check this.
-  //const type = useSelector<AppStateType>(state => state.auth.user?.type) as string
-  //const isAdmin = type === "Admin" || undefined
-  // ********************************************
   const dispatch = useDispatch()
   const isLoading = useSelector<AppStateType>(state => state.app.isLoading) as boolean
-  let pathArray, adminUrl;
-  useEffect(() => {
-    pathArray = window.location.pathname.split("/");
-    adminUrl = pathArray[1];
-    if (adminUrl == "admin_control" //&& (isAdmin || isAdmin == undefined )) {
-    ){ setAdminON(true);
-   }
- }, [pathArray]);
+  const userType =useSelector<AppStateType>(state=>state.auth.user?.type) as string
   useEffect(()=>{
     dispatch(initializeApp())
   },[])
@@ -38,9 +27,13 @@ const App:FC = ()=>{
           :
           <>
             <Notifications/>
-            {!adminON ?  <MainNavigation /> : ''}
+            {userType!=="Admin" ?
+                <MainNavigation />
+                :
+                <AdminControl />
+            }
             <AppRouter/>
-            {!adminON ?  <MainFooter /> : ''}
+            {userType!=="Admin" &&  <MainFooter />}
           </>}
     </BrowserRouter>
   );

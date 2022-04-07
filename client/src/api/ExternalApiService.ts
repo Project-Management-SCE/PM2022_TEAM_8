@@ -1,5 +1,11 @@
 import env from "react-dotenv";
-import {UpcomingMoviesResponse, PopularTVshowsResponse, TopRatedMoviesResponse,MovieGenresResponse} from "./ExternalApiResponseTypes";
+import {
+    UpcomingMoviesResponse,
+    PopularTVshowsResponse,
+    TopRatedMoviesResponse,
+    MovieGenresResponse,
+    MovieDetails
+} from "./ExternalApiResponseTypes";
 import axios, {AxiosResponse} from "axios";
 
 export default class ExternalApiService {
@@ -44,6 +50,17 @@ export default class ExternalApiService {
             responseType: 'json',
         })
             .then((response:AxiosResponse<MovieGenresResponse>) => {
+                return response.data;
+            })
+
+    }
+    static async getMovieDetails(id :string){
+        return axios({
+            url: env.TMDB + `/movie/${id}?api_key=${env.API_KEY}&language=en-US`,
+            method: 'GET',
+            responseType: 'json',
+        })
+            .then((response:AxiosResponse<MovieDetails>) => {
                 return response.data;
             })
 

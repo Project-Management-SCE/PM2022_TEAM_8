@@ -6,13 +6,9 @@ import logoutImg from "../assets/icons/logout.png";
 import { logout } from "../redux/reducers/auth-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import "./admin.css";
-import { AppStateType } from "../redux/Store";
-import { IUser } from "../api/internalAPI/internalApiTypes";
 
 const AdminControl = () => {
-  const curr_user = useSelector<AppStateType>(
-    (state) => state.auth.user
-  ) as IUser;
+
   const dispatch = useDispatch();
   const onLogout = () => {
     dispatch(logout());
@@ -42,7 +38,7 @@ const AdminControl = () => {
               title="Log Out"
             />
           </NavLink>
-          <span>Hello , {curr_user.firstName}</span>
+          <span>Hello, Admin</span>
         </div>
       </nav>
     </>

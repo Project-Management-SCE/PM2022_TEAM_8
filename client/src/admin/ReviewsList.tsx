@@ -64,7 +64,6 @@ const columns = [
 export const ReviewsList = () => {
   return (
     <div>
-      <AdminControl />
       <div className="info_container">
         <h2>Reviews List</h2>
         <Table columns={columns} dataSource={data} />

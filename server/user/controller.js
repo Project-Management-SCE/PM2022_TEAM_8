@@ -46,14 +46,14 @@ class AuthController {
     async getUsers(req, res, next) {
         try {
             const users = await authService.getUsers();
-            res.json({ users })
+            res.json({users})
         } catch (err) {
             next(err);
         }
     }
     async deleteUser(req, res, next) {
         try {
-            const { email } = req.user
+            const { email } = req.params;
             const user = await authService.deleteUser(email)
             res.json({ user })
         } catch (err) {

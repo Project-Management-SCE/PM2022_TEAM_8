@@ -14,6 +14,9 @@ $api.interceptors.request.use(async (config) => {
 export interface ActionResponse extends Response{
     result: "Success"
 }
+export interface UsersResponse {
+    users: IUser[]
+}
 export interface AuthResponse extends Response{
     accessToken?: string
 }
