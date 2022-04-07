@@ -6,12 +6,23 @@ import {
 } from "../api/ExternalApiResponseTypes";
 import ExternalApiService from "../api/ExternalApiService";
 import CarouselMovies from "../components/CarouselMovies";
-// import MovieCard from "../components/MovieCard";
+import { PopUp } from "../components/PopUp";
+import { IUser } from "../api/internalAPI/internalApiTypes";
+import { useDispatch, useSelector } from "react-redux";
+import { AppStateType } from "../redux/Store";
 import "../Style/home.css";
 
 const Home = () => {
+  const curr_user = useSelector<AppStateType>(
+    (state) => state.auth.user
+  ) as IUser;
   const [topMovies, setTopMovies] = React.useState<TopRatedMovies[]>([]);
   const [topSeries, setTopSeries] = React.useState<PopularTVshows[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     try {
@@ -31,6 +42,11 @@ const Home = () => {
       console.log(e);
     }
   }, []);
+  useEffect(() => {
+    if (curr_user == null) {
+      setIsOpen(true);
+    }
+  }, [curr_user]);
 
   return (
     <div className="home-container">
@@ -42,6 +58,7 @@ const Home = () => {
             <button>See All</button>
           </NavLink>
         </div>
+
         <div className="movies-flex">
           {topMovies.length
             ? topMovies.map((movie) => (
@@ -60,6 +77,7 @@ const Home = () => {
               ))
             : ""}
         </div>
+
         <div className="category-row">
           <span className="category-header">Series</span>
           <NavLink to="series" className="see-all">
@@ -84,6 +102,13 @@ const Home = () => {
               ))
             : ""}
         </div>
+        {isOpen && (
+          <PopUp
+            handleClose={() => {
+              setIsOpen(!isOpen);
+            }}
+          />
+        )}
       </div>
     </div>
   );
