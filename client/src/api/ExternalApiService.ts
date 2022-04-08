@@ -4,7 +4,9 @@ import {
     PopularTVshowsResponse,
     TopRatedMoviesResponse,
     MovieGenresResponse,
-    MovieDetails
+    MovieDetails,
+    MovieVideos,
+    MovieVideosResponse
 } from "./ExternalApiResponseTypes";
 import axios, {AxiosResponse} from "axios";
 
@@ -61,6 +63,17 @@ export default class ExternalApiService {
             responseType: 'json',
         })
             .then((response:AxiosResponse<MovieDetails>) => {
+                return response.data;
+            })
+
+    }
+    static async getMovieVideos(id :string){
+        return axios({
+            url: env.TMDB + `/movie/${id}/videos?api_key=${env.API_KEY}&language=en-US`,
+            method: 'GET',
+            responseType: 'json',
+        })
+            .then((response:AxiosResponse<MovieVideosResponse>) => {
                 return response.data;
             })
 

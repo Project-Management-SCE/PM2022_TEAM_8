@@ -1,16 +1,70 @@
-.card {
-  display: flex;
-  width: 15rem;
-  height: 30rem;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  margin: .5rem auto;
-  background-color: #171717;
-  color: white;
-  border: none;
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800,300italic,400italic,600italic,700italic,800italic);
+
+
+.movie-card {
+  box-shadow: 5px 5px 115px -14px rgb(219, 219, 219);
 }
-.card img {
+
+.card-title {
+  font-size: 24px;
+  font-weight: 700;
+  filter: drop-shadow(0 0 0.2rem white);
+
+}
+
+.movie-likes {
   width: 100%;
-  max-height: 22rem;
+  margin: 1rem;
+  text-align: end;
+}
+
+.card-title {
+  font-size: 26px;
+
+}
+
+.like-icon {
+  color: red;
+}
+
+.movie-likes span {
+  padding: 15px;
+}
+
+.summery {
+  color: white;
+  margin: .5rem;
+}
+
+.card-text {
+  font-size: 18px;
+}
+
+.movie-links {
+  width: 100%;
+  font-size: 18px;
+  /* text-align: center; */
+}
+
+.links {
+  width: 90%;
+  margin: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.fa-icon {
+  width: 25px;
+  height: 25px;
+  color: red;
+}
+
+.movie-links span {
+  filter: drop-shadow(0 0 0.2rem white);
+  margin: .5rem;
+  padding: 5px;
 }
