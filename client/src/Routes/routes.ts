@@ -6,7 +6,6 @@ import Movies from "../Pages/Movies";
 import Series from "../Pages/Series";
 import UserProfile from "../Pages/UserProfile";
 import AdminLogin from "../admin/AdminLogin";
-import AdminControl from "../admin/AdminControl";
 import {ReviewsList} from "../admin/ReviewsList";
 import {UsersList} from "../admin/UsersList";
 import {UserReviews} from "../Pages/UserReviews";

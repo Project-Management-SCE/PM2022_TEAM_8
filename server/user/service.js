@@ -96,12 +96,10 @@ class AuthService {
     async getRecoverToken(email) {
         const user = await User.findOne({ email });
         if (!user) {
-            throw ApiError.BadRequest("User does not exist")
+            throw ApiError.BadRequest("Email does not exist")
         }
         const token = this.signRecoverToken(user)
-        const text = `http://localhost:3000/recover/${token} 
-                        Click here to recover your password`
-        await mailer.sendMail(email, "Password recovery W2W", text)
+        await mailer.sendMail(email, "Password recovery W2W", token)
         return "Mail with instructions sent"
     }
 }

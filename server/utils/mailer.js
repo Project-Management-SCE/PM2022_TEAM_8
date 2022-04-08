@@ -1,6 +1,11 @@
 const nodemailer = require('nodemailer');
+const handlebars = require('handlebars');
+const fs = require('fs');
+const path = require('path');
+
+
 class Mailer{
-    static sendMail(email, subject, text) {
+    static async sendMail(email, subject, token) {
         const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -8,13 +13,32 @@ class Mailer{
             pass: process.env.EMAIL_PASSWORD
         }}
         );
+        const filePath = path.join(__dirname, './mail-template/index.html');
+        const source = fs.readFileSync(filePath, 'utf-8').toString();
+        const template = handlebars.compile(source);
+        const replacements = {
+            link: `http://localhost:3000/reset-password/${token}`
+        };
+        const htmlToSend = template(replacements);
         const mailOptions = {
             from: process.env.EMAIL,
             to: email,
             subject: subject,
-            text: text
+            html: htmlToSend,
+            attachments: [
+                {
+                    filename: 'logo.png',
+                    path: path.join(__dirname, './mail-template/images/logo.png'),
+                    cid: 'logo'
+                },
+                {
+                    filename: 'reset.png',
+                    path: path.join(__dirname, './mail-template/images/reset.png'),
+                    cid: 'reset'
+                }
+            ]
         };
-        transporter.sendMail(mailOptions,error=>{
+        await transporter.sendMail(mailOptions,error=>{
             if (error){
                 return console.log(error);
             }

@@ -8,14 +8,16 @@ import {
   faClock,
   faPlay,
   faFilm,
-  faPenToSquare,
+  faPenToSquare, faClose,
 } from "@fortawesome/free-solid-svg-icons";
 import Moment from "moment";
 import "../Style/movieCard.css";
+import {useParams} from "react-router-dom";
+import { Modal } from "antd";
 
 const Movie: FC = () => {
   //get id from url
-  const id = window.location.pathname.split("/")[2];
+  const {id} = useParams();
   const [movie, setMovie] = useState<MovieDetails>();
   const [videos, setVideos] = useState<MovieVideos[]>([]);
   let officialTrailer = videos.find(
@@ -24,20 +26,30 @@ const Movie: FC = () => {
   Moment.locale("en");
   useEffect(() => {
     try {
-      ExternalApiService.getMovieDetails(id).then((movieResponse) => {
+      id && ExternalApiService.getMovieDetails(id).then((movieResponse) => {
         setMovie(movieResponse);
       });
     } catch (e) {
       console.log(e);
     }
     try {
-      ExternalApiService.getMovieVideos(id).then((response) => {
+      id && ExternalApiService.getMovieVideos(id).then((response) => {
         setVideos(response.results as MovieVideos[]);
       });
     } catch (e) {
       console.log(e);
     }
   }, []);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   return (
     <div
@@ -58,7 +70,22 @@ const Movie: FC = () => {
           }}
           key={movie.id}
         >
-          {console.log(movie.imdb_id)}
+          {officialTrailer && <Modal title={`Official Trailer : ${movie.title}`}
+                  visible={isModalVisible}
+                  width={1000}
+                  onCancel={handleCancel}
+                  footer={null}
+                  closeIcon={<FontAwesomeIcon className="fa-icon" icon={faClose}/>}
+                  bodyStyle={{background: "#eeeeee"}}
+          >
+            <iframe width="960" height="480" src={`https://www.youtube.com/embed/${officialTrailer.key}`}
+                    title="YouTube video player" frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+            >
+            </iframe>
+          </Modal>
+          }
           <div className="movie-card">
             <img
               className="card-img-top"
@@ -85,8 +112,7 @@ const Movie: FC = () => {
                   {officialTrailer ? (
                     <>
                       <a
-                        href={`https://www.youtube.com/watch?v=${officialTrailer.key}`}
-                        target="_blank"
+                          onClick={showModal}
                       >
                         <FontAwesomeIcon className="fa-icon" icon={faPlay} />
                       </a>
@@ -111,7 +137,3 @@ const Movie: FC = () => {
 };
 
 export default Movie;
-
-function useParams(): { id: any } {
-  throw new Error("Function not implemented.");
-}
