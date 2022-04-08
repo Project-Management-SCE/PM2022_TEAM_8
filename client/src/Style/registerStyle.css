@@ -119,6 +119,12 @@
     color: gray;
 }
 
+.recover-password {
+    width: 100%;
+    direction: ltr;
+    text-align: center;
+}
+
 .submit {
     width: 90%;
     margin: 0.5rem auto;

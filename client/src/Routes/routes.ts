@@ -12,6 +12,8 @@ import {UsersList} from "../admin/UsersList";
 import {UserReviews} from "../Pages/UserReviews";
 import {WatchList} from "../Pages/WatchList";
 import Movie from "../Pages/Movie";
+import { RecoverPassword } from "../Pages/RecoverPassword";
+import { ChangePassword } from "../Pages/ChangePassword";
 
 
 export interface IRoute {
@@ -33,6 +35,8 @@ export enum RouteNames {
     REVIEWSLIST = '/admin_control/reviews_list',
     USERSLIST = '/admin_control/users_list',
     MOVIE = '/movie/:id',
+    RECOVERPASSWORD = '/recover_password',
+    CHANGEPASSWORD = '/change_password'
 }
 
 
@@ -40,7 +44,11 @@ export const publicRoutes: IRoute[] = [
     {path: RouteNames.LOGIN,  element: Login},
     {path: RouteNames.REGISTER,  element: Register},
     {path: RouteNames.HOME,  element: Home},
-    {path: RouteNames.ADMINLOGIN,  element: AdminLogin},
+    { path: RouteNames.ADMINLOGIN, element: AdminLogin },
+    { path: RouteNames.RECOVERPASSWORD, element: RecoverPassword },
+    { path: RouteNames.CHANGEPASSWORD, element: ChangePassword },
+
+
 ]
 
 export const userRoutes: IRoute[] = [

@@ -8,10 +8,10 @@ const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState<string>("password");
-    function onFinish(e: any) {
-        e.preventDefault();
-        dispatch(login(email,passwordInput,false))
-    }
+  function onFinish(e: any) {
+    e.preventDefault();
+    dispatch(login(email, passwordInput, false));
+  }
   return (
     <div className="container">
       {" "}
@@ -39,6 +39,11 @@ const Login = () => {
             By using this form you agree to the storage and handling of your
             data by this site.
           </span>
+        </div>
+        <div className="recover-password">
+          <NavLink className="recover-password" to="/recover_password">
+            <a>Forgot Your Password ?</a>
+          </NavLink>
         </div>
         <input
           type="submit"
