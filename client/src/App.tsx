@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "./redux/Store";
 import {initializeApp} from "./redux/reducers/app-reducer";
 import AdminControl from "./admin/AdminControl";
-
+import Notifications from "./util/Notifications";
 
 
 const App:FC = ()=>{
@@ -24,6 +24,7 @@ const App:FC = ()=>{
       {isLoading ? <h1>Loading...</h1>
           :
           <>
+            <Notifications/>
             {userType!=="Admin" ?
                 <MainNavigation />
                 :

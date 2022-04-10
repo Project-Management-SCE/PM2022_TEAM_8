@@ -12,8 +12,7 @@ export enum UserActions {
     SET_USERS_DATA,
     SET_LOADING
 }
-/* TODO: Finish implementation, check UserProfile.tsx passing argument correctly,
-    configure userApi.ts correctly, use controller.js and service.js*/
+
 const userReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case UserActions.SET_USERS_DATA:

@@ -24,7 +24,7 @@ const UserProfile = () => {
     setComponentSize(size);
   };
   const onUpdate = async (e: any) => {
-    dispatch(updateProfile(curr_user as IUser)) //TODO: Check functionality
+    dispatch(updateProfile(curr_user as IUser))
   };
   return (
     <DashboardRoutesReusableTemplate
