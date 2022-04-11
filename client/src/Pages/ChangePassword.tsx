@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {resetPassword} from "../redux/reducers/user-reducer";
 import {useNavigate, useParams} from "react-router-dom";
+import { appActions } from "../redux/reducers/app-reducer";
 
 
 export const ChangePassword = () => {
@@ -10,9 +11,25 @@ export const ChangePassword = () => {
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   const {token}= useParams()
-  if(!token){
-    navigate('/')
-  }
+  useEffect(() => {
+    try {
+      const base64Url = token!.split('.')[1];
+      const base64 = base64Url.replace('-', '+').replace('_', '/');
+      const decodeJWT = JSON.parse(window.atob(base64));
+      const expiration = new Date(decodeJWT.exp *1000);
+      const now = new Date();
+      const fiveMinutes = 1000 * 60 * 5;
+      if( now.getTime() - expiration.getTime() > fiveMinutes ){
+        dispatch(appActions.setError('Recover Token expired, please try again'));
+        navigate('/recover_password')
+      }
+    }catch (e) {
+      dispatch(appActions.setError('Invalid Recover Token'));
+      navigate('/recover_password')
+    }
+  }, [token])
+
+
   const onFinish = () => {
     if(password === password2) {
       dispatch(resetPassword(password, token!))
@@ -58,3 +75,5 @@ export const ChangePassword = () => {
     </div>
   );
 };
+
+
