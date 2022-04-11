@@ -1,4 +1,4 @@
-import $api ,{AuthResponse,AuthMeResponse} from "./InternalApi"
+import $api, {AuthResponse, AuthMeResponse, ActionResponse} from "./InternalApi"
 export default class AuthService {
     static async login(email: string, password: string) {
         return $api.post<AuthResponse>('/user/login', {email, password}).then(res => res.data)
@@ -12,5 +12,11 @@ export default class AuthService {
     }
     static async me(){
         return $api.get<AuthMeResponse>('/user/me').then(res => res.data)
+    }
+    static async getRecoveryToken(email:string){
+        return $api.post<ActionResponse>('/user/recover-token',{email}).then(res => res.data)
+    }
+    static async resetPassword(password:string, token:string){
+        return $api.post<ActionResponse>('/user/reset-password',{password,token}).then(res => res.data)
     }
 }

@@ -9,11 +9,11 @@ const UserSchema = new mongoose.Schema(
         },
         firstName: {
             type: String,
-            default: "Default First Name",
+            default: "John",
         },
         lastName: {
             type: String,
-            default: "Default Last Name",
+            default: "Doe",
         },
         password: {
             type: String,
@@ -25,11 +25,11 @@ const UserSchema = new mongoose.Schema(
         },
         phone: {
             type: String,
-            default: "0"
+            default: ""
         },
         address: {
             type: String,
-            default: "חיים נחמן ביאליק 56, באר שבע, 84100"
+            default: ""
         },
     }, { timestamps: true }
 )

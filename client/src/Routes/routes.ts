@@ -35,7 +35,7 @@ export enum RouteNames {
     USERSLIST = '/admin_control/users_list',
     MOVIE = '/movie/:id',
     RECOVERPASSWORD = '/recover_password',
-    CHANGEPASSWORD = '/change_password'
+    RESETPASSWORD = '/reset-password/:token'
 }
 
 
@@ -45,7 +45,7 @@ export const publicRoutes: IRoute[] = [
     {path: RouteNames.HOME,  element: Home},
     { path: RouteNames.ADMINLOGIN, element: AdminLogin },
     { path: RouteNames.RECOVERPASSWORD, element: RecoverPassword },
-    { path: RouteNames.CHANGEPASSWORD, element: ChangePassword },
+    { path: RouteNames.RESETPASSWORD, element: ChangePassword },
 
 
 ]

@@ -91,7 +91,7 @@ class AuthService {
             throw ApiError.BadRequest("User does not exist")
         }
         await User.updateOne({ email }, { password: encryptedPassword })
-        return "User Updated"
+        return "Password Updated"
     }
     async getRecoverToken(email) {
         const user = await User.findOne({ email });

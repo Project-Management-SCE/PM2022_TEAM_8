@@ -4,11 +4,11 @@ const config = process.env;
 
 const verifyToken = (req, res, next) => {
     try {
-        const recoverToken = req.body.recoverToken;
-        if (!recoverToken) {
+        const token = req.body.token;
+        if (!token) {
             return next(ApiError.UnauthorizedError());
         }
-        const decoded = jwt.verify(recoverToken, config.TOKEN_KEY);
+        const decoded = jwt.verify(token, config.TOKEN_KEY);
 
         req.body.email = decoded.user.email
         if (decoded.user.type === 'recover') {

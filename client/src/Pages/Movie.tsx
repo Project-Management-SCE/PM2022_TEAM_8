@@ -16,7 +16,6 @@ import {useParams} from "react-router-dom";
 import { Modal } from "antd";
 
 const Movie: FC = () => {
-  //get id from url
   const {id} = useParams();
   const [movie, setMovie] = useState<MovieDetails>();
   const [videos, setVideos] = useState<MovieVideos[]>([]);

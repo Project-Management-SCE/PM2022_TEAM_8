@@ -37,7 +37,6 @@ class AuthController {
     async me(req, res, next) {
         try {
             const { email,type } = req.user
-            console.log(type);
             const user = await authService.me(email,type)
             res.json({ user })
         } catch (err) {
@@ -64,9 +63,9 @@ class AuthController {
     async updateUser(req, res, next) {
         try {
             const { email } = req.user
-            const { firstName, lastName, address, phone } = req.body
-            const user = await authService.updateUser(email, firstName, lastName, address, phone)
-            res.json({ user })
+            const { user } = req.body
+            await authService.updateUser(email, user.firstName, user.lastName, user.address, user.phone)
+            res.json("User updated successfully")
         } catch (err) {
             next(err);
         }

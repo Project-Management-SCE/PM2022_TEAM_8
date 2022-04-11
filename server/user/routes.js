@@ -16,8 +16,8 @@ router.post("/login", userController.login);
 router.post("/login-admin", userController.loginAdmin);
 router.get("/users",auth,verifyAdmin,userController.getUsers);
 router.delete("/delete/:email",auth,verifyAdmin,userController.deleteUser);
-router.put("/update/",auth,userController.updateUser);
+router.put("/update",auth,userController.updateUser);
 router.patch("/update-password",auth,userController.updatePassword);
-router.post("/recover-password",verifyRecover,userController.recoverPassword);
+router.post("/reset-password",verifyRecover,userController.recoverPassword);
 router.post("/recover-token",userController.getRecoverToken);
 module.exports = router

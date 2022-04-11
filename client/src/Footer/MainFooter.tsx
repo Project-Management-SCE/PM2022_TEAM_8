@@ -55,30 +55,30 @@ const MainFooter = () => {
       <div className="social-media-container">
         <div className="social">
           <a
-            href="https://www.youtube.com/c/jamesqquick"
+            href="#"
             className="youtube social"
           >
             <FontAwesomeIcon icon={faYoutube} size="2x" />
           </a>
           <a
-            href="https://www.facebook.com/learnbuildteach/"
+            href="#"
             className="facebook social"
           >
             <FontAwesomeIcon icon={faFacebook} size="2x" />
           </a>
           <a
-            href="https://www.twitter.com/jamesqquick"
+            href="#"
             className="twitter social"
           >
             <FontAwesomeIcon icon={faTwitter} size="2x" />
           </a>
           <a
-            href="https://www.instagram.com/learnbuildteach"
+            href="#"
             className="instagram social"
           >
             <FontAwesomeIcon icon={faInstagram} size="2x" />
           </a>
-          <p className="copyright">Company Name © 2018</p>
+          <p className="copyright">What2Watch © 2022</p>
         </div>
       </div>
     </div>
