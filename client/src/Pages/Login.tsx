@@ -7,18 +7,22 @@ import { login } from "../redux/reducers/auth-reducer";
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmailInput] = useState("");
-  const [passwordInput, setPasswordInput] = useState<string>("password");
+  const [passwordInput, setPasswordInput] = useState<string>("");
   function onFinish(e: any) {
     e.preventDefault();
-    dispatch(login(email, passwordInput, false));
+    if(email !=="" && passwordInput !==""){
+      dispatch(login(email, passwordInput, false));
+    }
+
   }
   return (
     <div className="container">
       {" "}
       <h1>Log in to your account</h1>
-      <form>
+      <form onSubmit={onFinish}>
         <div className="formDiv">
           <input
+              required={true}
             type="email"
             className="formInput"
             placeholder="Email"
@@ -27,6 +31,7 @@ const Login = () => {
         </div>
         <div className="formDiv">
           <input
+              required={true}
             type={"password"}
             className="formInput"
             placeholder="Password"
@@ -49,7 +54,6 @@ const Login = () => {
           type="submit"
           value="Connect"
           className="submit"
-          onClick={onFinish}
         />
       </form>
       <NavLink to="/register" className="linkStyle">

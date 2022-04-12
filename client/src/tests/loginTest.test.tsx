@@ -8,7 +8,48 @@ import Store from "../redux/Store";
 import {BrowserRouter} from "react-router-dom";
 
 
-test('Mocks login functionality', async () => {
+
+test('Mocks login functionality with empty input', async () => {
+    AuthService.login = jest.fn(() => Promise.resolve({accessToken:"1234519210391"}));
+    const {
+        findByDisplayValue
+    } = render(<Provider store={Store}><BrowserRouter><Login/></BrowserRouter></Provider>);
+
+    await act(async () => {
+        const button = await findByDisplayValue(/Connect/);
+        fireEvent.click(button);
+    });
+    expect(AuthService.login).toHaveBeenCalledTimes(0);
+
+
+});
+
+
+test('Mocks login functionality without password', async () => {
+    AuthService.login = jest.fn(() => Promise.resolve({accessToken:"1234519210391"}));
+    const {
+        getByPlaceholderText, findByDisplayValue
+    } = render(<Provider store={Store}><BrowserRouter><Login/></BrowserRouter></Provider>);
+
+    await act(async () => {
+        const inputEmail = getByPlaceholderText(/Email/);
+        fireEvent.change(inputEmail, { target: { value: 'admin@email.com' }});
+        await findByDisplayValue(/admin@email.com/);
+        const button = await findByDisplayValue(/Connect/);
+        fireEvent.click(button);
+    });
+    expect(AuthService.login).toHaveBeenCalledTimes(0);
+
+
+});
+
+
+
+
+
+
+
+test('Mocks login functionality with real input', async () => {
     AuthService.login = jest.fn(() => Promise.resolve({accessToken:"1234519210391"}));
     const {
         getByPlaceholderText, findByDisplayValue
@@ -23,6 +64,9 @@ test('Mocks login functionality', async () => {
         const button = await findByDisplayValue(/Connect/);
         fireEvent.click(button);
     });
-    expect(AuthService.login).toHaveBeenCalledWith("admin@email.com","admin" );
+    expect(AuthService.login).toHaveBeenCalledWith("admin@email.com","admin");
+    expect(AuthService.login).toHaveBeenCalledTimes(1);
+
+
 });
 
