@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 cd client
 set -x
-ls
+sleep 5
 kill $(cat .pidfile)

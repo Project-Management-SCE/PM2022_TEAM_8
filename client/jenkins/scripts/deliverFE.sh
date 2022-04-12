@@ -4,8 +4,7 @@ cd client
 npm run build
 set +x
 set -x
-npm start &
-sleep 1
+npm start
 echo $! > .pidfile
 set +x
 

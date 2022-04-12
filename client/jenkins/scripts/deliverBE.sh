@@ -1,7 +1,6 @@
 set -x
 cd server
-node index.js &
-sleep 1
+node index.js
 echo $! > .pidfile
 set +x
 

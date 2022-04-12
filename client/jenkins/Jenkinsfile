@@ -9,9 +9,8 @@ pipeline {
         CI = 'true'
     }
     stages {
-        stage('Build FE and BE') {
+        stage('Install Dependencies for FE and BE') {
             steps {
-                            sh "node -v"
                             sh "cd client && npm install"
                             sh "cd server && npm install"
                         }
@@ -32,7 +31,6 @@ pipeline {
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
                 sh './client/jenkins/scripts/deliverFE.sh'
-                //input message: 'Finished using the web site? (Click "Proceed" to continue)'
                 sh './client/jenkins/scripts/killFE.sh'
             }
         }
@@ -40,7 +38,6 @@ pipeline {
                     steps {
                         sh "chmod +x -R ${env.WORKSPACE}"
                         sh './client/jenkins/scripts/deliverBE.sh'
-                        //input message: 'Finished using the web site? (Click "Proceed" to continue)'
                         sh './client/jenkins/scripts/killBE.sh'
                     }
                 }
