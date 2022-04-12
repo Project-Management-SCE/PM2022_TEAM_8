@@ -76,9 +76,9 @@ export const logout = ():ThunkTypeAuth => async (dispatch ) => {
     localStorage.removeItem("accessToken")
     dispatch(authActions.logout())
 }
-export const register = (email: string, password: string,firstName:string,lastName:string): ThunkTypeAuth => async (dispatch) => {
+export const register = (email: string, password: string,firstName:string,lastName:string,phone:string,address:string): ThunkTypeAuth => async (dispatch) => {
     try {
-        let data = await AuthService.register(email, password,firstName,lastName);
+        let data = await AuthService.register(email, password,firstName,lastName,phone,address);
         const accessToken = data.accessToken as string
         localStorage.setItem('accessToken', accessToken)
         await dispatch(getAuthUserData())

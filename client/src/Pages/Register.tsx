@@ -28,7 +28,7 @@ const Register = () => {
 
   const on_submit = async (e: any) => {
     e.preventDefault();
-    dispatch(register(registerForm.email,registerForm.password,registerForm.first_name,registerForm.last_name))
+    dispatch(register(registerForm.email,registerForm.password,registerForm.first_name,registerForm.last_name,registerForm.phone,registerForm.address))
   };
   return (
     <div>
