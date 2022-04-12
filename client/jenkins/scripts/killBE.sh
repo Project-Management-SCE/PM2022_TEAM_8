@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
-cd server &
-sleep 5
+cd server
 set -x
 kill $(cat .pidfile)

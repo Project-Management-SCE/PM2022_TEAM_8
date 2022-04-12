@@ -5,9 +5,6 @@ pipeline {
             args '-p 3000:3001'
         }
     }
-    environment {
-        CI = 'true'
-    }
     stages {
         stage('Install Dependencies for FE and BE') {
             steps {
