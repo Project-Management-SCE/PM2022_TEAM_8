@@ -42,7 +42,7 @@ const Login = () => {
         </div>
         <div className="recover-password">
           <NavLink className="recover-password" to="/recover_password">
-            <a>Forgot Your Password ?</a>
+            <span>Forgot Your Password ?</span>
           </NavLink>
         </div>
         <input
