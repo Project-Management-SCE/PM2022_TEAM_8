@@ -12,7 +12,6 @@ pipeline {
         stage('Build FE and BE') {
             steps {
                             sh "cd client && npm install"
-                            sh "cd client && npm install --only=dev"
                             sh "cd server && npm install"
                         }
         }
