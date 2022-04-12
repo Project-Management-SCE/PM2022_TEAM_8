@@ -2,9 +2,9 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  "modulePaths": [
-    "<rootDir>"
-  ],
+  moduleNameMapper: {
+    "^src/(.*)": "<rootDir>/src/$1",
+  },
   transform: {
     "\\.(css|less|scss)$": "./jest/stub-transformer.js"
   },
