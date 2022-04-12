@@ -7,5 +7,6 @@ module.exports = {
   ],
   transform: {
     "\\.(css|less|scss)$": "./jest/stub-transformer.js"
-  }
+  },
+  moduleDirectories: ["node_modules", "src"],
 };
