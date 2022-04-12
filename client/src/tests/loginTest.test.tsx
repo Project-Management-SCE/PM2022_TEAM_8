@@ -7,19 +7,9 @@ import {Provider} from "react-redux";
 import Store from "../redux/Store";
 import {BrowserRouter} from "react-router-dom";
 
-jest.mock('../api/internalAPI/authAPI');
 
 test('Mocks login functionality', async () => {
-    const user = {
-        email: "abc@e.c",
-        firstName:"ab",
-        lastName:"bc",
-        type: "Admin",
-        phone: "9102321",
-        address: "abc123"
-    }
     AuthService.login = jest.fn(() => Promise.resolve({accessToken:"1234519210391"}));
-    AuthService.me = jest.fn(()=> Promise.resolve({user}))
     const {
         getByPlaceholderText, findByDisplayValue
     } = render(<Provider store={Store}><BrowserRouter><Login/></BrowserRouter></Provider>);
@@ -33,7 +23,6 @@ test('Mocks login functionality', async () => {
         const button = await findByDisplayValue(/Connect/);
         fireEvent.click(button);
     });
-
     expect(AuthService.login).toHaveBeenCalledWith("admin@email.com","admin" );
 });
 
