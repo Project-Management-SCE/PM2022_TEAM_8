@@ -28,7 +28,6 @@ pipeline {
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
                 sh './client/jenkins/scripts/deliverFE.sh'
-                sh './client/jenkins/scripts/killFE.sh'
             }
         }
         stage('Deliver BE') {
