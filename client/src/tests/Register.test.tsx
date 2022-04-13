@@ -17,7 +17,7 @@ describe("Test Registration", () => {
             lastName: 'aaaa',
             type: 'Admin',
             phone: '1234',
-            address: 'aaaa',
+            address: 'aaa',
         }}));
     beforeEach(clearAllMocks);
     test('Mocks registration functionality with real input', async () => {
