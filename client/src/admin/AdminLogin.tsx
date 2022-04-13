@@ -1,52 +1,46 @@
 import React, { useState } from "react";
-import { Eye } from "react-bootstrap-icons";
 import "../Style/registerStyle.css";
 import {useDispatch} from "react-redux";
 import { login } from "../redux/reducers/auth-reducer";
 
 export const AdminLogin = () => {
   const dispatch = useDispatch()
-  const [passwordInput, setPasswordInput] = useState<string>("password");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const handleSubmit = (e:any)=> {
+  function onFinish (e:any) {
       e.preventDefault();
-      dispatch(login(email,password,true));
+      if(email !=="" && password !==""){
+          dispatch(login(email, password, true));
+      }
+
   }
   return (
     <div className="container">
-      {" "}
       <h1>Manager Control Panel</h1>
-      <form>
+      <form onSubmit={onFinish}>
         <div className="formDiv">
           <input type="email"
+                 data-testid="email"
                  className="formInput"
                  placeholder="Admin Email"
                  onChange={e=>setEmail(e.target.value)}
                  value={email}
+                 required={true}
           />
         </div>
         <div className="formDiv">
           <input
+            data-testid="password"
             onChange={(e)=>setPassword(e.target.value)}
             value={password}
-            type={passwordInput}
+            type={"password"}
             className="formInput"
             placeholder="Password"
-          />
-          <Eye
-            size={20}
-            onClick={() => {
-              if (passwordInput === "password") {
-                setPasswordInput("text");
-              } else {
-                setPasswordInput("password");
-              }
-            }}
+            required={true}
           />
         </div>
 
-        <input type="submit" value="Connect" className="submit" onClick={handleSubmit}/>
+        <input type="submit" value="Connect" className="submit"/>
       </form>
     </div>
   );

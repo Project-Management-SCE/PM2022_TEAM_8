@@ -28,7 +28,12 @@ const Register = () => {
 
   const on_submit = async (e: any) => {
     e.preventDefault();
-    dispatch(register(registerForm.email,registerForm.password,registerForm.first_name,registerForm.last_name,registerForm.phone,registerForm.address))
+    if(registerForm.first_name === "" || registerForm.last_name === "" || registerForm.email === "" || registerForm.password === ""){
+      alert("Please fill all the fields")
+    }
+    else{
+      dispatch(register(registerForm.email,registerForm.password,registerForm.first_name,registerForm.last_name,registerForm.phone,registerForm.address))
+    }
   };
   return (
     <div>
@@ -39,6 +44,7 @@ const Register = () => {
           <div className="formDivHalfContainer">
             <div className="formDivHalf">
               <input
+                  required={true}
                 type="text"
                 className="formHalfInput"
                 placeholder="First Name"
@@ -49,6 +55,7 @@ const Register = () => {
             </div>
             <div className="formDivHalf">
               <input
+                  required={true}
                 type="text"
                 className="formHalfInput"
                 placeholder="Last Name"
@@ -83,6 +90,7 @@ const Register = () => {
           <h2>Account login information</h2>
           <div className="formDiv">
             <input
+                required={true}
               type="email"
               className="formInput"
               placeholder="Email"
@@ -93,6 +101,7 @@ const Register = () => {
           </div>
           <div className="formDiv">
             <input
+                required={true}
               type={passwordInput}
               className="formInput"
               placeholder="Password"
@@ -116,6 +125,7 @@ const Register = () => {
 
           <div className="checkBoxDiv">
             <input
+                required={true}
               type="checkbox"
               value={checkBoxState}
               onChange={() => setCheckBoxState(!checkBoxState)}
