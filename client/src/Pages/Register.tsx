@@ -28,11 +28,8 @@ const Register = () => {
 
   const on_submit = async (e: any) => {
     e.preventDefault();
-    if(registerForm.first_name === "" || registerForm.last_name === "" || registerForm.email === "" || registerForm.password === ""){
-      alert("Please fill all the fields")
-    }
-    else{
-      dispatch(register(registerForm.email,registerForm.password,registerForm.first_name,registerForm.last_name,registerForm.phone,registerForm.address))
+    if(!(registerForm.first_name === "" || registerForm.last_name === "" || registerForm.email === "" || registerForm.password === "")){
+      dispatch(register(registerForm.email,registerForm.password,registerForm.first_name,registerForm.last_name,registerForm.phone_number,registerForm.address))
     }
   };
   return (
@@ -46,6 +43,7 @@ const Register = () => {
               <input
                   required={true}
                 type="text"
+                data-testid="fname"
                 className="formHalfInput"
                 placeholder="First Name"
                 name="first_name"
@@ -59,6 +57,7 @@ const Register = () => {
                 type="text"
                 className="formHalfInput"
                 placeholder="Last Name"
+                  data-testid="lname"
                 name="last_name"
                 value={registerForm.last_name}
                 onChange={handle_change}
@@ -71,6 +70,7 @@ const Register = () => {
               type="number"
               className="formInput"
               placeholder="Phone"
+              data-testid="phone"
               name="phone_number"
               value={registerForm.phone_number}
               onChange={handle_change}
@@ -80,6 +80,7 @@ const Register = () => {
             <input
               type="text"
               className="formInput"
+              data-testid="addr"
               placeholder="Address"
               name="address"
               value={registerForm.address}
@@ -93,6 +94,7 @@ const Register = () => {
                 required={true}
               type="email"
               className="formInput"
+                data-testid="email"
               placeholder="Email"
               name="email"
               value={registerForm.email}
@@ -104,6 +106,7 @@ const Register = () => {
                 required={true}
               type={passwordInput}
               className="formInput"
+                data-testid="password"
               placeholder="Password"
               name="password"
               value={registerForm.password}
