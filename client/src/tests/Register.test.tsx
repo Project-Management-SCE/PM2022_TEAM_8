@@ -7,6 +7,7 @@ import Store from "../redux/Store";
 import {BrowserRouter} from "react-router-dom";
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom'
+import clearAllMocks = jest.clearAllMocks;
 
 describe("Test Registration", () => {
     AuthService.register = jest.fn(() => Promise.resolve({accessToken: "1234519210391"}));
@@ -18,6 +19,7 @@ describe("Test Registration", () => {
             phone: '1234',
             address: 'aaaa',
         }}));
+    beforeEach(clearAllMocks);
     test('Mocks registration functionality with real input', async () => {
         render(<Provider store={Store}><BrowserRouter><Register/></BrowserRouter></Provider>);
 

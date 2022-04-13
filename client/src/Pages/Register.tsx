@@ -28,7 +28,7 @@ const Register = () => {
 
   const on_submit = async (e: any) => {
     e.preventDefault();
-    if(!(registerForm.first_name === "" || registerForm.last_name === "" || registerForm.email === "" || registerForm.password === "")){
+    if(registerForm.first_name !== "" && registerForm.last_name !== "" && registerForm.email !== "" && registerForm.password !==  ""){
       dispatch(register(registerForm.email,registerForm.password,registerForm.first_name,registerForm.last_name,registerForm.phone_number,registerForm.address))
     }
   };
