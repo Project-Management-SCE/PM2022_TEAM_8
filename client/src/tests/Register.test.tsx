@@ -7,10 +7,17 @@ import Store from "../redux/Store";
 import {BrowserRouter} from "react-router-dom";
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom'
-import Login from "../Pages/Login";
 
 describe("Test Registration", () => {
     AuthService.register = jest.fn(() => Promise.resolve({accessToken: "1234519210391"}));
+    AuthService.me = jest.fn(() => Promise.resolve({user: {
+            email: 'aaa@a.a',
+            firstName: 'aaa',
+            lastName: 'aaaa',
+            type: 'Admin',
+            phone: '1234',
+            address: 'aaaa',
+        }}));
     test('Mocks registration functionality with real input', async () => {
         render(<Provider store={Store}><BrowserRouter><Register/></BrowserRouter></Provider>);
 
