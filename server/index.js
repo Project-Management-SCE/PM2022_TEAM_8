@@ -29,3 +29,5 @@ async function runServer(){
 
 
 runServer()
+
+module.exports = app

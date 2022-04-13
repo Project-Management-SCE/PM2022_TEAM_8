@@ -25,14 +25,14 @@ class AuthService {
     async login(email, password) {
         const user = await User.findOne({ email });
         if (!user || !(await bcrypt.compare(password.toString(), user.password))) {
-            throw ApiError.BadRequest("Invalid ID or password")
+            throw ApiError.BadRequest("Invalid Email or password")
         }
         return this.signToken(user,"User");
     }
     async loginAdmin(email, password) {
         const user = await User.findOne({ email });
         if (!user || !(await bcrypt.compare(password.toString(), user.password))) {
-            throw ApiError.BadRequest("Invalid ID or password")
+            throw ApiError.BadRequest("Invalid Email or password")
         }
         if(user.type !== "Admin"){
             throw ApiError.UnauthorizedError("You don't have admin privileges!, Use regular users login page!")
