@@ -43,7 +43,7 @@ const UserProfile = () => {
             layout="horizontal"
           >
             <Form.Item label="Toggle Edit" valuePropName="checked" style={{marginLeft:'50%'}}>
-              <Switch
+              <Switch data-testid="edit"
                   onChange={() => {
                     setIsDisabled(!isDisabled);
                   }}
@@ -53,13 +53,13 @@ const UserProfile = () => {
               required: true,
               message: "First name cannot be blank!"
             }]}>
-              <Input disabled={isDisabled} placeholder={curr_user.firstName!} onChange={handle_change} value={user.firstName!} name="firstName"/>
+              <Input  data-testid="fname" disabled={isDisabled} placeholder={curr_user.firstName!} onChange={handle_change} value={user.firstName!} name="firstName"/>
             </Form.Item>
             <Form.Item name="lastName" label="Last Name" rules={[{
               required: true,
               message: "Last name cannot be blank!"
             }]}>
-              <Input disabled={isDisabled} placeholder={curr_user.lastName!} onChange={handle_change} value={user.lastName!} name="lastName"/>
+              <Input  data-testid="lname" disabled={isDisabled} placeholder={curr_user.lastName!} onChange={handle_change} value={user.lastName!} name="lastName"/>
             </Form.Item>
             <Form.Item label="Email">
               <Input disabled={true} placeholder={curr_user.email!} />
@@ -72,8 +72,8 @@ const UserProfile = () => {
             </Form.Item>
 
 
-            <Form.Item label="Save Changes" hidden={isDisabled}>
-              <Button htmlType="submit" >Update</Button>
+            <Form.Item data-testid="updateFormItem" label="Save Changes" hidden={isDisabled}>
+              <Button data-testid="update" htmlType="submit" >Update</Button>
             </Form.Item>
           </Form>
         </div>

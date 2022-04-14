@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, act, screen} from '@testing-library/react';
+import {act, render, screen} from '@testing-library/react';
 import Login from '../Pages/Login';
 import AuthService from '../api/internalAPI/authApi';
 import {Provider} from "react-redux";

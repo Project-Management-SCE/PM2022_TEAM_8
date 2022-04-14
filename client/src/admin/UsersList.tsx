@@ -52,7 +52,7 @@ export const UsersList:FC = () => {
       render: (_: any, record: IUser) => (
           <Space size="middle">
             <a >Ban</a>
-            <a onClick={()=>{onDelete(record.email as string)}}>Delete</a>
+            <a data-testid={record.email!} onClick={()=>{onDelete(record.email as string)}}>Delete</a>
           </Space>
       ),
     },

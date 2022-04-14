@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, act, screen} from '@testing-library/react';
+import {act, render, screen} from '@testing-library/react';
 import AuthService from '../api/internalAPI/authApi';
 import {Provider} from "react-redux";
 import Store from "../redux/Store";
@@ -42,7 +42,7 @@ describe("Test Admin Login", () => {
     test('Mocks login functionality with real input', async () => {
         render(<Provider store={Store}><AdminLogin/></Provider>);
         await act(async () => {
-            const inputEmail = screen.getByPlaceholderText(/Admin Email/i);
+            const inputEmail = screen.getByPlaceholderText(/Admin Email/);
             userEvent.paste(inputEmail, 'admin@email.com');
             const inputPassword = screen.getByPlaceholderText(/Password/);
             userEvent.paste(inputPassword, 'admin');
