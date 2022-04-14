@@ -65,7 +65,7 @@ export const UsersList:FC = () => {
     <div>
       <div className="info_container">
         <h2>Users List</h2>
-        <Table columns={columns} dataSource={users} loading={isFetching}/>
+        <Table columns={columns} rowKey={record=> record.email!} dataSource={users} loading={isFetching}/>
       </div>
     </div>
   );
