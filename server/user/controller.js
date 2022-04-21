@@ -15,7 +15,19 @@ class AuthController {
             next(err)
         }
     }
-
+    async registerAdmin(req, res, next) {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.BadRequest('Validation Error', errors.array()))
+            }
+            const { email, password} = req.body;
+            const token = await authService.registerAdmin(email, password);
+            res.json({ accessToken: token });
+        } catch (err) {
+            next(err)
+        }
+    }
     async login(req, res, next) {
         try {
             const { email, password } = req.body;
@@ -60,6 +72,15 @@ class AuthController {
             next(err);
         }
     }
+    async blockUser(req, res, next) {
+        try {
+            const { email, date } = req.body;
+            await authService.blockUser(email,date)
+            res.json('User successfully blocked')
+        } catch (err) {
+            next(err);
+        }
+    }
     async updateUser(req, res, next) {
         try {
             const { email } = req.user
@@ -93,6 +114,15 @@ class AuthController {
         try {
             const { email } = req.body
             const msg = await authService.getRecoverToken(email)
+            res.json(msg)
+        } catch (err) {
+            next(err);
+        }
+    }
+    async sendReply(req, res, next) {
+        try {
+            const { email, body } = req.body
+            const msg = await authService.sendReply(email, body)
             res.json(msg)
         } catch (err) {
             next(err);

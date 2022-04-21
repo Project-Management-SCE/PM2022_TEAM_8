@@ -45,7 +45,14 @@ export const UsersList:FC = () => {
       dataIndex: "email",
       key: getDate(),
     },
-
+    {
+      title: "Is Blocked",
+      dataIndex: "isBlocked",
+      key: getDate(),
+      render: (_: any, record: IUser) => (
+          record.isBlocked ?  "Blocked" : "Not blocked"
+      ),
+    },
     {
       title: "Action",
       key: getDate(),

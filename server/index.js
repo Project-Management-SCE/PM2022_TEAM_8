@@ -2,6 +2,7 @@ const errorMiddleware = require('./middleware/errormw');
 const express = require('express')
 const mongoose = require('mongoose')
 const authRoute = require('./user/routes')
+const watchlistRoute = require('./watchlist/routes')
 const app = express();
 require('dotenv').config()
 const PORT = 3001 || process.env.PORT
@@ -12,6 +13,7 @@ app.use(cors({
     origin: process.env.CLIENT_URL
 }));
 app.use("/api/user", authRoute)
+app.use("/api/watchlist", watchlistRoute)
 app.use(errorMiddleware);
 
 async function runServer(){

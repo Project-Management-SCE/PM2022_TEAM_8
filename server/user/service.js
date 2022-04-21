@@ -15,7 +15,7 @@ class AuthService {
         return encryptedPassword
     }
     signToken(user,type) {
-        const payload = { user: { email: user.email, type } }
+        const payload = { user: { id:user._id, email: user.email, type } }
         return jwt.sign(payload, process.env.TOKEN_KEY, { expiresIn: "48h", });
     }
     signRecoverToken(user) {
@@ -55,18 +55,37 @@ class AuthService {
         await newUser.save()
         return this.signToken(newUser,"User");
     }
+    async registerAdmin(email, password) {
+        const encryptedPassword = await this.registerBody(email, password);
+        const newUser = await new User(
+            {
+                email,
+                password: encryptedPassword,
+                userType: "Admin"
+            })
+        await newUser.save()
+        return this.signToken(newUser,"Admin");
+    }
 
     async me(email,type) {
         const user = await User.findOne({ email });
         if (!user) {
             throw ApiError.BadRequest("User does not exist")
         }
-        return new UserDto(user.email, user.firstName, user.lastName, type, user.address, user.phone)
+        const now = new Date();
+        if(user.isBlocked && (user.blockedUntil && user.blockedUntil.getTime() > now.getTime())){
+            throw ApiError.BadRequest("User is blocked from the site!")
+        }else if(user.isBlocked ||(user.blockedUntil && user.blockedUntil.getTime() > now.getTime())){
+            user.isBlocked = false;
+            user.blockedUntil = null;
+            await user.save();
+        }
+        return new UserDto(user._id,user.email, user.isBlocked, user.firstName, user.lastName, type, user.address, user.phone)
 
     }
     async getUsers() {
         const users = await User.find({type:"User"})
-        return users.map(user => new UserDto(user.email, user.firstName, user.lastName, user.type, user.address, user.phone))
+        return users.map(user => new UserDto(user._id,user.email,user.isBlocked, user.firstName, user.lastName, user.type, user.address, user.phone))
     }
     async deleteUser(email) {
         const user = await User.findOne({ email });
@@ -75,6 +94,16 @@ class AuthService {
         }
         await User.deleteOne({ email })
         return "User Deleted"
+    }
+    async blockUser(email, date) {
+        const user = await User.findOne({ email });
+        if (!user) {
+            throw ApiError.BadRequest("User does not exist")
+        }
+        user.isBlocked = true;
+        user.blockedUntil = date;
+        await user.save();
+        return "User successfully blocked"
     }
     async updateUser(email, firstName, lastName,address,phone) {
         const user = await User.findOne({ email });
@@ -102,6 +131,18 @@ class AuthService {
         await mailer.sendMail(email, "Password recovery W2W", token)
         return "Mail with instructions sent"
     }
+    async sendReply(email, body) {
+        await mailer.sendResponse(email, body)
+        return "Reply sent"
+    }
+    async checkBlocked(email){
+        const user = await User.findOne({ email });
+        if (!user) {
+            throw ApiError.BadRequest("User does not exist")
+        }
+
+    }
+
 }
 
 module.exports = new AuthService();

@@ -2,6 +2,14 @@ const mongoose = require("mongoose")
 
 const UserSchema = new mongoose.Schema(
     {
+        isBlocked:{
+            type: Boolean,
+            default:false
+        },
+        blockedUntil:{
+            type: Date,
+            default: null
+        },
         email: {
             type: String,
             required: true,

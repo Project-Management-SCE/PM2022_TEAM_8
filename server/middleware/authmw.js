@@ -14,6 +14,7 @@ const verifyToken = (req, res, next) => {
         }
         const decoded = jwt.verify(token, config.TOKEN_KEY);
         req.user = decoded.user;
+
     } catch (err) {
         return next(ApiError.UnauthorizedError());
     }
