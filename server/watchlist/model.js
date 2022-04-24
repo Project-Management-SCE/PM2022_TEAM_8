@@ -3,9 +3,9 @@ const mongoose = require("mongoose")
 const WatchListSchema = new mongoose.Schema(
     {
         userID: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'User'
-            },
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
         id: {
             type: Number,
             required: true,

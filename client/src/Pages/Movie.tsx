@@ -1,5 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
-import { MovieDetails, MovieVideos } from "../api/ExternalApiResponseTypes";
+import {
+  MovieDetails,
+  MovieGenres,
+  MovieVideos,
+} from "../api/ExternalApiResponseTypes";
 import ExternalApiService from "../api/ExternalApiService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,33 +12,45 @@ import {
   faClock,
   faPlay,
   faFilm,
-  faPenToSquare, faClose,
+  faPenToSquare,
+  faClose,
 } from "@fortawesome/free-solid-svg-icons";
 import Moment from "moment";
 import "../Style/movieCard.css";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Modal } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { AppStateType } from "../redux/Store";
+import { IUser } from "../api/internalAPI/internalApiTypes";
+import { addToWatch } from "../redux/reducers/user-reducer";
 
 const Movie: FC = () => {
-  const {id} = useParams();
+  const dispatch = useDispatch();
+  let array: number[] = [];
+  const { id } = useParams();
   const [movie, setMovie] = useState<MovieDetails>();
   const [videos, setVideos] = useState<MovieVideos[]>([]);
+  const curr_user = useSelector<AppStateType>(
+    (state) => state.auth.user
+  ) as IUser;
   let officialTrailer = videos.find(
     (element) => element.name == "Official Trailer"
   );
   Moment.locale("en");
   useEffect(() => {
     try {
-      id && ExternalApiService.getMovieDetails(id).then((movieResponse) => {
-        setMovie(movieResponse);
-      });
+      id &&
+        ExternalApiService.getMovieDetails(id).then((movieResponse) => {
+          setMovie(movieResponse);
+        });
     } catch (e) {
       console.log(e);
     }
     try {
-      id && ExternalApiService.getMovieVideos(id).then((response) => {
-        setVideos(response.results as MovieVideos[]);
-      });
+      id &&
+        ExternalApiService.getMovieVideos(id).then((response) => {
+          setVideos(response.results as MovieVideos[]);
+        });
     } catch (e) {
       console.log(e);
     }
@@ -45,9 +61,36 @@ const Movie: FC = () => {
     setIsModalVisible(true);
   };
 
-
   const handleCancel = () => {
     setIsModalVisible(false);
+  };
+  const setArray = (arrayObj: MovieGenres[]) => {
+    for (let i = 0; i < arrayObj.length; i++) {
+      array[i] = arrayObj[i].id;
+    }
+  };
+
+  //TODO: change implementation of genres ids
+  const addToWatchList = (
+    id: number,
+    genre_ids: MovieGenres[],
+    overview: string,
+    poster_path: string,
+    release_date: string,
+    title: string
+  ) => {
+    setArray(genre_ids);
+    dispatch(
+      addToWatch(
+        curr_user,
+        id,
+        array,
+        overview,
+        poster_path,
+        release_date,
+        title
+      )
+    );
   };
 
   return (
@@ -69,22 +112,27 @@ const Movie: FC = () => {
           }}
           key={movie.id}
         >
-          {officialTrailer && <Modal title={`Official Trailer : ${movie.title}`}
-                  visible={isModalVisible}
-                  width={1000}
-                  onCancel={handleCancel}
-                  footer={null}
-                  closeIcon={<FontAwesomeIcon className="fa-icon" icon={faClose}/>}
-                  bodyStyle={{background: "#eeeeee"}}
-          >
-            <iframe width="960" height="480" src={`https://www.youtube.com/embed/${officialTrailer.key}`}
-                    title="YouTube video player" frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
+          {officialTrailer && (
+            <Modal
+              title={`Official Trailer : ${movie.title}`}
+              visible={isModalVisible}
+              width={1000}
+              onCancel={handleCancel}
+              footer={null}
+              closeIcon={<FontAwesomeIcon className="fa-icon" icon={faClose} />}
+              bodyStyle={{ background: "#eeeeee" }}
             >
-            </iframe>
-          </Modal>
-          }
+              <iframe
+                width="960"
+                height="480"
+                src={`https://www.youtube.com/embed/${officialTrailer.key}`}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </Modal>
+          )}
           <div className="movie-card">
             <img
               className="card-img-top"
@@ -110,9 +158,7 @@ const Movie: FC = () => {
                 <div className="links">
                   {officialTrailer ? (
                     <>
-                      <a
-                          onClick={showModal}
-                      >
+                      <a onClick={showModal}>
                         <FontAwesomeIcon className="fa-icon" icon={faPlay} />
                       </a>
                       <span>Trailer</span>
@@ -122,7 +168,20 @@ const Movie: FC = () => {
                   )}
 
                   <FontAwesomeIcon className="fa-icon" icon={faFilm} />
-                  <span>+WatchList</span>
+                  <a
+                    onClick={() =>
+                      addToWatchList(
+                        movie.id,
+                        movie.genres,
+                        movie.overview,
+                        movie.poster_path,
+                        movie.release_date,
+                        movie.title
+                      )
+                    }
+                  >
+                    <span>+WatchList</span>
+                  </a>
                   <FontAwesomeIcon className="fa-icon" icon={faPenToSquare} />
                   <span>+Review</span>
                 </div>
