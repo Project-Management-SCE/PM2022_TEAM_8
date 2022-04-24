@@ -45,7 +45,20 @@ export const adminActions = {
     })
 }
 
+export const banUser = (email:String,date:Date): ThunkType => async (dispatch) => {
+    try {
+        const user = 
+        dispatch(adminActions.setLoading(true))
+        await UserService.banUser(email,date)
+        dispatch(appActions.setSuccess(`User successfully baned until ${date}`))
+    } catch (e: any) {
+        const msg = e.response?.data?.message || 'User ban error'
+        dispatch(appActions.setError(msg))
+    }finally {
+        dispatch(adminActions.setLoading(false))
+    }
 
+}
 export const deleteUser = (email:string): ThunkType => async (dispatch) => {
     try {
         dispatch(adminActions.setLoading(true))

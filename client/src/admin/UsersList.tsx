@@ -1,23 +1,35 @@
-import React, {FC, useEffect} from "react";
+import React, { FC, useEffect } from "react";
 import { Table, Space } from "antd";
 import "./admin.css";
-import {deleteUser, getUsers} from "../redux/reducers/admin-reducer";
-import {AppStateType} from "../redux/Store";
-import {useDispatch, useSelector} from "react-redux";
-import {IUser} from "../api/internalAPI/internalApiTypes";
-
+import { deleteUser, getUsers, banUser } from "../redux/reducers/admin-reducer";
+import { AppStateType } from "../redux/Store";
+import { useDispatch, useSelector } from "react-redux";
+import { IUser } from "../api/internalAPI/internalApiTypes";
 
 let date = Date.now();
-function getDate(){
+let today = new Date();
+let until = new Date(
+  today.getFullYear(),
+  today.getMonth(),
+  today.getDate() + 7
+);
+
+function getDate() {
   date++;
-  return date.toString()
+  return date.toString();
 }
-export const UsersList:FC = () => {
+export const UsersList: FC = () => {
   const dispatch = useDispatch();
-  const onDelete = (email:string) => {
+  const onDelete = (email: string) => {
     dispatch(deleteUser(email));
   };
-  const isFetching = useSelector((state:AppStateType) => state.admin.isFetching) as boolean;
+
+  const onBan = (email: String, date: Date) => {
+    dispatch(banUser(email, date));
+  };
+  const isFetching = useSelector(
+    (state: AppStateType) => state.admin.isFetching
+  ) as boolean;
   const columns = [
     //Fit data structure to backend
     {
@@ -49,22 +61,36 @@ export const UsersList:FC = () => {
       title: "Is Blocked",
       dataIndex: "isBlocked",
       key: getDate(),
-      render: (_: any, record: IUser) => (
-          record.isBlocked ?  "Blocked" : "Not blocked"
-      ),
+      render: (_: any, record: IUser) =>
+        record.isBlocked ? "Blocked" : "Not blocked",
     },
     {
       title: "Action",
       key: getDate(),
       render: (_: any, record: IUser) => (
-          <Space size="middle">
-            <a >Ban</a>
-            <a data-testid={record.email!} onClick={()=>{onDelete(record.email as string)}}>Delete</a>
-          </Space>
+        <Space size="middle">
+          <a
+            onClick={() => {
+              onBan(record.email as string, until);
+            }}
+          >
+            Ban
+          </a>
+          <a
+            data-testid={record.email!}
+            onClick={() => {
+              onDelete(record.email as string);
+            }}
+          >
+            Delete
+          </a>
+        </Space>
       ),
     },
   ];
-  const users = useSelector<AppStateType>(state => state.admin.users) as IUser[];
+  const users = useSelector<AppStateType>(
+    (state) => state.admin.users
+  ) as IUser[];
   useEffect(() => {
     dispatch(getUsers());
   }, []);
@@ -72,10 +98,13 @@ export const UsersList:FC = () => {
     <div>
       <div className="info_container">
         <h2>Users List</h2>
-        <Table columns={columns} rowKey={record=> record.email!} dataSource={users} loading={isFetching}/>
+        <Table
+          columns={columns}
+          rowKey={(record) => record.email!}
+          dataSource={users}
+          loading={isFetching}
+        />
       </div>
     </div>
   );
 };
-
-

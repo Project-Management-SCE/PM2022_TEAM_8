@@ -10,4 +10,7 @@ export default class UserService {
     static async getUsers() {
         return $api.get<UsersResponse>(`/user/users`, ).then(res => res.data)
     }
+    static async banUser(email:String,date:Date) {
+        return $api.put<ActionResponse>('/user/block', {email,date}).then(res => res.data)
+    }
 }
