@@ -6,7 +6,8 @@ import {
     MovieGenresResponse,
     MovieDetails,
     MovieVideos,
-    MovieVideosResponse
+    MovieVideosResponse,
+    UpcomingMoviesSearchResponse,
 } from "./ExternalApiResponseTypes";
 import axios, {AxiosResponse} from "axios";
 
@@ -18,6 +19,17 @@ export default class ExternalApiService {
             responseType: 'json',
         })
             .then((response:AxiosResponse<UpcomingMoviesResponse>) => {
+                return response.data;
+            })
+
+    }
+     static async getUpcomingMoviesSearch(query: string){
+        return axios({
+            url: env.TMDB + `/search/movie?api_key=${env.API_KEY}&language=en-US&query=${query}&page=${1}&include_adult=false`,
+            method: 'GET',
+            responseType: 'json',
+        })
+            .then((response:AxiosResponse<UpcomingMoviesSearchResponse>) => {
                 return response.data;
             })
 

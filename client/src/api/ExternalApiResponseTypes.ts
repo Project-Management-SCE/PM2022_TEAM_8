@@ -122,3 +122,9 @@ export interface MovieGenres{
    id: number,
    name: string
 }
+export interface UpcomingMoviesSearchResponse{
+   page: number;
+   results: UpcomingMovie[];
+   total_pages: number;
+   total_results: number;
+}
