@@ -15,7 +15,7 @@ let until = new Date(
 );
 
 function getDate() {
-  date++;
+  date = date + 1;
   return date.toString();
 }
 export const UsersList: FC = () => {
