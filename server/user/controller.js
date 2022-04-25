@@ -81,6 +81,15 @@ class AuthController {
             next(err);
         }
     }
+    async unblockUser(req, res, next) {
+        try {
+            const { email} = req.body;
+            await authService.unblockUser(email)
+            res.json('User successfully unblocked')
+        } catch (err) {
+            next(err);
+        }
+    }
     async updateUser(req, res, next) {
         try {
             const { email } = req.user

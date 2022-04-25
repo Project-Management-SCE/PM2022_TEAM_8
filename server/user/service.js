@@ -105,6 +105,16 @@ class AuthService {
         await user.save();
         return "User successfully blocked"
     }
+    async unblockUser(email) {
+        const user = await User.findOne({ email });
+        if (!user) {
+            throw ApiError.BadRequest("User does not exist")
+        }
+        user.isBlocked = false;
+        user.blockedUntil = null;
+        await user.save();
+        return "User successfully unblocked"
+    }
     async updateUser(email, firstName, lastName,address,phone) {
         const user = await User.findOne({ email });
         if (!user) {

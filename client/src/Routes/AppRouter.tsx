@@ -25,7 +25,7 @@ export const AppRouter = () => {
       ))}
       <Route
         path="*"
-        element={<Navigate replace to={RouteNames.USERSLIST} />}
+        element={<Navigate replace to={RouteNames.REVIEWSLIST} />}
       />
     </Routes>
   ) : (

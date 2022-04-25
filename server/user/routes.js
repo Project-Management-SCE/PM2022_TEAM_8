@@ -23,6 +23,7 @@ router.post("/login", userController.login);
 router.post("/login-admin", userController.loginAdmin);
 router.get("/users",auth,verifyAdmin,userController.getUsers);
 router.put("/block",auth,verifyAdmin,userController.blockUser)
+router.put("/unblock",auth,verifyAdmin,userController.unblockUser);
 router.delete("/delete/:email",auth,verifyAdmin,userController.deleteUser);
 router.put("/update",auth,userController.updateUser);
 router.patch("/update-password",auth,userController.updatePassword);
