@@ -37,8 +37,8 @@ export const UsersList: FC = () => {
         },
         {
             title: "Last Name",
-            key: "lastName",
-            dataIndex: "email",
+            key: "email",
+            dataIndex: "lastName",
         },
         {
             title: "Phone",
