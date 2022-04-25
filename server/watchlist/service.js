@@ -5,6 +5,10 @@ const WatchlistDto = require('./dto')
 class WatchlistService {
 
     async add(user, id, genre_ids, overview, poster_path, release_date, title) {
+        const checkExist = await Watchlist.findOne({ userID: user.id, id: id })
+        if (checkExist) {
+            throw new ApiError(409, 'Movie already in watchlist')
+        }
         const newMovie = await new Watchlist(
             {
                 userID: user.id,
