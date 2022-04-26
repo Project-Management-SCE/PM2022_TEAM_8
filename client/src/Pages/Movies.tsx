@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import { UpcomingMovie } from "../api/ExternalApiResponseTypes";
 import ExternalApiService from "../api/ExternalApiService";
 import LoadingSpinner from "../components/LoadingSpinner";
 import GenresList from "../components/GenresList";
 import "../Style/Movies.css";
-import {Link} from "react-router-dom";
+import ContentList from "../components/ContentList";
 const Movies: FC = () => {
   const [movies, setMovies] = React.useState<UpcomingMovie[]>([]);
 
@@ -22,37 +22,8 @@ const Movies: FC = () => {
       <h1>Movies</h1>
       <h3>Upcoming Movies</h3>
       <div className="row">
-        {movies.length > 0 ? (
-          movies.map((movie) => {
-            const strLength = movie.overview.length;
-            let temp1, temp2;
-            if (strLength >= 100) {
-              temp1 = movie.overview.slice(0, 100);
-              temp2 = `${temp1}...`;
-            }
-            return (
-
-              <div className="col-md-4" key={movie.id}>
-                <div className="card">
-                    <Link to={`/movie/${movie.id}`}>
-                  <img
-                    className="card-img-top"
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    alt="Card image cap"
-                  />
-                  </Link>
-                  <div className="card-body">
-                    <h5 className="card-title">{movie.title}</h5>
-                    <p className="card-text">{temp2}</p>
-                  </div>
-                </div>
-              </div>
-            );
-          })
-        ) : (
-          <LoadingSpinner />
-        )}
-      </div>{" "}
+          <ContentList items={movies} NoDataElement={LoadingSpinner}/>
+      </div>
       <GenresList />
     </div>
   );
