@@ -24,6 +24,9 @@ const AdminControl = () => {
           <Link to="/admin_control/reviews_list" className="nav-link">
             Reviews
           </Link>
+          <Link to="/admin_control/admin_register" className="nav-link">
+            Admin Register
+          </Link>
         </div>
         <div className="admin_service">
           <NavLink to="/" onClick={onLogout} className="admin_btn">

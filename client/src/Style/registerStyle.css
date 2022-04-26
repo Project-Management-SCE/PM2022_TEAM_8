@@ -49,7 +49,18 @@
     transition: all 200ms ease;
     direction: ltr;
 }
-
+.textAreaDiv{
+    width:90%;
+    border: 1px solid lightgray;
+    margin: 1rem auto;
+    max-width: 100%;
+    padding-right: 1.5rem;
+    display: flex;
+    align-items: center;
+    color: lightgray;
+    transition: all 200ms ease;
+    direction: ltr;
+}
 .formDivHalfContainer {
     display: flex;
     justify-content: space-between;
@@ -77,10 +88,12 @@
     font-size: 1.5rem;
     padding: 1rem;
 }
-
 .formDivHalf:focus,
 .formDivHalf:after,
-.formDivHalf:hover {
+.formDivHalf:hover,
+.textAreaDiv:focus,
+.textAreaDiv:after,
+.textAreaDiv:hover{
     border: 1px solid #DA0037;
 }
 
@@ -160,6 +173,10 @@
     transition: all 200ms ease;
     background: transparent;
 
+}
+.textArea{
+    width:90%;
+    height:300px;
 }
 
 .formInput::-webkit-inner-spin-button,

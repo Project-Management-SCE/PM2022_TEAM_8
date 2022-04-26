@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, {FC, useState} from "react";
+import {NavLink, useLocation} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faYoutube,
@@ -8,9 +8,25 @@ import {
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 import "./MainFooter.css";
-const MainFooter = () => {
+import {Modal} from "antd";
+import {faClose} from "@fortawesome/free-solid-svg-icons";
+import ContactUs from "../components/ContactUs";
+const MainFooter:FC = () => {
+  const location = useLocation()
+  const [isModalVisible,setModalVisible] = useState(false);
   return (
     <div className="footer-container">
+      <Modal
+          title={`Contact us`}
+          visible={isModalVisible}
+          width={1000}
+          onCancel={()=>setModalVisible(false)}
+          footer={null}
+          closeIcon={<FontAwesomeIcon className="fa-icon" icon={faClose} />}
+          bodyStyle={{ background: "#eeeeee" }}
+      >
+        <ContactUs/>
+      </Modal>
       <div className="inside-footer-container">
         <div className="company-details-div">
           <h3 className="footer_header">What To Watch</h3>
@@ -33,8 +49,12 @@ const MainFooter = () => {
               <NavLink to="/series">Series</NavLink>
             </li>
             <li>
+              <NavLink to={location.pathname} onClick={()=>(setModalVisible(!isModalVisible))}>Contact Us</NavLink>
+            </li>
+            <li>
               <NavLink to="/admin_login">Admin</NavLink>
             </li>
+
           </ul>
         </div>
         <div className="about-list-div">

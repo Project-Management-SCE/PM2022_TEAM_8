@@ -13,6 +13,7 @@ import {WatchList} from "../Pages/WatchList";
 import Movie from "../Pages/Movie";
 import { RecoverPassword } from "../Pages/RecoverPassword";
 import { ChangePassword } from "../Pages/ChangePassword";
+import RegisterAdmin from "../admin/RegisterAdmin";
 
 
 export interface IRoute {
@@ -30,7 +31,7 @@ export enum RouteNames {
     WATCHLIST = '/user_profile/watch_list',
     USERREVIEWS = '/user_profile/user_reviews',
     ADMINLOGIN = '/admin_login',
-    ADMINCONTROL = '/admin_control',
+    ADMINREGISTER = '/admin_control/admin_register',
     REVIEWSLIST = '/admin_control/reviews_list',
     USERSLIST = '/admin_control/users_list',
     MOVIE = '/movie/:id',
@@ -62,4 +63,5 @@ export const userRoutes: IRoute[] = [
 export const adminRoutes: IRoute[] = [
     {path: RouteNames.REVIEWSLIST,  element: ReviewsList},
     {path: RouteNames.USERSLIST,  element: UsersList},
+    {path: RouteNames.ADMINREGISTER,  element: RegisterAdmin},
 ]
