@@ -29,6 +29,7 @@ const SearchResults: FC = () => {
                             temp1 = movie.overview.slice(0, 100);
                             temp2 = `${temp1}...`;
                         }
+
                         return (
 
                             <div className="col-md-4" key={movie.id}>
