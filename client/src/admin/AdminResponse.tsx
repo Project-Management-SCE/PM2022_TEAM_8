@@ -72,7 +72,6 @@ export const AdminResponse: FC = () => {
         (state: AppStateType) => state.admin.isFetching
     ) as boolean;
     const columns = [
-        //Fit data structure to backend
         {
             title: "ticketID",
             dataIndex: "ticketID",
@@ -118,7 +117,7 @@ export const AdminResponse: FC = () => {
 
             />
             <div className="info_container">
-                <h2>Users List</h2>
+                <h2>Tickets List</h2>
                 <Table
                     columns={columns}
                     dataSource={data}
