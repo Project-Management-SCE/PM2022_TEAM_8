@@ -15,6 +15,7 @@ import { RecoverPassword } from "../Pages/RecoverPassword";
 import { ChangePassword } from "../Pages/ChangePassword";
 import RegisterAdmin from "../admin/RegisterAdmin";
 import { AdminResponse } from "../admin/AdminResponse";
+import SearchResults from "../Pages/SearchResults";
 
 
 export interface IRoute {
@@ -38,7 +39,8 @@ export enum RouteNames {
     USERSLIST = '/admin_control/users_list',
     MOVIE = '/movie/:id',
     RECOVERPASSWORD = '/recover_password',
-    RESETPASSWORD = '/reset-password/:token'
+    RESETPASSWORD = '/reset-password/:token',
+    SEARCH = '/search/:query'
 }
 
 
@@ -49,6 +51,7 @@ export const publicRoutes: IRoute[] = [
     { path: RouteNames.ADMINLOGIN, element: AdminLogin },
     { path: RouteNames.RECOVERPASSWORD, element: RecoverPassword },
     { path: RouteNames.RESETPASSWORD, element: ChangePassword },
+    { path: RouteNames.SEARCH, element: SearchResults },
 
 
 ]
@@ -61,6 +64,7 @@ export const userRoutes: IRoute[] = [
     {path: RouteNames.USERPROFILE,  element: UserProfile},
     {path: RouteNames.USERREVIEWS,  element: UserReviews},
     {path: RouteNames.WATCHLIST,  element: WatchList},
+    { path: RouteNames.SEARCH, element: SearchResults },
 ]
 export const adminRoutes: IRoute[] = [
     {path: RouteNames.REVIEWSLIST,  element: ReviewsList},

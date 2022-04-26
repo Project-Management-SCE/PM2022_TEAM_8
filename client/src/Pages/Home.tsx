@@ -3,18 +3,16 @@ import { Link, NavLink } from "react-router-dom";
 import {
   TopRatedMovies,
   PopularTVshows,
-  UpcomingMovie,
 } from "../api/ExternalApiResponseTypes";
 import ExternalApiService from "../api/ExternalApiService";
 import CarouselMovies from "../components/CarouselMovies";
 import { PopUp } from "../components/PopUp";
 import { IUser } from "../api/internalAPI/internalApiTypes";
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 import { AppStateType } from "../redux/Store";
 import "../Style/home.css";
 
 const Home = () => {
-  const [search, setSearch] = React.useState<TopRatedMovies[]>([]);
   const [topMovies, setTopMovies] = React.useState<TopRatedMovies[]>([]);
   const [topSeries, setTopSeries] = React.useState<PopularTVshows[]>([]);
   const curr_user = useSelector<AppStateType>(
@@ -43,21 +41,6 @@ const Home = () => {
       console.log(e);
     }
   }, []);
-
-  let query = "morbius";
-  //TODO: Create search results page
-  //TODO: delete variable query and use search input
-  // This useEffect below get by query the result as array of movie objects
-  useEffect(() => {
-    try {
-      ExternalApiService.getUpcomingMoviesSearch(query).then((response) => {
-        setSearch(response.results as UpcomingMovie[]);
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  }, []);
-  //console.log(search);
 
   useEffect(() => {
     if (curr_user == null) {

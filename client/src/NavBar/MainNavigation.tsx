@@ -1,15 +1,18 @@
 import React, {FC, useState} from "react";
 import "./MainNavigation.css";
 import MainHeader from "./MainHeader";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import NavLinks from "./NavLinks";
 import SideDrawer from "./SideDrawer";
 import Backdrop from "../util/UIElements/Backdrop";
 import logo from "../assets/icons/Logo.png"
+import {faSearch} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 
 const MainNavigation:FC = () => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
+  const [query, setQuery] = useState("");
   const openDrawer = () => {
     setDrawerIsOpen(true);
   };
@@ -35,9 +38,15 @@ const MainNavigation:FC = () => {
               <img src={logo} alt="logo" className="logo-img" />
             </Link>
           </div>
-
-          <input type='text' className="searchInput" placeholder="search" />
-
+          <input type='text'
+                 className="searchInput"
+                 placeholder="search"
+                 value={query}
+                 onChange={(e)=>setQuery(e.target.value)}
+          />
+              <Link to={`search/${query}`}>
+                <FontAwesomeIcon className="fa-icon" icon={faSearch}/>
+              </Link>
           <div>
 
             {!drawerIsOpen && <div className="wideScreenLinks">
