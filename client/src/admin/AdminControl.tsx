@@ -4,7 +4,7 @@ import IconContainer from "../util/IconContainer";
 import { colors } from "../Style/colors";
 import logoutImg from "../assets/icons/logout.png";
 import { logout } from "../redux/reducers/auth-reducer";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "./admin.css";
 
 const AdminControl = () => {
@@ -26,6 +26,9 @@ const AdminControl = () => {
           </Link>
           <Link to="/admin_control/admin_register" className="nav-link">
             Admin Register
+          </Link>
+          <Link to="/admin_control/admin_response" className="nav-link">
+            Response
           </Link>
         </div>
         <div className="admin_service">
