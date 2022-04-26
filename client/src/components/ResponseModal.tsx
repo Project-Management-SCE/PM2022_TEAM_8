@@ -16,7 +16,7 @@ const ResponseModal:FC<ResponseModalProps> = ({ticket,isModalVisible, setModalVi
         {ticket && <Modal
             title={`Contact us`}
             visible={isModalVisible}
-            width={1000}
+            width={800}
             onCancel={()=>setModalVisible(false)}
             footer={null}
             bodyStyle={{ background: "#eeeeee" }}
@@ -24,12 +24,14 @@ const ResponseModal:FC<ResponseModalProps> = ({ticket,isModalVisible, setModalVi
             <Descriptions
                 title={`Ticket #${ticket.ticketID}`}
                 bordered
+                layout="vertical"
+                labelStyle={{ fontWeight: "bold", fontSize: "1.2rem"}}
                 column={{xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}
             >
-                <Descriptions.Item  label="From">{ticket.email}</Descriptions.Item>
-                <Descriptions.Item label="Subject">{ticket.subject}</Descriptions.Item>
-                <Descriptions.Item label="Status">{ticket.status}</Descriptions.Item>
-                <Descriptions.Item label="Description">{ticket.text}</Descriptions.Item>
+                <Descriptions.Item style={{textAlign:"center"}} label="From">{ticket.email}</Descriptions.Item>
+                <Descriptions.Item style={{textAlign:"center"}} label="Subject">{ticket.subject}</Descriptions.Item>
+                <Descriptions.Item style={{textAlign:"center"}} label="Status">{ticket.status}</Descriptions.Item>
+                <Descriptions.Item style={{textAlign:"center"}} label="Description">{ticket.text}</Descriptions.Item>
             </Descriptions>
             <Divider>Reply</Divider>
             <form>

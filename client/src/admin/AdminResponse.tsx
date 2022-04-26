@@ -31,7 +31,7 @@ const data = [
     },
     {
         ticketID: "2",
-        subject: "Lorem ipsum dolor 2",
+        subject: "Lorem ipsum dolor 2 Lorem ipsum dolor 2 Lorem ipsum dolor 2",
         status:"Opened",
         text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -73,7 +73,7 @@ export const AdminResponse: FC = () => {
     ) as boolean;
     const columns = [
         {
-            title: "ticketID",
+            title: "Ticket #",
             dataIndex: "ticketID",
             key: "ticketID"
         },
