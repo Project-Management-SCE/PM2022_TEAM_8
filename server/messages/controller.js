@@ -1,4 +1,5 @@
 const messageService = require('./service');
+
 class messageController {
 
     async sendMessage(req, res, next) {
