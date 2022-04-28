@@ -128,15 +128,7 @@ class AuthController {
             next(err);
         }
     }
-    async sendReply(req, res, next) {
-        try {
-            const { email, body } = req.body
-            const msg = await authService.sendReply(email, body)
-            res.json(msg)
-        } catch (err) {
-            next(err);
-        }
-    }
+
 }
 
 module.exports = new AuthController()

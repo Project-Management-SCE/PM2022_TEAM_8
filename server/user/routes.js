@@ -29,5 +29,6 @@ router.put("/update",auth,userController.updateUser);
 router.patch("/update-password",auth,userController.updatePassword);
 router.post("/reset-password",verifyRecover,userController.recoverPassword);
 router.post("/recover-token",userController.getRecoverToken);
-router.post('/send-reply',userController.sendReply)
+
+
 module.exports = router

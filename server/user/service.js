@@ -141,18 +141,13 @@ class AuthService {
         await mailer.sendMail(email, "Password recovery W2W", token)
         return "Mail with instructions sent"
     }
-    async sendReply(email, body) {
-        await mailer.sendResponse(email, body)
-        return "Reply sent"
-    }
+
     async checkBlocked(email){
         const user = await User.findOne({ email });
         if (!user) {
             throw ApiError.BadRequest("User does not exist")
         }
-
     }
-
 }
 
 module.exports = new AuthService();
