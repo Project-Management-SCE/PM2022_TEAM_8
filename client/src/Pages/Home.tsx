@@ -53,7 +53,7 @@ const Home = () => {
       <div className="category-container">
         <div className="category-row">
           <span className="category-header">Movies</span>
-          <NavLink to="movies" className="see-all">
+          <NavLink to="movies/1" className="see-all">
             <button>See All</button>
           </NavLink>
         </div>
@@ -79,7 +79,7 @@ const Home = () => {
         </div>
         <div className="category-row">
           <span className="category-header">Series</span>
-          <NavLink to="series" className="see-all">
+          <NavLink to="series/1" className="see-all">
             <button>See All</button>
           </NavLink>
         </div>

@@ -121,6 +121,7 @@ export interface MovieGenresResponse{
 export interface MovieGenres{
    id: number,
    name: string
+   checked:false | true;
 }
 export interface UpcomingMoviesSearchResponse{
    page: number;

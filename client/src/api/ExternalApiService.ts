@@ -1,4 +1,3 @@
-import env from "react-dotenv";
 import {
     UpcomingMoviesResponse,
     PopularTVshowsResponse,
@@ -10,11 +9,12 @@ import {
     UpcomingMoviesSearchResponse,
 } from "./ExternalApiResponseTypes";
 import axios, {AxiosResponse} from "axios";
-
+const TMDB_URL = "https://api.themoviedb.org/3";
+const API_KEY = "5dcf7f28a88be0edc01bbbde06f024ab"
 export default class ExternalApiService {
     static async getUpcomingMovies(page = 1){
         return axios({
-            url: env.TMDB + `/movie/upcoming?api_key=${env.API_KEY}&language=en-US&page=${page}`,
+            url: `${TMDB_URL}/movie/upcoming?api_key=${API_KEY}&language=en-US&page=${page}`,
             method: 'GET',
             responseType: 'json',
         })
@@ -25,7 +25,7 @@ export default class ExternalApiService {
     }
      static async getUpcomingMoviesSearch(query: string){
         return axios({
-            url: env.TMDB + `/search/movie?api_key=${env.API_KEY}&language=en-US&query=${query}&page=${1}&include_adult=false`,
+            url: `${TMDB_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=${1}&include_adult=false`,
             method: 'GET',
             responseType: 'json',
         })
@@ -36,7 +36,7 @@ export default class ExternalApiService {
     }
     static async getPopularTVshows(page = 1) {
         return axios({
-            url: env.TMDB + `/tv/popular?api_key=${env.API_KEY}&language=en-US&page=${page}`,
+            url:`${TMDB_URL}/tv/popular?api_key=${API_KEY}&language=en-US&page=${page}`,
             method: 'GET',
             responseType: 'json',
         })
@@ -47,7 +47,7 @@ export default class ExternalApiService {
     }
     static async getTopRatedMovies(page = 1){
         return axios({
-            url: env.TMDB + `/movie/top_rated?api_key=${env.API_KEY}&language=en-US&page=${page}`,
+            url: `${TMDB_URL}/movie/top_rated?api_key=${API_KEY}&language=en-US&page=${page}`,
             method: 'GET',
             responseType: 'json',
         })
@@ -59,7 +59,7 @@ export default class ExternalApiService {
 
     static async getMovieGenres(){
         return axios({
-            url: env.TMDB + `/genre/movie/list?api_key=${env.API_KEY}&language=en-US`,
+            url: `${TMDB_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`,
             method: 'GET',
             responseType: 'json',
         })
@@ -70,7 +70,7 @@ export default class ExternalApiService {
     }
     static async getMovieDetails(id :string){
         return axios({
-            url: env.TMDB + `/movie/${id}?api_key=${env.API_KEY}&language=en-US`,
+            url:`${TMDB_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`,
             method: 'GET',
             responseType: 'json',
         })
@@ -81,7 +81,7 @@ export default class ExternalApiService {
     }
     static async getMovieVideos(id :string){
         return axios({
-            url: env.TMDB + `/movie/${id}/videos?api_key=${env.API_KEY}&language=en-US`,
+            url:`${TMDB_URL}/movie/${id}/videos?api_key=${API_KEY}&language=en-US`,
             method: 'GET',
             responseType: 'json',
         })

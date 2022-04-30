@@ -1,0 +1,28 @@
+.extended-search-container{
+  display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    background-color: #171717;
+}
+.text-decor{
+    color: white;
+    filter: drop-shadow(0 0 0.20rem white);
+}
+
+.left {
+    width: 15rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    background-color: #323232;
+    padding-top: 2rem;
+    min-height: 100vh;
+    border-radius: 10px;
+    border-right: 1px solid #d93939;
+    padding-bottom: 2rem;
+}
+.type-select{
+    border: 1px solid #d93939;
+}

@@ -16,6 +16,8 @@ import { ChangePassword } from "../Pages/ChangePassword";
 import RegisterAdmin from "../admin/RegisterAdmin";
 import { AdminResponse } from "../admin/AdminResponse";
 import SearchResults from "../Pages/SearchResults";
+import TvShow from "../Pages/TVShow";
+import ExtendedSearch from "../Pages/ExtendedSearch";
 
 
 export interface IRoute {
@@ -27,8 +29,8 @@ export enum RouteNames {
     REGISTER = '/register',
     HOME = '/',
     LOGIN = '/login',
-    MOVIES = '/movies',
-    SERIES = '/series',
+    MOVIES = '/movies/:pageNumber',
+    SERIES = '/series/:pageNumber',
     USERPROFILE = '/user_profile',
     WATCHLIST = '/user_profile/watch_list',
     USERREVIEWS = '/user_profile/user_reviews',
@@ -40,7 +42,9 @@ export enum RouteNames {
     MOVIE = '/movie/:id',
     RECOVERPASSWORD = '/recover_password',
     RESETPASSWORD = '/reset-password/:token',
-    SEARCH = '/search/:query'
+    SEARCH = '/search/:query',
+    TVSHOW = '/tv-show/:id',
+    EXTENDEDSEARCH = '/extended-search/*'
 }
 
 
@@ -59,12 +63,14 @@ export const publicRoutes: IRoute[] = [
 export const userRoutes: IRoute[] = [
     {path: RouteNames.HOME,  element: Home},
     {path: RouteNames.MOVIE,  element: Movie},
+    {path: RouteNames.TVSHOW,  element: TvShow},
     {path: RouteNames.MOVIES,  element: Movies},
     {path: RouteNames.SERIES,  element: Series},
     {path: RouteNames.USERPROFILE,  element: UserProfile},
     {path: RouteNames.USERREVIEWS,  element: UserReviews},
     {path: RouteNames.WATCHLIST,  element: WatchList},
     { path: RouteNames.SEARCH, element: SearchResults },
+    { path: RouteNames.EXTENDEDSEARCH, element: ExtendedSearch },
 ]
 export const adminRoutes: IRoute[] = [
     {path: RouteNames.REVIEWSLIST,  element: ReviewsList},
