@@ -3,24 +3,7 @@
     background-color: #171717;
     min-height: 100vh;
 }
-.pagination-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2rem;
-    padding-bottom: 2rem;
-}
-.pagination-item {
-    padding: 0.5rem 1.2rem;
-    border: 2px solid #ff0000;
-    color: #fff;
-    background-color: #171717;
-    cursor: pointer;
-}
-.pagination-item:hover {
-    background-color: #323232;
-    color: #fff;
-}
+
 
 
 .movies-container h1,

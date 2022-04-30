@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {Pagination} from "antd";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBackward, faChevronLeft, faChevronRight, faForward} from "@fortawesome/free-solid-svg-icons";
-
+import "../Style/MyPagination.css";
 interface props {
     page: number;
     total: number;
