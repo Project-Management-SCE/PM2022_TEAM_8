@@ -44,7 +44,8 @@ export enum RouteNames {
     RESETPASSWORD = '/reset-password/:token',
     SEARCH = '/search/:query',
     TVSHOW = '/tv-show/:id',
-    EXTENDEDSEARCH = '/extended-search/*'
+    EXTENDEDSEARCH = '/extended-search/',
+    EXTENDEDSEARCHQUERY = '/extended-search/:query'
 }
 
 
@@ -71,6 +72,7 @@ export const userRoutes: IRoute[] = [
     {path: RouteNames.WATCHLIST,  element: WatchList},
     { path: RouteNames.SEARCH, element: SearchResults },
     { path: RouteNames.EXTENDEDSEARCH, element: ExtendedSearch },
+    { path: RouteNames.EXTENDEDSEARCHQUERY, element: ExtendedSearch },
 ]
 export const adminRoutes: IRoute[] = [
     {path: RouteNames.REVIEWSLIST,  element: ReviewsList},

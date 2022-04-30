@@ -2,12 +2,12 @@ import React, {FC} from 'react';
 import {ButtonGroup, ToggleButton} from "react-bootstrap";
 import {Collapse, DatePicker, Divider} from "antd";
 import {CaretRightOutlined} from "@ant-design/icons";
-import {MovieGenres} from "../api/ExternalApiResponseTypes";
+import {Genres} from "../api/ExternalApiResponseTypes";
 
 interface props{
     searchType:string;
     setSearchType:any;
-    genres:MovieGenres[]
+    genres:Genres[]
     setGenres:any;
 }
 const ExtendedSearchMenu:FC<props> = ({searchType,setGenres,setSearchType,genres}) => {

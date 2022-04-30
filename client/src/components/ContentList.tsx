@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {PopularTVshows, UpcomingMovie} from "../api/ExternalApiResponseTypes";
 import {Link} from "react-router-dom";
-import { Result } from 'antd';
+import {List, Result} from 'antd';
 
 interface Props {
     items: UpcomingMovie[] | PopularTVshows[];
@@ -23,57 +23,50 @@ const ContentList: FC<Props> = ({items, NoDataElement}) => {
         return type;
     }
     return (
-        <>
-            {items.length > 0 ?
-                items.map(movie =>
-                    movie.overview.length >= 100 ?
-                        <div className="col-md-4" key={movie.id}>
+            <List<UpcomingMovie | PopularTVshows>
+                grid={{
+                    gutter: 0,
+                    xs: 1,
+                }}
+                dataSource={items}
+
+                renderItem={movie=> (
+                    <List.Item>
                             <div className="card">
-                                 <Link style={{textDecoration:"none"}} to={`/${getType(movie).type}/${movie.id}`}>
+                                <Link style={{textDecoration:"none"}} to={`/${getType(movie).type}/${movie.id}`}>
                                     {
                                         movie.poster_path? <img
-                                        className="card-img-top"
-                                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                                        alt="Card image cap"
-                                        />
+                                                className="card-img-top"
+                                                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                                                alt="Card image cap"
+                                            />
                                             :
-                                        <Result
-                                        status="warning"
-                                        title="There is no poster for this movie yet!!!"
+                                            <Result
+                                                status="warning"
+                                                title="There is no poster for this movie yet!!!"
 
-                                       />
+                                            />
                                     }
-                                    </Link>
+                                </Link>
                                 <div className="card-body">
                                     <h5 className="card-title">
                                         {getType(movie).title}
                                     </h5>
-                                    <p className="card-text">{movie.overview.slice(0, 100) + "..."}</p>
+                                    <p className="card-text">{
+                                        movie.overview.length > 100 ?
+                                            movie.overview.substring(0, 100) + '...'
+                                            : movie.overview
+                                        }</p>
                                 </div>
                             </div>
-                        </div>
-                        :
-                        <div className="col-md-4" key={movie.id}>
-                            <div className="card">
-                                <Link to={`/movie/${movie.id}`}>
-                                    <img
-                                        className="card-img-top"
-                                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                                        alt="Card image cap"
-                                    />
-                                </Link>
-                                <div className="card-body">
-                                    <h5 className="card-title">
-                                        {'title' in movie ?  movie.title:movie.name}
-                                    </h5>
-                                    <p className="card-text">{movie.overview}</p>
-                                </div>
-                            </div>
-                        </div>)
-                :
-                <NoDataElement/>
-            }
-        </>
+                    </List.Item>
+                )}
+                style={{
+                    marginTop: '20px',
+                    marginBottom: '50px',
+                }}
+            >
+            </List>
     );
 };
 

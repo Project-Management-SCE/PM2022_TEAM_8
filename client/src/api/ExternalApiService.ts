@@ -2,7 +2,7 @@ import {
     UpcomingMoviesResponse,
     PopularTVshowsResponse,
     TopRatedMoviesResponse,
-    MovieGenresResponse,
+    GenresResponse,
     MovieDetails,
     MovieVideos,
     MovieVideosResponse,
@@ -23,9 +23,9 @@ export default class ExternalApiService {
             })
 
     }
-     static async getUpcomingMoviesSearch(query: string){
+     static async getUpcomingMoviesSearch(query: string,page = 1){
         return axios({
-            url: `${TMDB_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=${1}&include_adult=false`,
+            url: `${TMDB_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`,
             method: 'GET',
             responseType: 'json',
         })
@@ -63,7 +63,18 @@ export default class ExternalApiService {
             method: 'GET',
             responseType: 'json',
         })
-            .then((response:AxiosResponse<MovieGenresResponse>) => {
+            .then((response:AxiosResponse<GenresResponse>) => {
+                return response.data;
+            })
+
+    }
+    static async getTVGenres(){
+        return axios({
+            url: `${TMDB_URL}/genre/tv/list?api_key=${API_KEY}&language=en-US`,
+            method: 'GET',
+            responseType: 'json',
+        })
+            .then((response:AxiosResponse<GenresResponse>) => {
                 return response.data;
             })
 

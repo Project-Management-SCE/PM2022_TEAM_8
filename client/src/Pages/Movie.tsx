@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import {
   MovieDetails,
-  MovieGenres,
+  Genres,
   MovieVideos,
 } from "../api/ExternalApiResponseTypes";
 import ExternalApiService from "../api/ExternalApiService";
@@ -67,7 +67,7 @@ const Movie: FC = () => {
   //TODO: change implementation of genres ids
   const addToWatchList = (
     id: number,
-    genre_ids: MovieGenres[],
+    genre_ids: Genres[],
     overview: string,
     poster_path: string,
     release_date: string,

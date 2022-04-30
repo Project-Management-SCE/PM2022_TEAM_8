@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { MovieGenres } from "../api/ExternalApiResponseTypes";
+import { Genres } from "../api/ExternalApiResponseTypes";
 import ExternalApiService from "../api/ExternalApiService";
 import "../Style/genresList.css";
 export const GenresList = () => {
-  const [genres, setGenres] = useState<MovieGenres[]>([]);
+  const [genres, setGenres] = useState<Genres[]>([]);
 
   useEffect(() => {
     try {
       ExternalApiService.getMovieGenres().then((response) => {
-        setGenres(response.genres as unknown as MovieGenres[]);
+        setGenres(response.genres as unknown as Genres[]);
       });
     } catch (e) {
       console.log(e);

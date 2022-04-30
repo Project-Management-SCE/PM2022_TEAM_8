@@ -4,7 +4,6 @@ import UserService from "../../api/internalAPI/userApi";
 import { appActions } from "./app-reducer";
 import { authActions } from "./auth-reducer";
 import AuthService from "../../api/internalAPI/authApi";
-import { MovieGenres } from "../../api/ExternalApiResponseTypes";
 
 let initialState = {
   isLoading: false,

@@ -80,7 +80,7 @@ export interface MovieDetails{
    backdrop_path: string;
    belongs_to_collection: null;
    budget: number;
-   genres: MovieGenres[];
+   genres: Genres[];
    homepage: string;
    id: number;
    imdb_id: string;
@@ -115,14 +115,15 @@ export interface MovieVideos {
    published_at: string;
    id: string;
 }
-export interface MovieGenresResponse{
-   genres: object[]
+export interface GenresResponse{
+   genres: Genres[]
 }
-export interface MovieGenres{
-   id: number,
-   name: string
+export interface Genres{
+   id: number;
+   name: string;
    checked:false | true;
 }
+
 export interface UpcomingMoviesSearchResponse{
    page: number;
    results: UpcomingMovie[];
