@@ -5,11 +5,14 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import "../Style/Movies.css";
 import ContentList from "../components/ContentList";
 import MyPagination from "../components/MyPagination";
+import {useNavigate, useParams} from "react-router-dom";
 
 const Series = () => {
   const [series, setSeries] = React.useState<PopularTVshows[]>([]);
-  const [page, setPage] = React.useState<number>(1);
   const [totalPages, setTotalPages] = React.useState<number>(1);
+  const nav = useNavigate();
+  const {pageNumber}= useParams()
+  const page = pageNumber ? parseInt(pageNumber) : 1;
   useEffect(() => {
     try {
       ExternalApiService.getPopularTVshows(page).then((response) => {
@@ -26,7 +29,7 @@ const Series = () => {
       <div className="row">
         <ContentList items={series} NoDataElement={LoadingSpinner}/>
       </div>
-      <MyPagination page={page} total={totalPages} onChange={(page)=>setPage(page)}/>
+      <MyPagination page={page} total={totalPages}  onChange={(page)=>nav(`/series/${page}`)}/>
     </div>
   );
 };

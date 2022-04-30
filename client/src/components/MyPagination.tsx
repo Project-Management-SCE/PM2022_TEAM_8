@@ -8,10 +8,13 @@ interface props {
     total: number;
     onChange: (page: number) => void;
 }
+const MAX_PAGE_NUMBER = 500;
+const ITEMS_PER_PAGE = 20;
 const MyPagination:FC<props>= ({page,onChange,total}) => {
+    const totalItems = total*ITEMS_PER_PAGE > MAX_PAGE_NUMBER*ITEMS_PER_PAGE ? MAX_PAGE_NUMBER*ITEMS_PER_PAGE : total*ITEMS_PER_PAGE;
     return (
         <div className="pagination-container">
-            <Pagination current={page} total={total*20} onChange={onChange } pageSize={20}
+            <Pagination current={page} total={totalItems} onChange={onChange } pageSize={ITEMS_PER_PAGE}
                         itemRender={(current, type, originalElement) => {
                             if (type === 'prev') {
                                 return <FontAwesomeIcon className="fa-icon" icon={faChevronLeft} />
