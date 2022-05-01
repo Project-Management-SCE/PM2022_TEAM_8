@@ -6,7 +6,7 @@ import {
     MovieDetails,
     MovieVideos,
     MovieVideosResponse,
-    UpcomingMoviesSearchResponse,
+    UpcomingMoviesSearchResponse, TrendingResponse,
 } from "./ExternalApiResponseTypes";
 import axios, {AxiosResponse} from "axios";
 const TMDB_URL = "https://api.themoviedb.org/3";
@@ -100,5 +100,15 @@ export default class ExternalApiService {
                 return response.data;
             })
 
+    }
+    static async getTrending(){
+        return axios({
+            url:`${TMDB_URL}/trending/all/day?api_key=${API_KEY}`,
+            method: 'GET',
+            responseType: 'json',
+        })
+            .then((response:AxiosResponse<TrendingResponse>) => {
+                return response.data;
+            })
     }
 }

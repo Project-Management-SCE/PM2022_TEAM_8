@@ -130,3 +130,9 @@ export interface UpcomingMoviesSearchResponse{
    total_pages: number;
    total_results: number;
 }
+export interface TrendingResponse{
+   page: number;
+   results: UpcomingMovie[];
+   total_pages: number;
+   total_results: number;
+}

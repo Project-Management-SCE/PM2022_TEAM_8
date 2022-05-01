@@ -26,6 +26,7 @@ const Series = () => {
   return (
     <div className="movies-container">
       <h1>Series</h1>
+      <MyPagination page={page} total={totalPages}  onChange={(page)=>nav(`/movies/${page}`)}/>
       <div className="row">
         <ContentList items={series} NoDataElement={LoadingSpinner}/>
       </div>

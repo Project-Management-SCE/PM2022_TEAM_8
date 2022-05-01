@@ -26,6 +26,7 @@ const Movies: FC = () => {
     <div className="movies-container">
       <h1>Movies</h1>
       <h3>Upcoming Movies</h3>
+      <MyPagination page={page} total={totalPages}  onChange={(page)=>nav(`/movies/${page}`)}/>
       <div className="row">
           <ContentList items={movies} NoDataElement={NoResults}/>
       </div>
