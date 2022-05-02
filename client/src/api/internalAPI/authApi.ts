@@ -10,6 +10,9 @@ export default class AuthService {
     static async register(email: string, password: string,firstName:string,lastName:string,phone:string,address:string){
         return $api.post<AuthResponse>('/user/register', {email, password,firstName,lastName,phone,address}).then(res => res.data)
     }
+    static async registerAdmin(email: string, password: string){
+        return $api.post<ActionResponse>('/user/register-admin', {email, password}).then(res => res.data)
+    }
     static async me(){
         return $api.get<AuthMeResponse>('/user/me').then(res => res.data)
     }

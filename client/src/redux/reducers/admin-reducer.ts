@@ -4,6 +4,8 @@ import UserService from "../../api/internalAPI/userApi";
 import {appActions} from "./app-reducer";
 import MessageService from "../../api/internalAPI/messageApi";
 import {Message} from "../../admin/AdminResponse";
+import AuthService from "../../api/internalAPI/authApi";
+import {getAuthUserData} from "./auth-reducer";
 
 let initialState = {
     users:[] as IUser[],
@@ -96,6 +98,16 @@ export const banUser = (email:string,date:Date): ThunkType => async (dispatch) =
         dispatch(appActions.setError(msg))
     }finally {
         dispatch(adminActions.setLoading(false))
+    }
+
+}
+export const registerAdmin = (email: string, password: string): ThunkType => async (dispatch) => {
+    try {
+        await AuthService.registerAdmin(email, password);
+        dispatch(appActions.setSuccess(`Registration successful`))
+    }catch (e:any) {
+        const msg = e.response?.data?.message || 'Unknown registration error'
+        dispatch(appActions.setError(msg))
     }
 
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../Style/registerStyle.css";
 import {useDispatch} from "react-redux";
+import {registerAdmin} from "../redux/reducers/admin-reducer";
 
 const RegisterAdmin = () => {
     const dispatch = useDispatch()
@@ -19,7 +20,7 @@ const RegisterAdmin = () => {
     const on_submit = async (e: any) => {
         e.preventDefault();
         if(registerForm.email !== "" && registerForm.password !==  ""){
-         //   dispatch(registerAdmin(email,password))
+            dispatch(registerAdmin(registerForm.email,registerForm.password))
         }
     };
     return (
