@@ -22,8 +22,8 @@ class AuthController {
                 return next(ApiError.BadRequest('Validation Error', errors.array()))
             }
             const { email, password} = req.body;
-            const token = await authService.registerAdmin(email, password);
-            res.json({ accessToken: token });
+            await authService.registerAdmin(email, password);
+            res.json( 'Registration successful! ');
         } catch (err) {
             next(err)
         }

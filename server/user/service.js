@@ -50,7 +50,7 @@ class AuthService {
                 password: encryptedPassword,
                 address,
                 phone,
-                userType: "User"
+                type: "User"
             })
         await newUser.save()
         return this.signToken(newUser,"User");
@@ -61,10 +61,9 @@ class AuthService {
             {
                 email,
                 password: encryptedPassword,
-                userType: "Admin"
+                type: "Admin"
             })
         await newUser.save()
-        return this.signToken(newUser,"Admin");
     }
 
     async me(email,type) {
