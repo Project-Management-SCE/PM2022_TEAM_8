@@ -2,14 +2,19 @@ import {BaseThunkType, InferActionsTypes} from '../Store';
 import {IUser} from "../../api/internalAPI/internalApiTypes";
 import UserService from "../../api/internalAPI/userApi";
 import {appActions} from "./app-reducer";
+import MessageService from "../../api/internalAPI/messageApi";
+import {Message} from "../../admin/AdminResponse";
 
 let initialState = {
     users:[] as IUser[],
+    messages:[] as Message[],
     isFetching: false,
 };
 
 export enum UserActions {
     SET_USERS_DATA,
+    SET_MESSAGES_DATA,
+    UPDATE_MESSAGE,
     DELETE_USER,
     SET_LOADING,
     SET_BANNED_USER,
@@ -18,6 +23,7 @@ export enum UserActions {
 const adminReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case UserActions.SET_USERS_DATA:
+        case UserActions.SET_MESSAGES_DATA:
         case UserActions.SET_LOADING:
             return {
                 ...state,
@@ -33,10 +39,16 @@ const adminReducer = (state: InitialStateType = initialState, action: ActionsTyp
                 ...state,
                 users: state.users.map(user => user.email === action.payload.email? {...user, isBlocked: true}: user)
             }
+
         case UserActions.SET_UNBANNED_USER:
             return {
                 ...state,
                 users: state.users.map(user => user.email === action.payload.email? {...user, isBlocked: false}: user)
+            }
+        case UserActions.UPDATE_MESSAGE:
+            return{
+                ...state,
+                messages: state.messages.map(message => message.ticketID === action.payload.ticketID? { ...message, status: action.payload.status}: message)
             }
         default:
             return state;
@@ -46,6 +58,14 @@ export const adminActions = {
     setUsersData: (users:IUser[]) => ({
         type: UserActions.SET_USERS_DATA,
         payload: {users}
+    } as const),
+    setMessagesData: (messages:Message[]) => ({
+        type: UserActions.SET_MESSAGES_DATA,
+        payload: {messages}
+    } as const),
+    updateMessage: (status:string,ticketID:string) => ({
+        type: UserActions.UPDATE_MESSAGE,
+        payload: {status,ticketID}
     } as const),
     setBannedUser: (email:string) => ({
         type: UserActions.SET_BANNED_USER,
@@ -62,7 +82,7 @@ export const adminActions = {
     deleteUser: (email:string) => ({
         type: UserActions.DELETE_USER,
         payload: {email}
-    })
+    } as const)
 }
 
 export const banUser = (email:string,date:Date): ThunkType => async (dispatch) => {
@@ -119,6 +139,33 @@ export const getUsers = (): ThunkType => async (dispatch) => {
         dispatch(adminActions.setLoading(false))
     }
 
+}
+export const getMessages = (): ThunkType => async (dispatch) => {
+    try {
+        dispatch(adminActions.setLoading(true))
+        const data = await MessageService.getMessages()
+        dispatch(adminActions.setMessagesData(data.messages))
+    } catch (e: any) {
+        const msg = e.response?.data?.message || 'Error fetching messages'
+        dispatch(appActions.setError(msg))
+    }finally {
+        dispatch(adminActions.setLoading(false))
+    }
+}
+export const sendReply = (email:string,text:string,id:string): ThunkType => async (dispatch) => {
+    try {
+        dispatch(adminActions.setLoading(true))
+        await MessageService.sendReply(email,text)
+        await MessageService.markClosed(id)
+        dispatch(adminActions.updateMessage('closed',id))
+        dispatch(appActions.setSuccess(`Reply sent!\n Message marked as closed`))
+
+    } catch (e: any) {
+        const msg = e.response?.data?.message || 'Error sending reply!'
+        dispatch(appActions.setError(msg))
+    }finally {
+        dispatch(adminActions.setLoading(false))
+    }
 }
 export type InitialStateType = typeof initialState
 type ActionsType = InferActionsTypes<typeof adminActions | typeof appActions>

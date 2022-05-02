@@ -4,6 +4,7 @@ import authReducer from "./reducers/auth-reducer";
 import appReducer from "./reducers/app-reducer";
 import userReducer from "./reducers/user-reducer";
 import adminReducer from "./reducers/admin-reducer";
+import messageReducer from "./reducers/message-reducer";
 
 
 
@@ -11,7 +12,8 @@ let rootReducer = combineReducers({
     app:appReducer,
     auth: authReducer,
     user:userReducer,
-    admin:adminReducer
+    admin:adminReducer,
+    message:messageReducer
 })
 
 type RootReducerType = typeof rootReducer;

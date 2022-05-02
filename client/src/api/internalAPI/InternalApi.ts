@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {IUser} from "./internalApiTypes";
+import {Message} from "../../admin/AdminResponse";
 export const API_URL = `http://localhost:3001/api`
 
 const $api = axios.create({
@@ -16,6 +17,9 @@ export interface ActionResponse extends Response{
 }
 export interface UsersResponse {
     users: IUser[]
+}
+export interface MessagesResponse {
+    messages: Message[]
 }
 export interface AuthResponse extends Response{
     accessToken?: string

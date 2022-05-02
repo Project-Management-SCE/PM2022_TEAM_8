@@ -1,6 +1,7 @@
 import React, {FC, useState } from "react";
 import "../Style/registerStyle.css";
 import {useDispatch} from "react-redux";
+import {sendMessage} from "../redux/reducers/message-reducer";
 
 export const ContactUs:FC = () => {
     const dispatch = useDispatch()
@@ -10,9 +11,8 @@ export const ContactUs:FC = () => {
     function onFinish (e:any) {
         e.preventDefault();
         if(email !=="" && subject !=="" && text !==""){
-
+            dispatch(sendMessage(email,subject,text));
         }
-
     }
     return (
         <div className="container">
