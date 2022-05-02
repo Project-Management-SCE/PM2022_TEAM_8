@@ -18,12 +18,12 @@ import {
 import Moment from "moment";
 import "../Style/movieCard.css";
 import { useParams } from "react-router-dom";
-import {Modal, Result} from "antd";
+import { Modal, Result } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../redux/Store";
 import { IUser } from "../api/internalAPI/internalApiTypes";
 import { addToWatch } from "../redux/reducers/user-reducer";
-
+//
 const Movie: FC = () => {
   const dispatch = useDispatch();
   let array: number[] = [];
@@ -89,7 +89,9 @@ const Movie: FC = () => {
   return (
     <div
       style={{
-        backgroundImage: movie ? `url(https://image.tmdb.org/t/p/w500${movie?.poster_path})`: "",
+        backgroundImage: movie
+          ? `url(https://image.tmdb.org/t/p/w500${movie?.poster_path})`
+          : "",
         backgroundPosition: "center",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
@@ -127,19 +129,18 @@ const Movie: FC = () => {
             </Modal>
           )}
           <div className="movie-card">
-            {
-              movie.poster_path? <img
-                      className="card-img-top"
-                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                      alt="Card image cap"
-                  />
-                  :
-                  <Result
-                      status="warning"
-                      title="There is no poster for this movie yet!!!"
-
-                  />
-            }
+            {movie.poster_path ? (
+              <img
+                className="card-img-top"
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt="Card image cap"
+              />
+            ) : (
+              <Result
+                status="warning"
+                title="There is no poster for this movie yet!!!"
+              />
+            )}
             <div className="card-body">
               <h4 className="card-title">{movie.title}</h4>
               <div className="movie-likes">
