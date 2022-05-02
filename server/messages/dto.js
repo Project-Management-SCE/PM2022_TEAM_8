@@ -1,11 +1,13 @@
 module.exports = class MessageDto {
+    ticketID;
     email;
-    topic
+    subject;
     text;
     status;
-    constructor(email,topic,text,status) {
-        this.topic = topic;
+    constructor(ticketID,email,subject,text,status) {
+        this.ticketID = ticketID;
         this.email = email;
+        this.subject = subject;
         this.text = text;
         this.status = status;
     }

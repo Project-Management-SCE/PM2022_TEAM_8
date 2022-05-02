@@ -44,7 +44,7 @@ class Mailer{
             }
         })
     }
-    static async sendResponse(email, body) {
+    static async sendResponse(email, text) {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -56,7 +56,7 @@ class Mailer{
         const source = fs.readFileSync(filePath, 'utf-8').toString();
         const template = handlebars.compile(source);
         const replacements = {
-            body: body
+            body: text
         };
         const htmlToSend = template(replacements);
         const mailOptions = {
@@ -72,7 +72,7 @@ class Mailer{
                 }
             ]
         };
-        await transporter.sendResponse(mailOptions,error=>{
+        await transporter.sendMail(mailOptions,error=>{
             if (error){
                 return console.log(error);
             }

@@ -32,7 +32,6 @@ export const AdminResponse: FC = () => {
     useEffect(() => {
         dispatch(getMessages());
     }, []);
-    console.log(messages);
     const isFetching = useSelector(
         (state: AppStateType) => state.admin.isFetching
     ) as boolean;

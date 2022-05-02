@@ -4,8 +4,8 @@ class messageController {
 
     async sendMessage(req, res, next) {
         try {
-            const {topic,email,text} = req.body;
-            await messageService.sendMessage(topic,email,text);
+            const {email,subject,text} = req.body;
+            await messageService.sendMessage(email,subject,text);
             res.json("Submitted request successfully")
         } catch (err) {
             next(err)
@@ -13,8 +13,8 @@ class messageController {
     }
     async sendReply(req, res, next) {
         try {
-            const { email, body } = req.body
-            const msg = await messageService.sendReply(email, body)
+            const { email, text } = req.body
+            const msg = await messageService.sendReply(email, text)
             res.json(msg)
         } catch (err) {
             next(err);

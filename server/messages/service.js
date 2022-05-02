@@ -4,33 +4,33 @@ const ApiError = require("../exceptions/api-error");
 const MessageDto = require("./dto");
 
 class MessageService {
-    async sendMessage(topic,email,text) {
+    async sendMessage(email,subject,text) {
         const newMessage = await new Message(
              {
                 email,
-                topic,
+                subject,
                 text
             })
         await newMessage.save()
         return 'Success'
     }
-    async sendReply(email, body) {
-        await mailer.sendResponse(email, body)
+    async sendReply(email, text) {
+        await mailer.sendResponse(email, text)
         return "Reply sent"
     }
 
     async markClosed(id) {
-        const movie = await Message.findOne({ _id:id });
-        if (!movie) {
+        const message = await Message.findOne({ _id:id });
+        if (!message) {
             throw ApiError.BadRequest("Could not find the request!")
         }
-        movie.status = 'closed';
-        await movie.save()
+        message.status = 'closed';
+        await message.save()
         return "Request closed"
     }
     async getMessages() {
         const messages = await Message.find({type:"Message"})
-        return messages.map(message => new MessageDto(message._id,message.topic,message.email, message.text))
+        return messages.map(message => new MessageDto(message._id,message.email,message.subject, message.text,message.status))
     }
 }
 
