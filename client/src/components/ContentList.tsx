@@ -29,7 +29,7 @@ const ContentList: FC<Props> = ({items, NoDataElement}) => {
                     xs: 1,
                 }}
                 dataSource={items}
-
+                locale={{emptyText: <NoDataElement/>}}
                 renderItem={movie=> (
                     <List.Item>
                             <div className="card">

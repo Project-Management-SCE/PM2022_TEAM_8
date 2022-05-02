@@ -9,7 +9,11 @@
     color: white;
     filter: drop-shadow(0 0 0.20rem white);
 }
-
+.ant-empty-description{
+    font-size: 2.2rem;
+    color: white;
+    filter: drop-shadow(0 0 0.20rem white);
+}
 .left {
     width: 250px;
     display: flex;

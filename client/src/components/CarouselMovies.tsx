@@ -10,7 +10,7 @@ const CarouselMovies = () => {
   useEffect(() => {
     try {
       ExternalApiService.getTrending().then((movieResponse) => {
-        setTrending(movieResponse.results.slice(0, 3));
+        setTrending(movieResponse.results.slice(0, 5));
       });
     } catch (e) {
       console.log(e);
@@ -22,23 +22,19 @@ const CarouselMovies = () => {
   };
   return (
       <>
-        {trending.length===3 && <Carousel
+        {trending.length===5 && <Carousel
             activeIndex={index}
             onSelect={handleSelect}
             className="carousel-container"
         >
-          <Carousel.Item >
-            <h3 className="card-title">{trending[0].title}</h3>
-            <img className="carousel-img" src={`https://image.tmdb.org/t/p/w500${trending[0].poster_path}`}  />
-          </Carousel.Item>
-          <Carousel.Item >
-            <h3 className="card-title">{trending[1].title}</h3>
-            <img className="carousel-img" src={`https://image.tmdb.org/t/p/w500${trending[1].poster_path}`}  />
-          </Carousel.Item>
-          <Carousel.Item >
-            <h3 className="card-title">{trending[2].title}</h3>
-            <img className="carousel-img" src={`https://image.tmdb.org/t/p/w500${trending[2].poster_path}`}  />
-          </Carousel.Item>
+          {trending.map((movie, index) => {
+            return (
+                <Carousel.Item key={index}>
+                  <h3 className="card-title">{movie.title}</h3>
+                  <img className="carousel-img" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}  />
+                </Carousel.Item>
+            );
+          })}
         </Carousel>}
       </>
 
