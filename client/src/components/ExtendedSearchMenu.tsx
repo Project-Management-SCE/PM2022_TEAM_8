@@ -6,6 +6,7 @@ import { Genres } from "../api/ExternalApiResponseTypes";
 import { Moment } from "moment";
 import * as moment from "moment";
 
+//
 interface props {
   searchType: string;
   setSearchType: any;
@@ -117,7 +118,6 @@ const ExtendedSearchMenu: FC<props> = ({
         }
       />
       <Button
-
         variant="outline-danger"
         onClick={searchContent}
         style={{ marginTop: "1rem" }}
