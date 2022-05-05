@@ -117,9 +117,11 @@ const ExtendedSearchMenu: FC<props> = ({
         }
       />
       <Button
+
         variant="outline-danger"
         onClick={searchContent}
         style={{ marginTop: "1rem" }}
+        value="Search"
       >
         Search
       </Button>{" "}

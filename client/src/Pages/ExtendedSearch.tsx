@@ -10,7 +10,6 @@ import ExtendedSearchMenu from "../components/ExtendedSearchMenu";
 import Movies from "./Movies";
 import ContentList from "../components/ContentList";
 import NoResults from "../components/NoResults";
-import { useParams } from "react-router-dom";
 import MyPagination from "../components/MyPagination";
 
 const ExtendedSearch = () => {
