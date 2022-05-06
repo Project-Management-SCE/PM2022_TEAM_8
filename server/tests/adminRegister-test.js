@@ -19,6 +19,7 @@ describe('Register Admin', () => {
                     res.should.have.status(200);
                     res.body.should.have.property('Result').have.string('Success');
                     done();
+
                 });
         });
         after(async  () => {
