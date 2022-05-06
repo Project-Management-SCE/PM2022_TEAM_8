@@ -14,7 +14,7 @@ class WatchlistController {
         try {
             const {user,id,genre_ids,overview,poster_path,release_date,title} = req.body;
             await WatchlistService.add(user,id,genre_ids,overview,poster_path,release_date,title);
-            res.json("Watchlist updated successfully")
+            res.json({Result:"Success"});
         } catch (err) {
             next(err)
         }
@@ -24,7 +24,7 @@ class WatchlistController {
         try {
             const {user, id} = req.body;
             await WatchlistService.remove(user, id)
-            res.json("Movie successfully removed from watchlist");
+            res.json({Result:"Success"});
         } catch (err) {
             next(err)
         }

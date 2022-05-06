@@ -16,7 +16,7 @@ class AuthService {
     }
     signToken(user,type) {
         const payload = { user: { id:user._id, email: user.email, type } }
-        return jwt.sign(payload, process.env.TOKEN_KEY, { expiresIn: "48h", });
+        return jwt.sign(payload, process.env.TOKEN_KEY, { expiresIn: "6m", });
     }
     signRecoverToken(user) {
         const payload = { user: { email: user.email, type: "recover" } }

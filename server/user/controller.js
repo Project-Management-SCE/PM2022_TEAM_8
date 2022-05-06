@@ -23,7 +23,7 @@ class AuthController {
             }
             const { email, password} = req.body;
             await authService.registerAdmin(email, password);
-            res.json( 'Registration successful! ');
+            res.json( {Result:'Success'});
         } catch (err) {
             next(err)
         }
