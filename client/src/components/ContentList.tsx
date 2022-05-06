@@ -32,7 +32,7 @@ const ContentList: FC<Props> = ({items, NoDataElement}) => {
                 locale={{emptyText: <NoDataElement/>}}
                 renderItem={movie=> (
                     <List.Item>
-                            <div className="card">
+                            <div className="card" data-testid="movie-div">
                                 <Link style={{textDecoration:"none"}} to={`/${getType(movie).type}/${movie.id}`}>
                                     {
                                         movie.poster_path? <img

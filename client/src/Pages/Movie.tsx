@@ -64,7 +64,6 @@ const Movie: FC = () => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-  //TODO: change implementation of genres ids
   const addToWatchList = (
     id: number,
     genre_ids: Genres[],
@@ -171,6 +170,7 @@ const Movie: FC = () => {
 
                   <FontAwesomeIcon className="fa-icon" icon={faFilm} />
                   <a
+                      data-testid="addTo"
                     onClick={() =>
                       addToWatchList(
                         movie.id,

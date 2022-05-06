@@ -101,7 +101,7 @@ export interface MovieDetails {
 }
 export interface MovieVideosResponse {
   id: number;
-  results: object[];
+  results: MovieVideos[];
 }
 export interface MovieVideos {
   iso_639_: string;
