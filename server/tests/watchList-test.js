@@ -4,7 +4,7 @@ const server = require('../index');
 chai.use(chaiHttp);
 chai.should();
 
-const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjI0YzNlMjU3ZWU2ZmIzYjNiZDAyZjQ3IiwiZW1haWwiOiJhZG1pbkBlbWFpbC5jb20iLCJ0eXBlIjoiVXNlciJ9LCJpYXQiOjE2NTE4NjIxMzcsImV4cCI6MTY1MTg2MjQ5N30.Vq9SVYs78O5KEljbs3fcnwiUmffAePShy_b2ZAVGjFA"
+const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjI0YzNlMjU3ZWU2ZmIzYjNiZDAyZjQ3IiwiZW1haWwiOiJhZG1pbkBlbWFpbC5jb20iLCJ0eXBlIjoiVXNlciJ9LCJpYXQiOjE2NTE4NjMxOTMsImV4cCI6MTY4MzM5OTE5M30.ZiAxMpGzneDHjqBRmr1PiR8fXoTrXA0DLjR2_O3W-bQ"
 describe('Add to watch list', () => {
     describe('/POST Add to watchlist', () => {
         it('it should success with status 200', (done) => {
