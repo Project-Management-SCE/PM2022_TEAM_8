@@ -1,18 +1,18 @@
 
 pipeline {
-    agent {
-                    docker {
-                        image 'cimg/base:stable'
-                        args '-u root'
-                    }
-                }
+  agent none
     stages {
+    agent {
+                        docker {
+                            image 'cimg/base:stable'
+                            args '-u root'
+                        }
+                    }
         stage('Deploy to Heroku') {
             steps {
                sh '''
                                                curl https://cli-assets.heroku.com/install.sh | sh;
                                                heroku git:remote -a w2w-front
-                                              git remote -v
                                                git subtree push --prefix client/ heroku main
               '''
             }
