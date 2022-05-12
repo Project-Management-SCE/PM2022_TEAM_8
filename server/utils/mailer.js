@@ -6,13 +6,21 @@ const path = require('path');
 
 class Mailer{
     static async sendMail(email, subject, token) {
-        const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.EMAIL,
-            pass: process.env.EMAIL_PASSWORD
-        }}
-        );
+        const transporterData = process.env.PRODUCTIOON ?  nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAIL_PASSWORD
+            }
+        }):{
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAIL_PASSWORD
+            }};
+        const transporter = nodemailer.createTransport(transporterData);
         const filePath = path.join(__dirname, './mail-template/index.html');
         const source = fs.readFileSync(filePath, 'utf-8').toString();
         const template = handlebars.compile(source);
@@ -45,13 +53,21 @@ class Mailer{
         })
     }
     static async sendResponse(email, text) {
-        const transporter = nodemailer.createTransport({
+        const transporterData = process.env.PRODUCTIOON ?  nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAIL_PASSWORD
+            }
+        }):{
             service: 'gmail',
             auth: {
                 user: process.env.EMAIL,
                 pass: process.env.EMAIL_PASSWORD
-            }}
-        );
+            }};
+        const transporter = nodemailer.createTransport(transporterData);
         const filePath = path.join(__dirname, './mail-template/reply.html');
         const source = fs.readFileSync(filePath, 'utf-8').toString();
         const template = handlebars.compile(source);
