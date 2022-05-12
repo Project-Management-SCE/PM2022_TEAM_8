@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {IUser} from "./internalApiTypes";
 import {Message} from "../../admin/AdminResponse";
-export const API_URL = `http://localhost:3001/api`
+export const API_URL = process.env.BACK_URL+ "api" || `http://localhost:3001/api`
 
 const $api = axios.create({
     withCredentials: true,

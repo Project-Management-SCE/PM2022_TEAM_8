@@ -11,7 +11,7 @@ const cors = require('cors')
 app.use(express.json())
 app.use(cors({
     credentials: true,
-    origin: process.env.CLIENT_URL
+    origin: process.env.FRONT_URL || "http://localhost:3000"
 }));
 app.use("/api/user", authRoute)
 app.use("/api/messages", messagesRoute)
