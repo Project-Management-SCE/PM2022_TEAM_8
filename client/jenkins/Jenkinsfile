@@ -21,11 +21,11 @@ pipeline {
                 }
              }
              steps {
-                   sh """
+                   sh '''
                    chmod +x -R ${env.WORKSPACE}
-                   './client/jenkins/scripts/testBE.sh'
-                   './client/jenkins/scripts/testFE.sh'
-                   """
+                   ./client/jenkins/scripts/testBE.sh
+                   ./client/jenkins/scripts/testFE.sh
+                   '''
 
              }
         }
