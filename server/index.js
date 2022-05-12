@@ -9,10 +9,7 @@ require('dotenv').config()
 const PORT = process.env.PORT || 3001
 const cors = require('cors')
 app.use(express.json())
-app.use(cors({
-    credentials: true,
-    origin: process.env.FRONT_URL || "http://localhost:3000"
-}));
+app.use(cors())
 app.use("/api/user", authRoute)
 app.use("/api/messages", messagesRoute)
 app.use("/api/watchlist", watchlistRoute)
