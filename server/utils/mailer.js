@@ -11,7 +11,7 @@ class Mailer{
             secure: true,
             auth: {
                 user: process.env.EMAIL,
-                accessToken: process.env.EMAIL_ACCESS_TOKEN
+                accessToken: "ya29.a0ARrdaM8mJ8bPJ7gdlhKYODdWIYN8mAW9KtvxRh0mAB2gT1gHduhGW8YlS6OjM2bIqq1ykrTqiLGjBe6aFGO4lxWHb7q1sepUInIKeoOFu5CjWkQgnD-oAqqH1Sos5e1Y7p1jmogi8OjkFbsFqeVDuniq0YJL"
             }
         }):{
             service: 'gmail',
@@ -25,7 +25,7 @@ class Mailer{
         const source = fs.readFileSync(filePath, 'utf-8').toString();
         const template = handlebars.compile(source);
         const replacements = {
-            link: `http://localhost:3000/reset-password/${token}`
+            link: process.env.PRODUCTIOON ?`https://w2w-front.herokuapp.com//reset-password/${token}`:`http://localhost:3000/reset-password/${token}`
         };
         const htmlToSend = template(replacements);
         const mailOptions = {
@@ -60,7 +60,7 @@ class Mailer{
             auth: {
                 type: 'OAuth2',
                 user: process.env.EMAIL,
-                accessToken: process.env.EMAIL_ACCESS_TOKEN
+                accessToken: "ya29.a0ARrdaM8mJ8bPJ7gdlhKYODdWIYN8mAW9KtvxRh0mAB2gT1gHduhGW8YlS6OjM2bIqq1ykrTqiLGjBe6aFGO4lxWHb7q1sepUInIKeoOFu5CjWkQgnD-oAqqH1Sos5e1Y7p1jmogi8OjkFbsFqeVDuniq0YJL"
             }
         }):{
             service: 'gmail',
