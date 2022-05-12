@@ -2,25 +2,35 @@ const nodemailer = require('nodemailer');
 const handlebars = require('handlebars');
 const fs = require('fs');
 const path = require('path');
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
 
 class Mailer{
     static async sendMail(email, subject, token) {
+        const oauth2Client = new OAuth2(
+            process.env.CLIENT_ID,
+            process.env.CLIENT_SECRET,
+            "https://developers.google.com/oauthplayground"
+        );
+        const accessToken = oauth2Client.getAccessToken()
         const transporterData = process.env.PRODUCTIOON ?  nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 465,
             secure: true,
             auth: {
-                type: 'OAuth2',
+                type: "OAuth2",
                 user: process.env.EMAIL,
                 clientId: process.env.CLIENT_ID,
                 clientSecret: process.env.CLIENT_SECRET,
                 refreshToken: process.env.REFRESH_TOKEN,
-                accessToken: process.env.ACCESS_TOKEN,
+                accessToken: accessToken
             },
+            tls: {
+                rejectUnauthorized: false
+            }
         }):{
             service: 'gmail',
             auth: {
-                type: 'OAuth2',
                 user: process.env.EMAIL,
                 pass: process.env.EMAIL_PASSWORD
             }};
@@ -57,18 +67,27 @@ class Mailer{
         })
     }
     static async sendResponse(email, text) {
+        const oauth2Client = new OAuth2(
+            process.env.CLIENT_ID,
+            process.env.CLIENT_SECRET,
+            "https://developers.google.com/oauthplayground"
+        );
+        const accessToken = oauth2Client.getAccessToken()
         const transporterData = process.env.PRODUCTIOON ?  nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 465,
             secure: true,
             auth: {
-                type: 'OAuth2',
+                type: "OAuth2",
                 user: process.env.EMAIL,
                 clientId: process.env.CLIENT_ID,
                 clientSecret: process.env.CLIENT_SECRET,
                 refreshToken: process.env.REFRESH_TOKEN,
-                accessToken: process.env.ACCESS_TOKEN,
+                accessToken: accessToken
             },
+            tls: {
+                rejectUnauthorized: false
+            }
         }):{
             service: 'gmail',
             auth: {
