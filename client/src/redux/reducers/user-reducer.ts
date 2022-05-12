@@ -4,11 +4,10 @@ import UserService from "../../api/internalAPI/userApi";
 import { appActions } from "./app-reducer";
 import { authActions } from "./auth-reducer";
 import AuthService from "../../api/internalAPI/authApi";
-import {adminActions} from "./admin-reducer";
 
 let initialState = {
-  isLoading: false,
-  watchlist: [] as Watchlist[]
+    watchlist: [] as Watchlist[],
+    isFetching: false,
 };
 
 export enum UserActions {
@@ -37,10 +36,10 @@ export const userActions = {
         type: UserActions.SET_WATCHLIST_DATA,
         payload: { watchlist },
     } as const),
-  setLoading: (isLoading: boolean) =>
+  setLoading: (isFetching: boolean) =>
     ({
       type: UserActions.SET_LOADING,
-      payload: { isLoading },
+      payload: { isFetching },
     } as const),
 };
 
@@ -61,7 +60,7 @@ export const addToWatch =
   (
     user: IUser,
     id: number,
-    genre_ids: number[],
+    genre_ids: string[],
     overview: string,
     poster_path: string,
     release_date: string,

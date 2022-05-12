@@ -20,7 +20,7 @@ export default class UserService {
     static async unbanUser(email:String) {
         return $api.put<ActionResponse>('/user/unblock', {email}).then(res => res.data)
     }
-    static async addToWatch(user:IUser,id:number,genre_ids:number[],overview:string,poster_path:string,release_date:string,title:string) {
+    static async addToWatch(user:IUser,id:number,genre_ids:string[],overview:string,poster_path:string,release_date:string,title:string) {
         return $api.post<ActionResponse>('/watchlist/add', {user,id,genre_ids,overview,poster_path,release_date,title}).then(res => res.data)
     }
 }

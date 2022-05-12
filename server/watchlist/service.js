@@ -22,8 +22,8 @@ class WatchlistService {
         await newMovie.save()
         return 'Success'
     }
-    async get(user) {
-        const watchlist = await Watchlist.find({ userID: user.id })
+    async get(id) {
+        const watchlist = await Watchlist.find({ userID:id })
         return watchlist.map(movie => new WatchlistDto(movie.userID, movie.id, movie.genre_ids, movie.overview, movie.poster_path, movie.release_date, movie.title))
 
     }

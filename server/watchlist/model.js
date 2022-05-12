@@ -11,7 +11,7 @@ const WatchListSchema = new mongoose.Schema(
             required: true,
         },
         genre_ids: {
-            type: [Number],
+            type: [String],
 
         },
         overview: {
