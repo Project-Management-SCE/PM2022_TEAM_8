@@ -12,7 +12,7 @@ pipeline {
                sh '''
                                                curl https://cli-assets.heroku.com/install.sh | sh;
                                                heroku git:remote -a w2w-front
-                                               git branch
+                                              git remote -v
                                                git subtree push --prefix client/ heroku main
               '''
             }
