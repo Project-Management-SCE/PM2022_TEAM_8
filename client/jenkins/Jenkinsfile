@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node:lts-buster-slim'
-            args '-p 3000:3001'
+            args '-p 3000:3001 -u root'
         }
     }
     stages {
@@ -24,18 +24,24 @@ pipeline {
                         sh './client/jenkins/scripts/testBE.sh'
                     }
                 }
-        stage('Deliver FE') {
-            steps {
-                sh "chmod +x -R ${env.WORKSPACE}"
-                sh './client/jenkins/scripts/deliverFE.sh'
-            }
+        stage('Deploy FE') {
+             steps {
+                            sh '''
+                                curl https://cli-assets.heroku.com/install.sh | sh;
+                                heroku :login
+                                heroku git:remote -a w2w-front
+                                git subtree push --prefix client/ heroku main
+                            '''
+                }
         }
-        stage('Deliver BE') {
-                    steps {
-                        sh "chmod +x -R ${env.WORKSPACE}"
-                        sh './client/jenkins/scripts/deliverBE.sh'
-                        sh './client/jenkins/scripts/killBE.sh'
-                    }
+        stage('Deploy BE') {
+                 steps {
+                                             sh '''
+                                                 heroku :login
+                                                 heroku git:remote -a w2w-back
+                                                 git subtree push --prefix server/ heroku main
+                                             '''
+                                 }
                 }
     }
 }
