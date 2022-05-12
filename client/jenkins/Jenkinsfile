@@ -13,7 +13,7 @@ pipeline {
                    sh "cd server && npm install"
             }
         }
-        stage('Test FE') {
+        stage('Test FE & BE') {
              agent {
                 docker {
                     image 'node:lts-buster-slim'
@@ -23,21 +23,11 @@ pipeline {
              steps {
                    sh "chmod +x -R ${env.WORKSPACE}"
                    sh './client/jenkins/scripts/testFE.sh'
+                   sh './client/jenkins/scripts/testBE.sh'
              }
         }
 
-        stage('Test BE') {
-             agent {
-                   docker {
-                       image 'node:lts-buster-slim'
-                       args '-p 3000:3001 -u root'
-                   }
-             }
-             steps {
-                        sh "chmod +x -R ${env.WORKSPACE}"
-                        sh './client/jenkins/scripts/testBE.sh'
-                    }
-        }
+
 
         stage('Deploy FE') {
             agent {
