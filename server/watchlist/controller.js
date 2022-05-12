@@ -8,6 +8,7 @@ class WatchlistController {
         } catch (err) {
             next(err)
         }
+
     }
 
     async add(req, res, next) {
@@ -18,6 +19,7 @@ class WatchlistController {
         } catch (err) {
             next(err)
         }
+
     }
 
     async remove(req, res, next) {
@@ -29,7 +31,5 @@ class WatchlistController {
             next(err)
         }
     }
-
-
 }
 module.exports = new WatchlistController()
