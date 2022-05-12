@@ -1,18 +1,19 @@
 import { BaseThunkType, InferActionsTypes } from "../Store";
-import {IUser, Watchlist} from "../../api/internalAPI/internalApiTypes";
+import { IUser, Watchlist } from "../../api/internalAPI/internalApiTypes";
 import UserService from "../../api/internalAPI/userApi";
 import { appActions } from "./app-reducer";
 import { authActions } from "./auth-reducer";
 import AuthService from "../../api/internalAPI/authApi";
 
 let initialState = {
-    watchlist: [] as Watchlist[],
-    isFetching: false,
+  watchlist: [] as Watchlist[],
+  isFetching: false,
 };
 
 export enum UserActions {
   SET_WATCHLIST_DATA,
   SET_LOADING,
+  DELETE_CONTENT,
 }
 
 const userReducer = (
@@ -26,36 +27,66 @@ const userReducer = (
         ...state,
         ...action.payload,
       };
+    case UserActions.DELETE_CONTENT:
+      return {
+        ...state,
+        watchlist: state.watchlist.filter(
+          (content) => content.id !== action.payload.id
+        ),
+      };
     default:
       return state;
   }
 };
 export const userActions = {
-    setWatchlistData: (watchlist: Watchlist[]) =>
+  setWatchlistData: (watchlist: Watchlist[]) =>
     ({
-        type: UserActions.SET_WATCHLIST_DATA,
-        payload: { watchlist },
+      type: UserActions.SET_WATCHLIST_DATA,
+      payload: { watchlist },
     } as const),
   setLoading: (isFetching: boolean) =>
     ({
       type: UserActions.SET_LOADING,
       payload: { isFetching },
     } as const),
+  deleteContent: (id: number) =>
+    ({
+      type: UserActions.DELETE_CONTENT,
+      payload: { id },
+    } as const),
 };
 
-export const getWatchlist = (id:string): ThunkType => async (dispatch) => {
+export const removeFromWatchList =
+  (userID: string, id: number): ThunkType =>
+  async (dispatch) => {
     try {
-        dispatch(userActions.setLoading(true))
-        const data = await UserService.getWatchlist(id)
-        dispatch(userActions.setWatchlistData(data.watchlist))
+      dispatch(userActions.setLoading(true));
+      await UserService.removeFromWatchList(userID, id);
+      dispatch(appActions.setSuccess(`Movie deleted successfully`));
+      dispatch(userActions.deleteContent(id));
     } catch (e: any) {
-        const msg = e.response?.data?.message || 'Error fetching watchlist'
-        dispatch(appActions.setError(msg))
-    }finally {
-        dispatch(userActions.setLoading(false))
+      const msg =
+        e.response?.data?.message || "Error removing from user watchlist";
+      dispatch(appActions.setError(msg));
+    } finally {
+      dispatch(userActions.setLoading(false));
     }
+  };
 
-}
+export const getWatchlist =
+  (id: string): ThunkType =>
+  async (dispatch) => {
+    try {
+      dispatch(userActions.setLoading(true));
+      const data = await UserService.getWatchlist(id);
+      dispatch(userActions.setWatchlistData(data.watchlist));
+    } catch (e: any) {
+      const msg = e.response?.data?.message || "Error fetching watchlist";
+      dispatch(appActions.setError(msg));
+    } finally {
+      dispatch(userActions.setLoading(false));
+    }
+  };
 export const addToWatch =
   (
     user: IUser,

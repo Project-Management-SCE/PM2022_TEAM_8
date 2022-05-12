@@ -23,16 +23,16 @@ class WatchlistService {
         return 'Success'
     }
     async get(id) {
-        const watchlist = await Watchlist.find({ userID:id })
+        const watchlist = await Watchlist.find({ userID: id })
         return watchlist.map(movie => new WatchlistDto(movie.userID, movie.id, movie.genre_ids, movie.overview, movie.poster_path, movie.release_date, movie.title))
 
     }
     async remove(user, id) {
-        const movie = await Watchlist.findOne({ userID: user.id, id });
+        const movie = await Watchlist.findOne({ userID: user, id });
         if (!movie) {
             throw ApiError.BadRequest("Movie not in watchlist!")
         }
-        await movie.deleteOne({ userID: user.id, id })
+        await movie.deleteOne({ userID: user, id })
         return "Movie removed from watchlist"
     }
 }
