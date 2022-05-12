@@ -9,8 +9,7 @@ pipeline {
         stage('Deploy FE') {
              steps {
                             sh '''
-                                npm install -g heroku;
-                                heroku container:login
+                                heroku login
                                 heroku git:remote -a w2w-front
                                 git subtree push --prefix client/ heroku main
                             '''
