@@ -32,9 +32,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
-    "serve": "serve build",
+    "start": "npm install -g serve && serve -s build",
     "test": "jest --env=jsdom --coverage"
   },
   "eslintConfig": {

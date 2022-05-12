@@ -1,41 +1,63 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:lts-buster-slim'
-            args '-p 3000:3001'
-        }
-    }
+    agent none
     stages {
         stage('Install Dependencies for FE and BE') {
+            agent {
+                    docker {
+                         image 'node:lts-buster-slim'
+                         args '-p 3000:3001 -u root'
+                    }
+            }
             steps {
-                            sh "cd client && npm install"
-                            sh "cd server && npm install"
-                        }
-        }
-        stage('Test FE') {
-            steps {
-                sh "chmod +x -R ${env.WORKSPACE}"
-                sh './client/jenkins/scripts/testFE.sh'
+                   sh "cd client && npm install"
+                   sh "cd server && npm install"
             }
         }
-        stage('Test BE') {
-                    steps {
-                        sh "chmod +x -R ${env.WORKSPACE}"
-                        sh './client/jenkins/scripts/testBE.sh'
-                    }
+        stage('Test FE & BE') {
+             agent {
+                docker {
+                    image 'node:lts-buster-slim'
+                    args '-p 3000:3001 -u root'
                 }
-        stage('Deliver FE') {
-            steps {
-                sh "chmod +x -R ${env.WORKSPACE}"
-                sh './client/jenkins/scripts/deliverFE.sh'
-            }
+             }
+             steps {
+                   sh "chmod +x -R ${env.WORKSPACE}"
+                   sh "./client/jenkins/scripts/testBE.sh"
+                   sh "./client/jenkins/scripts/testFE.sh"
+             }
         }
-        stage('Deliver BE') {
-                    steps {
-                        sh "chmod +x -R ${env.WORKSPACE}"
-                        sh './client/jenkins/scripts/deliverBE.sh'
-                        sh './client/jenkins/scripts/killBE.sh'
-                    }
+
+
+
+        stage('Deploy FE') {
+            agent {
+                docker {
+                     image 'cimg/base:stable'
+                     args '-u root'
                 }
+            }
+             steps {
+                   sh '''
+                   git remote rm heroku
+                   git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/w2w-front.git
+                    git subtree push --prefix client/ heroku main
+                    '''
+                }
+        }
+        stage('Deploy BE') {
+            agent {
+                        docker {
+                             image 'cimg/base:stable'
+                             args '-u root'
+                }
+           }
+           steps {
+                    sh '''
+                    git remote rm heroku
+                    git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/w2w-back.git
+                    git subtree push --prefix server/ heroku main
+                    '''
+           }
+        }
     }
 }
