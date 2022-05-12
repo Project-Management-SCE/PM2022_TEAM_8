@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {IUser} from "./internalApiTypes";
+import {IUser, Watchlist} from "./internalApiTypes";
 import {Message} from "../../admin/AdminResponse";
 export const API_URL = `http://localhost:3001/api`
 
@@ -20,6 +20,9 @@ export interface UsersResponse {
 }
 export interface MessagesResponse {
     messages: Message[]
+}
+export interface WatchlistResponse {
+    watchlist: Watchlist[]
 }
 export interface AuthResponse extends Response{
     accessToken?: string

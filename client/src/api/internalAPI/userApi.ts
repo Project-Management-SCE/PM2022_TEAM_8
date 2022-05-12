@@ -1,9 +1,12 @@
 
-import $api, {ActionResponse, UsersResponse} from "./InternalApi"
+import $api, {ActionResponse, UsersResponse, WatchlistResponse} from "./InternalApi"
 import {IUser} from "./internalApiTypes";
 export default class UserService {
     static async updateProfile(user:IUser) {
         return $api.put<ActionResponse>('/user/update', {user}).then(res => res.data)
+    }
+    static async getWatchlist(id:string) {
+        return $api.get<WatchlistResponse>(`/watchlist/get/${id}`,).then(res => res.data)
     }
     static async deleteUser(email: string) {
         return $api.delete<ActionResponse>(`/user/delete/${email}`, ).then(res => res.data)

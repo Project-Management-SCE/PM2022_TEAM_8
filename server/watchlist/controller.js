@@ -2,8 +2,8 @@ const WatchlistService = require('./service');
 class WatchlistController {
     async get(req, res, next) {
         try {
-            const {user} = req.body;
-            const watchlist = await WatchlistService.get(user.id);
+            const {id} = req.params;
+            const watchlist = await WatchlistService.get(id);
             res.json({watchlist});
         } catch (err) {
             next(err)

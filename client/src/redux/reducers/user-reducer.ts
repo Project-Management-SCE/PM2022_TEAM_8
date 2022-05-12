@@ -1,15 +1,18 @@
 import { BaseThunkType, InferActionsTypes } from "../Store";
-import { IUser } from "../../api/internalAPI/internalApiTypes";
+import {IUser, Watchlist} from "../../api/internalAPI/internalApiTypes";
 import UserService from "../../api/internalAPI/userApi";
 import { appActions } from "./app-reducer";
 import { authActions } from "./auth-reducer";
 import AuthService from "../../api/internalAPI/authApi";
+import {adminActions} from "./admin-reducer";
 
 let initialState = {
   isLoading: false,
+  watchlist: [] as Watchlist[]
 };
 
 export enum UserActions {
+  SET_WATCHLIST_DATA,
   SET_LOADING,
 }
 
@@ -18,6 +21,7 @@ const userReducer = (
   action: ActionsType
 ): InitialStateType => {
   switch (action.type) {
+    case UserActions.SET_WATCHLIST_DATA:
     case UserActions.SET_LOADING:
       return {
         ...state,
@@ -28,12 +32,31 @@ const userReducer = (
   }
 };
 export const userActions = {
+    setWatchlistData: (watchlist: Watchlist[]) =>
+    ({
+        type: UserActions.SET_WATCHLIST_DATA,
+        payload: { watchlist },
+    } as const),
   setLoading: (isLoading: boolean) =>
     ({
       type: UserActions.SET_LOADING,
       payload: { isLoading },
     } as const),
 };
+
+export const getWatchlist = (id:string): ThunkType => async (dispatch) => {
+    try {
+        dispatch(userActions.setLoading(true))
+        const data = await UserService.getWatchlist(id)
+        dispatch(userActions.setWatchlistData(data.watchlist))
+    } catch (e: any) {
+        const msg = e.response?.data?.message || 'Error fetching watchlist'
+        dispatch(appActions.setError(msg))
+    }finally {
+        dispatch(userActions.setLoading(false))
+    }
+
+}
 export const addToWatch =
   (
     user: IUser,
