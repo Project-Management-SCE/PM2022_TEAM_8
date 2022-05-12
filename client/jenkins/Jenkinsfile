@@ -9,6 +9,8 @@ pipeline {
         stage('Deploy FE') {
              steps {
                             sh '''
+                                apt-get update
+                                apt-get upgrade
                                 apt-get install curl
                                 curl https://cli-assets.heroku.com/install.sh | sh;
                                 heroku container:login
