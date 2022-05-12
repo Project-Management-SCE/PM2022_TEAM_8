@@ -11,7 +11,7 @@ export interface IUser {
 export interface Watchlist{
     userID:string
     id:number
-    genre_ids:number[]
+    genre_ids:string[]
     overview:string
     poster_path:string
     release_date:string

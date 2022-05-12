@@ -8,7 +8,7 @@ import {
   getWatchlist,
   removeFromWatchList,
 } from "../redux/reducers/user-reducer";
-import { Button, Card, List, Result, Tag, Tooltip } from "antd";
+import { Button, Card, List, Tag, Tooltip } from "antd";
 import { DeleteOutlined, RightOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import NoResults from "../components/NoResults";
@@ -73,6 +73,7 @@ export const WatchList = () => {
                       </Tooltip>,
                       <Tooltip title="Remove from list">
                         <Button
+                            data-testid="remove"
                           onClick={() => handleRemove(movie.id)}
                           type="ghost"
                           shape="circle"
