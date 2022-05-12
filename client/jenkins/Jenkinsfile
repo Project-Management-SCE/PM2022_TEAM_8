@@ -6,12 +6,6 @@ pipeline {
         }
     }
     stages {
-        stage('Install Dependencies for FE and BE') {
-            steps {
-                            sh "cd client && npm install"
-                            sh "cd server && npm install"
-                        }
-        }
         stage('Deploy FE') {
              steps {
                             sh '''
