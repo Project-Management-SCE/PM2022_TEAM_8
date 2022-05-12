@@ -15,7 +15,7 @@ pipeline {
         stage('Deploy FE') {
              steps {
                             sh '''
-                                sudo apt install curl
+                                apt install curl
                                 curl https://cli-assets.heroku.com/install.sh | sh;
                                 heroku container:login
                                 heroku git:remote -a w2w-front
