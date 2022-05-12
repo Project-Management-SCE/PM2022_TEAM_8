@@ -12,7 +12,7 @@ pipeline {
                             sh "cd server && npm install"
                         }
         }
-        stage('Test FE') {
+        /*stage('Test FE') {
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
                 sh './client/jenkins/scripts/testFE.sh'
@@ -23,7 +23,7 @@ pipeline {
                         sh "chmod +x -R ${env.WORKSPACE}"
                         sh './client/jenkins/scripts/testBE.sh'
                     }
-                }
+                }*/
         stage('Deploy FE') {
              steps {
                             sh '''
@@ -35,7 +35,7 @@ pipeline {
                             '''
                 }
         }
-        stage('Deploy BE') {
+        /*stage('Deploy BE') {
                  steps {
                                              sh '''
                                                  heroku container:login
@@ -44,5 +44,5 @@ pipeline {
                                              '''
                                  }
                 }
-    }
+    }*/
 }
