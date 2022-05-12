@@ -1,21 +1,26 @@
+
 pipeline {
-  agent none
+    agent {
+            docker {
+                image 'node:lts-buster-slim'
+                args '-p 3000:3001 -u root'
+            }
+        }
     stages {
-        agent {
+        stage('Deploy to Heroku') {
+            agent {
                 docker {
-                     image 'cimg/base:stable'
-                     args '-u root'
+                    image 'cimg/base:stable'
+                    args '-u root'
                 }
             }
-        stage('Deploy FE') {
-
-             steps {
-                            sh '''
-                                curl https://cli-assets.heroku.com/install.sh | sh;
-                                heroku git:remote -a w2w-front
-                                git subtree push --prefix client/ heroku main
-                            '''
-                }
+            steps {
+               sh '''
+                                               curl https://cli-assets.heroku.com/install.sh | sh;
+                                               heroku git:remote -a w2w-front
+                                               git subtree push --prefix client/ heroku main
+              '''
+            }
         }
     }
 }
