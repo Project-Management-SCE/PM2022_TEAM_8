@@ -12,18 +12,6 @@ pipeline {
                             sh "cd server && npm install"
                         }
         }
-        /*stage('Test FE') {
-            steps {
-                sh "chmod +x -R ${env.WORKSPACE}"
-                sh './client/jenkins/scripts/testFE.sh'
-            }
-        }
-        stage('Test BE') {
-                    steps {
-                        sh "chmod +x -R ${env.WORKSPACE}"
-                        sh './client/jenkins/scripts/testBE.sh'
-                    }
-                }*/
         stage('Deploy FE') {
              steps {
                             sh '''
@@ -35,14 +23,5 @@ pipeline {
                             '''
                 }
         }
-        /*stage('Deploy BE') {
-                 steps {
-                                             sh '''
-                                                 heroku container:login
-                                                 heroku git:remote -a w2w-back
-                                                 git subtree push --prefix server/ heroku main
-                                             '''
-                                 }
-                }*/
-    /
+    }
 }
