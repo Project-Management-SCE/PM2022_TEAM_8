@@ -1,9 +1,10 @@
 pipeline {
-     docker {
-                                        image 'cimg/base:stable'
-                                        args '-u root'
-                                    }
-                }
+    agent {
+        docker {
+             image 'cimg/base:stable'
+             args '-u root'
+        }
+    }
     stages {
         stage('Deploy FE') {
             agent {
