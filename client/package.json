@@ -34,7 +34,7 @@
   "scripts": {
     "dev": "react-scripts start",
     "build": "react-scripts build",
-    "start": "serve -s build",
+    "start": "npm install -g serve && serve -s build",
     "test": "jest --env=jsdom --coverage"
   },
   "eslintConfig": {
