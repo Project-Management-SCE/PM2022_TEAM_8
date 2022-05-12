@@ -10,9 +10,13 @@ class Mailer{
             port: 465,
             secure: true,
             auth: {
+                type: 'OAuth2',
                 user: process.env.EMAIL,
-                accessToken: "ya29.a0ARrdaM8mJ8bPJ7gdlhKYODdWIYN8mAW9KtvxRh0mAB2gT1gHduhGW8YlS6OjM2bIqq1ykrTqiLGjBe6aFGO4lxWHb7q1sepUInIKeoOFu5CjWkQgnD-oAqqH1Sos5e1Y7p1jmogi8OjkFbsFqeVDuniq0YJL"
-            }
+                clientId: process.env.CLIENT_ID,
+                clientSecret: process.env.CLIENT_SECRET,
+                refreshToken: process.env.REFRESH_TOKEN,
+                accessToken: process.env.ACCESS_TOKEN,
+            },
         }):{
             service: 'gmail',
             auth: {
@@ -60,8 +64,11 @@ class Mailer{
             auth: {
                 type: 'OAuth2',
                 user: process.env.EMAIL,
-                accessToken: "ya29.a0ARrdaM8mJ8bPJ7gdlhKYODdWIYN8mAW9KtvxRh0mAB2gT1gHduhGW8YlS6OjM2bIqq1ykrTqiLGjBe6aFGO4lxWHb7q1sepUInIKeoOFu5CjWkQgnD-oAqqH1Sos5e1Y7p1jmogi8OjkFbsFqeVDuniq0YJL"
-            }
+                clientId: process.env.CLIENT_ID,
+                clientSecret: process.env.CLIENT_SECRET,
+                refreshToken: process.env.REFRESH_TOKEN,
+                accessToken: process.env.ACCESS_TOKEN,
+            },
         }):{
             service: 'gmail',
             auth: {
