@@ -51,13 +51,8 @@ describe('Add to watch list', () => {
     describe('/DELETE Remove from watchlist', () => {
 
         it('it should success with status 200', (done) => {
-            const data = {
-                user: {id: "624c3e257ee6fb3b3bd02f47"},
-                id: 2323,
-            }
             chai.request(server)
-                .delete('/api/watchlist/remove')
-                .send(data)
+                .delete('/api/watchlist/remove/624c3e257ee6fb3b3bd02f47/2323')
                 .set({ Authorization: `Bearer ${accessToken}` })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -66,13 +61,8 @@ describe('Add to watch list', () => {
                 });
         });
         it('it should fail with status 400 , because cannot remove not existing movie', (done) => {
-            const data = {
-                user: {id: "624c3e257ee6fb3b3bd02f47"},
-                id: 2323,
-            }
             chai.request(server)
-                .delete('/api/watchlist/remove')
-                .send(data)
+                .delete('/api/watchlist/remove/624c3e257ee6fb3b3bd02f47/23433')
                 .set({ Authorization: `Bearer ${accessToken}` })
                 .end((err, res) => {
                     res.should.have.status(400);
