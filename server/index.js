@@ -8,7 +8,10 @@ const app = express();
 require('dotenv').config()
 const PORT = process.env.PORT || 3001
 const cors = require('cors')
-app.options('*', cors())
+app.use(cors({
+    credentials: true,
+    origin: ["https://w2w-front.herokuapp.com" , "http://localhost:3000"]
+}));
 app.use(express.json())
 app.use("/api/user", authRoute)
 app.use("/api/messages", messagesRoute)
