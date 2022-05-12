@@ -26,7 +26,6 @@ import { addToWatch } from "../redux/reducers/user-reducer";
 //
 const Movie: FC = () => {
   const dispatch = useDispatch();
-  let array: number[] = [];
   const { id } = useParams();
   const [movie, setMovie] = useState<MovieDetails>();
   const [videos, setVideos] = useState<MovieVideos[]>([]);
@@ -72,12 +71,12 @@ const Movie: FC = () => {
     release_date: string,
     title: string
   ) => {
-    array = genre_ids.map((element) => element.id);
+
     dispatch(
       addToWatch(
         curr_user,
         id,
-        array,
+        genre_ids.map((element) => element.name),
         overview,
         poster_path,
         release_date,

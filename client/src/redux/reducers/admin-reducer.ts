@@ -5,7 +5,6 @@ import {appActions} from "./app-reducer";
 import MessageService from "../../api/internalAPI/messageApi";
 import {Message} from "../../admin/AdminResponse";
 import AuthService from "../../api/internalAPI/authApi";
-import {getAuthUserData} from "./auth-reducer";
 
 let initialState = {
     users:[] as IUser[],
