@@ -1,19 +1,13 @@
 
 pipeline {
     agent {
-            docker {
-                image 'node:lts-buster-slim'
-                args '-p 3000:3001 -u root'
-            }
-        }
+                    docker {
+                        image 'cimg/base:stable'
+                        args '-u root'
+                    }
+                }
     stages {
         stage('Deploy to Heroku') {
-            agent {
-                docker {
-                    image 'cimg/base:stable'
-                    args '-u root'
-                }
-            }
             steps {
                sh '''
                                                curl https://cli-assets.heroku.com/install.sh | sh;
