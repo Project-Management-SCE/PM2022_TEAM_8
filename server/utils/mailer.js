@@ -7,26 +7,42 @@ const OAuth2 = google.auth.OAuth2;
 require('dotenv').config()
 
 class Mailer{
+    static async getAccessToken(){
+            const oauth2Client = new OAuth2(
+                process.env.CLIENT_ID,
+                process.env.CLIENT_SECRET,
+                "https://developers.google.com/oauthplayground"
+            );
 
+            oauth2Client.setCredentials({
+                refresh_token: process.env.REFRESH_TOKEN
+            });
+
+            const accessToken = await new Promise((resolve, reject) => {
+                oauth2Client.getAccessToken((err, token) => {
+                    if (err) {
+                        reject();
+                    }
+                    resolve(token);
+                });
+            });
+
+            return accessToken;
+    };
     static async sendMail(email, subject, token) {
         try{
-            const oAuth2Client =new OAuth2(process.env.CLIENT_ID,process.env.CLIENT_SECRET,"https://developers.google.com/oauthplayground");
-            oAuth2Client.setCredentials({refresh_token:process.env.REFRESH_TOKEN});
-            const accessToken = await oAuth2Client.getAccessToken();
-            const transporterData =  nodemailer.createTransport({
-                host: 'smtp.gmail.com',
-                port: 465,
-                secure: true,
+            const accessToken = await Mailer.getAccessToken();
+            const transporter = nodemailer.createTransport({
+                service: "gmail",
                 auth: {
                     type: "OAuth2",
                     user: process.env.EMAIL,
+                    accessToken:accessToken,
                     clientId: process.env.CLIENT_ID,
                     clientSecret: process.env.CLIENT_SECRET,
-                    refreshToken: process.env.REFRESH_TOKEN,
-                    accessToken: accessToken
-                },
+                    refreshToken: process.env.REFRESH_TOKEN
+                }
             });
-            const transporter = nodemailer.createTransport(transporterData);
             const filePath = path.join(__dirname, './mail-template/index.html');
             const source = fs.readFileSync(filePath, 'utf-8').toString();
             const template = handlebars.compile(source);
@@ -64,23 +80,18 @@ class Mailer{
     }
     static async sendResponse(email, text) {
         try{
-            const oAuth2Client =new OAuth2(process.env.CLIENT_ID,process.env.CLIENT_SECRET,"https://developers.google.com/oauthplayground");
-            oAuth2Client.setCredentials({refresh_token:process.env.REFRESH_TOKEN});
-            const accessToken = await oAuth2Client.getAccessToken();
-            const transporterData =  nodemailer.createTransport({
-                host: 'smtp.gmail.com',
-                port: 465,
-                secure: true,
+            const accessToken = await Mailer.getAccessToken();
+            const transporter = nodemailer.createTransport({
+                service: "gmail",
                 auth: {
                     type: "OAuth2",
                     user: process.env.EMAIL,
+                    accessToken:accessToken,
                     clientId: process.env.CLIENT_ID,
                     clientSecret: process.env.CLIENT_SECRET,
-                    refreshToken: process.env.REFRESH_TOKEN,
-                    accessToken: accessToken
-                },
-            })
-            const transporter = nodemailer.createTransport(transporterData);
+                    refreshToken: process.env.REFRESH_TOKEN
+                }
+            });
             const filePath = path.join(__dirname, './mail-template/reply.html');
             const source = fs.readFileSync(filePath, 'utf-8').toString();
             const template = handlebars.compile(source);
