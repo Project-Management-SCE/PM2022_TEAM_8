@@ -6,7 +6,7 @@ const watchlistRoute = require('./watchlist/routes')
 const messagesRoute = require('./messages/routes')
 const app = express();
 require('dotenv').config()
-const PORT = 3001 || process.env.PORT
+const PORT = process.env.PORT || 3001
 const cors = require('cors')
 app.use(express.json())
 app.use(cors({
