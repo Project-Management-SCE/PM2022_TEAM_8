@@ -3,7 +3,6 @@ const handlebars = require('handlebars');
 const fs = require('fs');
 const path = require('path');
 
-
 class Mailer{
     static async sendMail(email, subject, token) {
         const transporterData = process.env.PRODUCTIOON ?  nodemailer.createTransport({
@@ -12,11 +11,12 @@ class Mailer{
             secure: true,
             auth: {
                 user: process.env.EMAIL,
-                pass: process.env.EMAIL_PASSWORD
+                accessToken: process.env.EMAIL_ACCESS_TOKEN
             }
         }):{
             service: 'gmail',
             auth: {
+                type: 'OAuth2',
                 user: process.env.EMAIL,
                 pass: process.env.EMAIL_PASSWORD
             }};
@@ -58,8 +58,9 @@ class Mailer{
             port: 465,
             secure: true,
             auth: {
+                type: 'OAuth2',
                 user: process.env.EMAIL,
-                pass: process.env.EMAIL_PASSWORD
+                accessToken: process.env.EMAIL_ACCESS_TOKEN
             }
         }):{
             service: 'gmail',
