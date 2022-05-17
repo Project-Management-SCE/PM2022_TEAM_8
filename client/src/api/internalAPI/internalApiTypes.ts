@@ -8,3 +8,12 @@ export interface IUser {
     phone: string | null
     address: string | null
 }
+export interface Watchlist{
+    userID:string
+    id:number
+    genre_ids:string[]
+    overview:string
+    poster_path:string
+    release_date:string
+    title:string
+}

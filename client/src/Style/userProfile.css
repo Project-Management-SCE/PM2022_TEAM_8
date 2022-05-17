@@ -1,11 +1,21 @@
 .profile-container {
     display: flex;
     flex-direction: row;
-    height: 87vh;
+    height: 100%;
 
 
 }
+.watchlist-container {
+    display: flex;
+    flex-direction: row;
+    margin-left: 1rem;
+    border-color: red;
+}
 
+.watchlist-content {
+    min-height: 100px;
+    color: #efefef
+}
 .left {
     width: 20rem;
     display: flex;
@@ -31,12 +41,20 @@
 
 .left p {
     font-weight: 700;
-    font-size: 18px;
     margin: -1px 0;
     color: white;
     font-size: 22px;
 }
-
+.watchlist-title{
+    font-weight: 700;
+    font-size: 16px;
+    text-align: center;
+    min-height: 75px;
+}
+.genre-tag{
+    margin-bottom: 5px;
+    font-size: 18px;
+}
 .profile-links {
     margin: 1.5rem;
     padding-right: 3rem;

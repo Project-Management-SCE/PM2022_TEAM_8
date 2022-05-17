@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {IUser} from "./internalApiTypes";
+import {IUser, Watchlist} from "./internalApiTypes";
 import {Message} from "../../admin/AdminResponse";
 export const API_URL = process.env.REACT_APP_BACK_URL || `http://localhost:3001/api`
 const $api = axios.create({
@@ -19,6 +19,9 @@ export interface UsersResponse {
 }
 export interface MessagesResponse {
     messages: Message[]
+}
+export interface WatchlistResponse {
+    watchlist: Watchlist[]
 }
 export interface AuthResponse extends Response{
     accessToken?: string
