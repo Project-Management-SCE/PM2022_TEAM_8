@@ -3,6 +3,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const authRoute = require('./user/routes')
 const watchlistRoute = require('./watchlist/routes')
+const reviewRoute = require('./reviews/routes')
+const reportRoute = require('./reports/routes')
 const messagesRoute = require('./messages/routes')
 const app = express();
 require('dotenv').config()
@@ -16,6 +18,8 @@ app.use(express.json())
 app.use("/api/user", authRoute)
 app.use("/api/messages", messagesRoute)
 app.use("/api/watchlist", watchlistRoute)
+app.use("/api/review", reviewRoute)
+app.use("/api/report", reportRoute)
 app.use(errorMiddleware);
 
 async function runServer(){
