@@ -7,7 +7,7 @@ import ContentList from "../components/ContentList";
 import MyPagination from "../components/MyPagination";
 import {useNavigate, useParams} from "react-router-dom";
 
-const Series = () => {
+const TvShows = () => {
   const [series, setSeries] = React.useState<PopularTVshows[]>([]);
   const [totalPages, setTotalPages] = React.useState<number>(1);
   const nav = useNavigate();
@@ -35,4 +35,4 @@ const Series = () => {
   );
 };
 
-export default Series;
+export default TvShows;

@@ -60,7 +60,7 @@ const MainNavigation: FC = () => {
                             <div className={"extended"}>
 
                                 <Link style={{textDecoration:"none",color:"#d93939"}} to={'/extended-search/'}
-                                >Extended Search </Link>
+                                >Discover </Link>
                             </div>
                         </Tooltip>}
 

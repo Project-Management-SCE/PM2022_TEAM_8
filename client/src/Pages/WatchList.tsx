@@ -8,7 +8,7 @@ import {
   getWatchlist,
   removeFromWatchList,
 } from "../redux/reducers/user-reducer";
-import { Button, Card, List, Tag, Tooltip } from "antd";
+import {Badge, Button, Card, List, Tag, Tooltip } from "antd";
 import { DeleteOutlined, RightOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import NoResults from "../components/NoResults";
@@ -27,8 +27,14 @@ export const WatchList = () => {
   const watchlist = useSelector<AppStateType>(
     (state: AppStateType) => state.user.watchlist
   ) as Watchlist[];
-
-  return (
+  function geUrlType (movie: Watchlist) {
+    if (movie.type === "MOVIE") {
+      return `/movie/${movie.id}`;
+    } else {
+      return `/tv-show/${movie.id}`;
+    }
+  }
+    return (
     <DashboardRoutesReusableTemplate
       children={
         <div className="dashboard-container">
@@ -42,7 +48,7 @@ export const WatchList = () => {
               dataSource={watchlist}
               locale={{ emptyText: <NoResults /> }}
               renderItem={(movie) => (
-                <List.Item>
+                <List.Item >
                   <Card
                     key={movie.id}
                     style={{
@@ -57,7 +63,7 @@ export const WatchList = () => {
                       <Tooltip title="Go to content">
                         <Link
                           style={{ textDecoration: "none" }}
-                          to={`/movie/${movie.id}`}
+                          to={geUrlType(movie)}
                         >
                           <Button
                             type="ghost"
@@ -77,12 +83,21 @@ export const WatchList = () => {
                       </Tooltip>,
                     ]}
                     size={"default"}
-                    extra={<p className="watchlist-title">{movie.title}</p>}
+                    extra={
+                      <p className="watchlist-title">{movie.title}</p>
+                  }
                     cover={
-                      <img
-                        alt="example"
-                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    <>
+                      <Badge.Ribbon
+                          text={movie.type === "MOVIE" ? "Movie": 'TV Show'}
+                                    color="red"
                       />
+                      <img
+                          alt="example"
+                          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                      />
+                    </>
+
                     }
                   >
                     <div className="watchlist-content">

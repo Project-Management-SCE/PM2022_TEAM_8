@@ -95,7 +95,8 @@ export const addToWatch =
     overview: string,
     poster_path: string,
     release_date: string,
-    title: string
+    title: string,
+    type: string,
   ): ThunkType =>
   async (dispatch) => {
     try {
@@ -107,7 +108,8 @@ export const addToWatch =
         overview,
         poster_path,
         release_date,
-        title
+        title,
+        type
       );
       dispatch(appActions.setSuccess("WatchList updated successfully!"));
     } catch (e: any) {

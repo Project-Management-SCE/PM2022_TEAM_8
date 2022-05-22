@@ -68,6 +68,7 @@ describe("Add to Watchlist functionality & Movie Component", () => {
         jest.spyOn(ExternalApiService, 'getMovieDetails').mockResolvedValue(movieDetails);
         jest.spyOn(ExternalApiService, 'getMovieVideos').mockResolvedValue({id: 0, results: []});
         jest.spyOn(UserService, 'addToWatch').mockResolvedValue({ result: "Success"});
+        window.scrollTo = jest.fn();
     })
     afterEach(() => {
         jest.clearAllMocks();

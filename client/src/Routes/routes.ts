@@ -3,7 +3,7 @@ import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import Home from "../Pages/Home";
 import Movies from "../Pages/Movies";
-import Series from "../Pages/Series";
+import TVShows from "../Pages/TVShows";
 import UserProfile from "../Pages/UserProfile";
 import AdminLogin from "../admin/AdminLogin";
 import {ReviewsList} from "../admin/ReviewsList";
@@ -66,7 +66,7 @@ export const userRoutes: IRoute[] = [
     {path: RouteNames.MOVIE,  element: Movie},
     {path: RouteNames.TVSHOW,  element: TvShow},
     {path: RouteNames.MOVIES,  element: Movies},
-    {path: RouteNames.SERIES,  element: Series},
+    {path: RouteNames.SERIES,  element: TVShows},
     {path: RouteNames.USERPROFILE,  element: UserProfile},
     {path: RouteNames.USERREVIEWS,  element: UserReviews},
     {path: RouteNames.WATCHLIST,  element: WatchList},

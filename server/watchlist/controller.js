@@ -13,8 +13,8 @@ class WatchlistController {
 
     async add(req, res, next) {
         try {
-            const { user, id, genre_ids, overview, poster_path, release_date, title } = req.body;
-            await WatchlistService.add(user, id, genre_ids, overview, poster_path, release_date, title);
+            const { user, id, genre_ids, overview, poster_path, release_date, title,type } = req.body;
+            await WatchlistService.add(user, id, genre_ids, overview, poster_path, release_date, title,type);
             res.json({ Result: "Success" });
         } catch (err) {
             next(err)

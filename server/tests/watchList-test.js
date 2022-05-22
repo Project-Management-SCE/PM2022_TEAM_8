@@ -16,6 +16,7 @@ describe('Add to watch list', () => {
                 poster_path: "Poster path",
                 release_date: "Release date",
                 title: "Title",
+                type:"MOVIE"
             }
             chai.request(server)
                 .post('/api/watchlist/add')
@@ -36,6 +37,7 @@ describe('Add to watch list', () => {
                 poster_path: "Poster path",
                 release_date: "Release date",
                 title: "Title",
+                type:"MOVIE"
             }
             chai.request(server)
                 .post('/api/watchlist/add')

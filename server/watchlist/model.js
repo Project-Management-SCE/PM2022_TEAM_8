@@ -29,6 +29,10 @@ const WatchListSchema = new mongoose.Schema(
             type: String,
             default: ""
         },
+        type: {
+            type: String,
+            required: true
+        },
     },
 )
 module.exports = mongoose.model("Watchlist", WatchListSchema)

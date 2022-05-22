@@ -4,10 +4,10 @@ import {
   TopRatedMoviesResponse,
   GenresResponse,
   MovieDetails,
-  MovieVideos,
   MovieVideosResponse,
   UpcomingMoviesSearchResponse,
   TrendingResponse,
+  TvShowDetails,
 } from "./ExternalApiResponseTypes";
 import axios, { AxiosResponse } from "axios";
 const TMDB_URL = "https://api.themoviedb.org/3";
@@ -104,6 +104,25 @@ export default class ExternalApiService {
       method: "GET",
       responseType: "json",
     }).then((response: AxiosResponse<MovieDetails>) => {
+      return response.data;
+    });
+  }
+
+  static async getTvShowDetails(id: string) {
+    return axios({
+      url: `${TMDB_URL}/tv/${id}?api_key=${API_KEY}&language=en-US`,
+      method: "GET",
+      responseType: "json",
+    }).then((response: AxiosResponse<TvShowDetails>) => {
+      return response.data;
+    });
+  }
+  static async getTvShowsVideos(id: string) {
+    return axios({
+      url: `${TMDB_URL}/tv/${id}/videos?api_key=${API_KEY}&language=en-US`,
+      method: "GET",
+      responseType: "json",
+    }).then((response: AxiosResponse<MovieVideosResponse>) => {
       return response.data;
     });
   }

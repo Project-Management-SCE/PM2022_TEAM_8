@@ -15,6 +15,7 @@ export interface Watchlist{
     overview:string
     poster_path:string
     release_date:string
+    type: "TVSERIES" | "MOVIE"
     title:string
 }
 export interface IReport {
@@ -24,6 +25,7 @@ export interface IReport {
     text: string
 }
 export interface IReview {
+    type: "TVSERIES" | "MOVIE"
     reviewID: string
     userEmail: string
     userID: string

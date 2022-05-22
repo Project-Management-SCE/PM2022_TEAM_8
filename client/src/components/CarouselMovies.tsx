@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import "../Style/home.css";
 import Carousel from "react-bootstrap/Carousel";
-import {MovieVideos, UpcomingMovie} from "../api/ExternalApiResponseTypes";
+import {UpcomingMovie} from "../api/ExternalApiResponseTypes";
 import ExternalApiService from "../api/ExternalApiService";
+import {Link} from "react-router-dom";
 
 const CarouselMovies = () => {
   const [index, setIndex] = useState<number>(0);
@@ -17,7 +18,7 @@ const CarouselMovies = () => {
     }
 
   }, []);
-  const handleSelect = (selectedIndex: number, e: any) => {
+  const handleSelect = (selectedIndex: number) => {
     setIndex(selectedIndex);
   };
   return (
@@ -31,7 +32,9 @@ const CarouselMovies = () => {
             return (
                 <Carousel.Item key={index}>
                   <h3 className="card-title">{movie.title}</h3>
-                  <img className="carousel-img" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}  />
+                  <Link to={`/movie/${movie.id}`}>
+                    <img className="carousel-img" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={"IMG"} />
+                  </Link>
                 </Carousel.Item>
             );
           })}

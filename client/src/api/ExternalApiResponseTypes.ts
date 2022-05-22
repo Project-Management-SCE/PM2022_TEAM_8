@@ -99,6 +99,29 @@ export interface MovieDetails {
   vote_average: number;
   vote_count: number;
 }
+export interface TvShowDetails {
+  backdrop_path: string;
+  belongs_to_collection: null;
+  budget: number;
+  genres: Genres[];
+  homepage: string;
+  id: number;
+  imdb_id: string;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  revenue: number;
+  runtime: number;
+  status: string;
+  tagline: string;
+  name: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
 export interface MovieVideosResponse {
   id: number;
   results: MovieVideos[];

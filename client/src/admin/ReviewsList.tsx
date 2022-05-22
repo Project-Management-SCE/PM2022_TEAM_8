@@ -71,7 +71,7 @@ export const ReviewsList = () => {
       key: "userEmail",
     },
     {
-      title: "Movie/Series Name",
+      title: "Movie/TVShows Name",
       key: "movieTitle",
       dataIndex: "movieTitle",
     },

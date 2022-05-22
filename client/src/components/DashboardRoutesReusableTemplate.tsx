@@ -1,57 +1,69 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import profileImg from "../assets/icons/userProfile.png";
-import { IUser } from "../api/internalAPI/internalApiTypes";
-import { useSelector } from "react-redux";
-import { AppStateType } from "../redux/Store";
 import "../Style/userProfile.css";
-
+import {ButtonGroup, ToggleButton} from "react-bootstrap";
+import profileImg from "../assets/icons/userProfile.png";
+import {IUser} from "../api/internalAPI/internalApiTypes";
+import {AppStateType} from "../redux/Store";
+import {useSelector} from "react-redux";
 type ReusableDashboardProps = {
   children: any;
 };
 const DashboardRoutesReusableTemplate = ({
   children,
 }: ReusableDashboardProps) => {
-  const img4: string = require("../assets/img/img4.jpg");
   const curr_user = useSelector<AppStateType>(
-    (state) => state.auth.user
+      (state) => state.auth.user
   ) as IUser;
+  const [selected, setSelected] = React.useState("Dashboard");
+  const handleSelect = (value: any) => {
+    setSelected(value);
+  };
   return (
     <div className="profile-container">
       <div className="left">
+        <p className="profile-email">{curr_user.email}</p>
         <div className="iconDiv">
           <img src={profileImg} alt="profileImg" />
         </div>
-        <div>
-          <p>Hey, {curr_user.firstName}</p>
-          <p>Movies watched: 10</p>
-          <p>My Reviews: 10</p>
-        </div>
         <div className="profile-links">
-          {/* <span>Select:</span> */}
-          <ul>
-            <li>
-              <p>
-                <NavLink className="user-links" to="/user_profile/watch_list">
-                  WatchList
-                </NavLink>
-              </p>
-            </li>
-            <li>
-              <p>
-                <NavLink className="user-links" to="/user_profile/user_reviews">
-                  My Reviews
-                </NavLink>
-              </p>
-            </li>
-            <li>
-              <p>
-                <NavLink className="user-links" to="/user_profile">
-                  User Dashboard
-                </NavLink>
-              </p>
-            </li>
-          </ul>
+          <ButtonGroup vertical={true}>
+                  <ToggleButton
+                      key="Watch List"
+                      type="radio"
+                      value="Watch List"
+                      variant={selected=== "Watch List" ? "danger": "outline-dark" }
+                      onClick={()=>handleSelect("Watch List")}
+                  >
+                    <NavLink className="user-links" to="/user_profile/watch_list">
+                      WatchList
+                    </NavLink>
+                  </ToggleButton>
+            <ToggleButton
+                key="My Reviews"
+                type="radio"
+                value="My Reviews"
+                variant={selected=== "My Reviews" ? "danger": "outline-dark" }
+                onClick={()=>handleSelect("My Reviews")}
+            >
+              <NavLink className="user-links" to="/user_profile/user_reviews">
+                My Reviews
+              </NavLink>
+            </ToggleButton>
+            <ToggleButton
+                key="Dashboard"
+                type="radio"
+                value="Dashboard"
+                variant={selected=== "Dashboard" ? "danger": "outline-dark" }
+                onClick={()=>handleSelect("Dashboard")}
+
+
+            >
+              <NavLink className="user-links" to="/user_profile">
+                Dashboard
+              </NavLink>
+            </ToggleButton>
+          </ButtonGroup>
         </div>
       </div>
       <div className="right">{children}</div>

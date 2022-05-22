@@ -22,13 +22,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    height: 100%;
+    min-height: 100%;
     background-color: rgb(100, 44, 44);
     padding-top: 2rem;
 }
 
-
-.user-links {}
 
 .iconDiv {
     width: 7rem;
@@ -38,7 +36,9 @@
 .left .iconDiv img {
     max-width: 100%;
 }
-
+.profile-email{
+    font-size: 18px!important;
+}
 .left p {
     font-weight: 700;
     margin: -1px 0;
@@ -56,8 +56,17 @@
     font-size: 18px;
 }
 .profile-links {
-    margin: 1.5rem;
-    padding-right: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #7c7a7a;
+    border-radius: 5%;
+}
+.profile-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 23px;
+    font-weight: 700;
 }
 
 .profile-links span {
@@ -65,8 +74,6 @@
     margin: -2.5rem;
     font-weight: 700;
     font-size: 18px;
-    font-size: 26px;
-
 }
 
 .user-links {

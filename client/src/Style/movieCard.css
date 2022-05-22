@@ -12,7 +12,25 @@
   filter: drop-shadow(0 0 0.2rem white);
 
 }
+.genres-div{
+  margin-top: 1rem;
+  margin-right: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  font-weight: 500;
+  margin-bottom: 1rem !important;
+}
 
+.genres-div span{
+  padding: 0 !important;
+  margin-left: 1rem;
+  display: flow;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ded6d6;
+}
 .movie-likes {
   width: 100%;
   margin: 1rem;

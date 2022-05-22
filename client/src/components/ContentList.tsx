@@ -52,11 +52,6 @@ const ContentList: FC<Props> = ({items, NoDataElement}) => {
                                     <h5 className="card-title">
                                         {getType(movie).title}
                                     </h5>
-                                    <p className="card-text">{
-                                        movie.overview.length > 100 ?
-                                            movie.overview.substring(0, 100) + '...'
-                                            : movie.overview
-                                        }</p>
                                 </div>
                             </div>
                     </List.Item>

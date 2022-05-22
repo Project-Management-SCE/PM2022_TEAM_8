@@ -45,7 +45,8 @@ export default class UserService {
     overview: string,
     poster_path: string,
     release_date: string,
-    title: string
+    title: string,
+    type: string,
   ) {
     return $api
       .post<ActionResponse>("/watchlist/add", {
@@ -56,6 +57,7 @@ export default class UserService {
         poster_path,
         release_date,
         title,
+        type
       })
       .then((res) => res.data);
   }

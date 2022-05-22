@@ -7,26 +7,22 @@ import {
 import ExternalApiService from "../api/ExternalApiService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHeartCircleBolt,
-  faCalendarAlt,
-  faClock,
-  faPlay,
-  faFilm,
-  faPenToSquare,
   faClose,
 } from "@fortawesome/free-solid-svg-icons";
 import Moment from "moment";
 import "../Style/movieCard.css";
 import { useParams } from "react-router-dom";
-import { Modal, Result } from "antd";
+import { Modal } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../redux/Store";
 import { IUser } from "../api/internalAPI/internalApiTypes";
 import { addToWatch } from "../redux/reducers/user-reducer";
 import Reviews from "../components/Reviews";
 import AddReviewModal from "../components/AddReviewModal";
+import MovieCard from "../components/MovieCard";
 //
 const Movie: FC = () => {
+
   const dispatch = useDispatch();
   const { id } = useParams();
   const [movie, setMovie] = useState<MovieDetails>();
@@ -56,6 +52,9 @@ const Movie: FC = () => {
       console.log(e);
     }
   }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   const [isTrailerModalVisible, setTrailerModalVisible] = useState(false);
   const [isReviewModalVisible, setIsReviewModalVisible] = useState(false);
   const showModal = () => {
@@ -74,7 +73,8 @@ const Movie: FC = () => {
     overview: string,
     poster_path: string,
     release_date: string,
-    title: string
+    title: string,
+    type: string,
   ) => {
 
     dispatch(
@@ -85,7 +85,8 @@ const Movie: FC = () => {
         overview,
         poster_path,
         release_date,
-        title
+        title,
+          type
       )
     );
   };
@@ -133,71 +134,21 @@ const Movie: FC = () => {
             </Modal>
           )}
           <AddReviewModal isModalVisible={isReviewModalVisible } setModalVisible={ setIsReviewModalVisible} onFinish={addReview}/>
-          <div className="movie-card">
-            {movie.poster_path ? (
-              <img
-                className="card-img-top"
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt="Card image cap"
-              />
-            ) : (
-              <Result
-                status="warning"
-                title="There is no poster for this movie yet!!!"
-              />
-            )}
-            <div className="card-body">
-              <h4 className="card-title">{movie.title}</h4>
-              <div className="movie-likes">
-                <FontAwesomeIcon
-                  className="like-icon"
-                  icon={faHeartCircleBolt}
-                />
-                <span>{movie.vote_count}</span>
-                <FontAwesomeIcon className="like-icon" icon={faCalendarAlt} />
-                <span>{Moment(movie.release_date).format("d MMM Y")}</span>
-                <FontAwesomeIcon className="like-icon" icon={faClock} />
-                <span>{movie.runtime}min</span>
-              </div>
-              <h5 className="summery">SUMMARY</h5>
-              <p className="card-text">{movie.overview}</p>
-              <div className="movie-links">
-                <div className="links">
-                  {officialTrailer ? (
-                    <>
-                      <a onClick={showModal}>
-                        <FontAwesomeIcon className="fa-icon" icon={faPlay} />
-                      </a>
-                      <span>Trailer</span>
-                    </>
-                  ) : (
-                    ""
-                  )}
-
-                  <FontAwesomeIcon className="fa-icon" icon={faFilm} />
-                  <a
-                      data-testid="addTo"
-                    onClick={() =>
-                      addToWatchList(
-                        movie.id,
-                        movie.genres,
-                        movie.overview,
-                        movie.poster_path,
-                        movie.release_date,
-                        movie.title
-                      )
-                    }
-                  >
-                    <span>+WatchList</span>
-                  </a>
-                  <FontAwesomeIcon className="fa-icon" icon={faPenToSquare} />
-                  <a onClick={()=>setIsReviewModalVisible(true)}>
-                    <span>+Review</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+          <MovieCard
+            genres={movie.genres}
+            overview={movie.overview}
+            poster_path={movie.poster_path}
+            release_date={movie.release_date}
+            title={movie.title}
+            id={movie.id}
+            officialTrailer={officialTrailer! }
+            addToWatchList={addToWatchList}
+            setIsReviewModalVisible={setIsReviewModalVisible}
+            runtime={movie.runtime}
+            showTrailerModal={showModal}
+            vote_count={movie.vote_count}
+            type={"MOVIE"}
+          />
         </div>
       )}
       {id && <Reviews movieID={id}/>}

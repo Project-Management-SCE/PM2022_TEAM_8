@@ -4,11 +4,15 @@ module.exports = class ReviewDto {
     movieID;
     text;
     recommendation;
-    constructor( userID,movieID,text,recommendation) {
+    type;
+    movieTitle;
+    constructor( userID,movieID,text,recommendation,movieTitle,type) {
         this.userID = userID;
         this.movieID = movieID;
         this.text = text;
         this.recommendation = recommendation;
+        this.movieTitle = movieTitle;
+        this.type = type;
     }
 }
 

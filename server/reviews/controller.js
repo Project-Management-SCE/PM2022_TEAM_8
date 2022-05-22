@@ -11,8 +11,8 @@ class ReviewController {
     }
     async add(req, res, next) {
         try {
-            const { userID, movieID, text, recommendation,user,movieTitle } = req.body;
-            await ReviewService.add(userID, movieID, text, recommendation,user.email,movieTitle);
+            const { userID, movieID, text, recommendation,user,movieTitle,type } = req.body;
+            await ReviewService.add(userID, movieID, text, recommendation,user.email,movieTitle,type);
             res.json({ Result: "Success" });
         } catch (err) {
             next(err)

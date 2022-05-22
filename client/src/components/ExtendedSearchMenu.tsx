@@ -38,19 +38,19 @@ const ExtendedSearchMenu: FC<props> = ({
                     value="Movies"
                     variant="outline-danger"
                     checked={searchType === "Movies"}
-                    onClick={(e) => setSearchType("Movies")}
+                    onClick={() => setSearchType("Movies")}
                 >
                     Movies
                 </ToggleButton>
                 <ToggleButton
                     key={"Series"}
                     type="radio"
-                    value="Series"
+                    value="TVShows"
                     variant="outline-danger"
                     checked={searchType === "Series"}
-                    onClick={(e) => setSearchType("Series")}
+                    onClick={() => setSearchType("Series")}
                 >
-                    Series
+                    TVShows
                 </ToggleButton>
             </ButtonGroup>
             <Divider
@@ -78,7 +78,7 @@ const ExtendedSearchMenu: FC<props> = ({
                                     value={genre.id}
                                     variant="outline-dark"
                                     checked={genre.checked}
-                                    onClick={(e) =>
+                                    onClick={() =>
                                         setGenres(
                                             genres.map((g) => {
                                                 if (g.id === genre.id) {
@@ -105,14 +105,14 @@ const ExtendedSearchMenu: FC<props> = ({
             <p className={"text-decor"}>From</p>
             <DatePicker
                 picker={"year"}
-                onChange={(date: Moment | null, dateString: string) =>
+                onChange={(date: Moment | null) =>
                     setStartYear(date!.year())
                 }
             />
             <p className={"text-decor"}>To</p>
             <DatePicker
                 picker={"year"}
-                onChange={(date: Moment | null, dateString: string) =>
+                onChange={(date: Moment | null) =>
                     setEndYear(date!.year())
                 }
             />

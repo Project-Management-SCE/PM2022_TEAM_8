@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
-  TopRatedMovies,
-  PopularTVshows,
+  PopularTVshows, UpcomingMovie,
 } from "../api/ExternalApiResponseTypes";
 import ExternalApiService from "../api/ExternalApiService";
 import CarouselMovies from "../components/CarouselMovies";
@@ -11,22 +10,20 @@ import { IUser } from "../api/internalAPI/internalApiTypes";
 import {useSelector } from "react-redux";
 import { AppStateType } from "../redux/Store";
 import "../Style/home.css";
+import ContentList from "../components/ContentList";
+import NoResults from "../components/NoResults";
 
 const Home = () => {
-  const [topMovies, setTopMovies] = React.useState<TopRatedMovies[]>([]);
+  const [topMovies, setTopMovies] = React.useState<UpcomingMovie[]>([]);
   const [topSeries, setTopSeries] = React.useState<PopularTVshows[]>([]);
   const curr_user = useSelector<AppStateType>(
     (state) => state.auth.user
   ) as IUser;
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
-  };
   useEffect(() => {
     try {
       ExternalApiService.getUpcomingMovies().then((response) => {
-        setTopMovies(response.results.slice(0, 5) as TopRatedMovies[]);
+        setTopMovies(response.results.slice(0, 5) as UpcomingMovie[]);
       });
     } catch (e) {
       console.log(e);
@@ -58,24 +55,7 @@ const Home = () => {
           </NavLink>
         </div>
         <div className="movies-flex">
-          {topMovies.length
-            ? topMovies.map((movie) => (
-                <div className="col-md-4" key={movie.id}>
-                  <div className="card">
-                    <Link to={`/movie/${movie.id}`}>
-                      <img
-                        className="card-img-top"
-                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                        alt="Card image cap"
-                      />
-                    </Link>
-                    <div className="card-body">
-                      <h5 className="card-title">{movie.title}</h5>
-                    </div>
-                  </div>
-                </div>
-              ))
-            : ""}
+        <ContentList items={topMovies} NoDataElement={NoResults}/>
         </div>
         <div className="category-row">
           <span className="category-header">Series</span>
@@ -84,22 +64,7 @@ const Home = () => {
           </NavLink>
         </div>
         <div className="movies-flex">
-          {topSeries.length
-            ? topSeries.map((movie) => (
-                <div className="col-md-4" key={movie.id}>
-                  <div className="card">
-                    <img
-                      className="card-img-top"
-                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                      alt="Card image cap"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">{movie.name}</h5>
-                    </div>
-                  </div>
-                </div>
-              ))
-            : ""}
+          <ContentList items={topSeries} NoDataElement={NoResults}/>
         </div>
         {isOpen && (
           <PopUp

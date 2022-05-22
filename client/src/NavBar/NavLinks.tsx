@@ -5,6 +5,8 @@ import IconContainer from "../util/IconContainer";
 import { colors } from "../Style/colors";
 import home from "../assets/icons/home.png";
 import logoutImg from "../assets/icons/logout.png";
+import loginImg from "../assets/icons/login.png";
+import registerImg from "../assets/icons/register.png";
 import user from "../assets/icons/user.png";
 import {useDispatch, useSelector} from "react-redux";
 import  {logout} from "../redux/reducers/auth-reducer";
@@ -23,6 +25,17 @@ const NavLinks : FC = () => {
     <div className="nav-links">
         {isAuth && (curr_user?.type === "User" || curr_user?.type === "Admin")?
             <>
+                <Link to="/" >
+                    <IconContainer
+                        image={home}
+                        width={45}
+                        height={45}
+                        backgroundColor={colors.primaryColor}
+                        border={true}
+                        borderColor={colors.white}
+                        imageDimensions={{width: 25, height: 25}}
+                    />
+                </Link>
                 <Link to="/user_profile" >
 
                     <IconContainer
@@ -49,7 +62,6 @@ const NavLinks : FC = () => {
                     />
                 </Link>
                 <p className={"user-welcome"}>Welcome, {curr_user.firstName}</p>
-                <p className={"user-welcome"}>User Type, {curr_user.type}</p>
             </>
 
         : <>
@@ -65,10 +77,28 @@ const NavLinks : FC = () => {
                     />
                 </Link>
                 <Link to="/login" >
-                    <button className="login-btn">Log In</button>
+                    <IconContainer
+                        image={loginImg}
+                        width={45}
+                        height={45}
+                        backgroundColor={colors.primaryColor}
+                        border={true}
+                        borderColor={colors.white}
+                        imageDimensions={{ width: 25, height: 25 }}
+                        title="Log In"
+                    />
                 </Link>
                 <Link to="/register" >
-                    <button className="register-btn">Register</button>
+                    <IconContainer
+                        image={registerImg}
+                        width={45}
+                        height={45}
+                        backgroundColor={colors.primaryColor}
+                        border={true}
+                        borderColor={colors.white}
+                        imageDimensions={{ width: 25, height: 25 }}
+                        title="Register"
+                    />
                 </Link>
             </>
 

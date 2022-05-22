@@ -22,6 +22,7 @@ window.matchMedia = window.matchMedia || function () {
 
 const mockStore = configureMockStore([thunk]);
 const movieDetails = {
+    type: "MOVIE" as const,
     userID: "123",
     genre_ids: ["Drama","Thriller"],
     id: 123,
@@ -36,6 +37,7 @@ describe("Test the removal of a movie from the user watchlist", () => {
     beforeEach(() => {
         jest.spyOn(UserService, 'removeFromWatchList').mockResolvedValue({result:"Success"});
         jest.spyOn(UserService, 'getWatchlist').mockResolvedValue({ watchlist: [movieDetails]});
+        window.scrollTo = jest.fn();
     })
     afterEach(() => {
         jest.clearAllMocks();
