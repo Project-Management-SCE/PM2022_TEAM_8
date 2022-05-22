@@ -30,7 +30,6 @@ const Movies: FC = () => {
       <div className="row">
           <ContentList items={movies} NoDataElement={NoResults}/>
       </div>
-      {/*<GenresList />*/}
     <MyPagination page={page} total={totalPages}  onChange={(page)=>nav(`/movies/${page}`)}/>
     </div>
   );

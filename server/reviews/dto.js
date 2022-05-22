@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+
 module.exports = class ReviewDto {
     userID;
     movieID;

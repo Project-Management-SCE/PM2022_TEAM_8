@@ -112,6 +112,7 @@ export const UsersList: FC = () => {
                     rowKey={(record) => record.email!}
                     dataSource={users}
                     loading={isFetching}
+                    pagination={false}
                 />
             </div>
         </div>

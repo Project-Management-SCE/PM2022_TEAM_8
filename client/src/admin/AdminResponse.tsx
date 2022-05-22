@@ -87,6 +87,7 @@ export const AdminResponse: FC = () => {
                     dataSource={messages}
                     loading={isFetching}
                     rowKey={(record) => record.ticketID!}
+                    pagination={false}
                 />
             </div>
         </div>

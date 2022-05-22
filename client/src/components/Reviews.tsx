@@ -1,10 +1,9 @@
-import React from "react";
-import DashboardRoutesReusableTemplate from "../components/DashboardRoutesReusableTemplate";
-import "../Style/userProfile.css";
-import {Comment, List} from "antd";
-import {IReview} from "../api/internalAPI/internalApiTypes";
+import {List, Comment} from 'antd';
+import React, {FC, useEffect} from 'react';
+import { IReview } from '../api/internalAPI/internalApiTypes';
+import "../Style/Reviews.css";
+import {faFlag, faThumbsDown, faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faThumbsDown, faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 const data = [
     {
         userEmail: "test2@gmail.com",
@@ -136,34 +135,45 @@ const data = [
             "molestiae non numquam omnis perferendis qui quos soluta, voluptatum."
     },
 ] as IReview[];
-export const UserReviews = () => {
-  return (
-    <DashboardRoutesReusableTemplate
-      children={
-            <div className={"user-reviews-container"}>
-                <List<IReview>
-                    className="review-list"
-                    bordered={true}
-                    rowKey={(item: IReview) => item.userEmail}
-                    header={`${data.length} Reviews`}
-                    itemLayout="horizontal"
-                    dataSource={data}
-                    renderItem={rev => (
-                        <Comment
-                            className={'review-item'}
-                            author={<h4>{rev.movieTitle}</h4>}
-                            content={rev.text}
-                            actions={[
-                                <FontAwesomeIcon  className="like-icon review-recommend" icon={rev.recommendation?
-                                    faThumbsUp: faThumbsDown}/>
-                            ]}
-                        />
+interface ReviewsProps {
+    movieID: string;
+}
+const Reviews:FC<ReviewsProps> = ({movieID}) => {
+    useEffect(() => {
+        console.log(movieID);
+    }, [movieID]);
+    return (
+        <div className={"reviews-container"}>
+        <List<IReview>
+            className="review-list"
+            bordered={true}
+            rowKey={(item: IReview) => item.userEmail}
+            header={`${data.length} Reviews`}
+            itemLayout="horizontal"
+            dataSource={data}
+            renderItem={rev => (
+                    <Comment
+                        className={'review-item'}
+                        author={
+                        <>
+                            <h4>{rev.userEmail.split('@')[0]}</h4>
+                        </>
+                       }
+                        content={<>
+                            <FontAwesomeIcon  className="like-icon review-report" icon={faFlag} />
+                            { rev.text}
+                        </>}
+                        actions={[
+                            <FontAwesomeIcon  className="like-icon review-recommend" icon={rev.recommendation?
+                                faThumbsUp: faThumbsDown} style={{color:rev.recommendation?"green":"red"}}/>
+                        ]}
+                   />
 
 
-                    )}
-                />
-            </div>
-      }
-    />
-  );
+            )}
+        />
+        </div>
+    );
 };
+
+export default Reviews;

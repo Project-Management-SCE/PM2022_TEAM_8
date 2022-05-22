@@ -23,6 +23,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../redux/Store";
 import { IUser } from "../api/internalAPI/internalApiTypes";
 import { addToWatch } from "../redux/reducers/user-reducer";
+import Reviews from "../components/Reviews";
+import AddReviewModal from "../components/AddReviewModal";
 //
 const Movie: FC = () => {
   const dispatch = useDispatch();
@@ -54,14 +56,17 @@ const Movie: FC = () => {
       console.log(e);
     }
   }, []);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const [isTrailerModalVisible, setTrailerModalVisible] = useState(false);
+  const [isReviewModalVisible, setIsReviewModalVisible] = useState(false);
   const showModal = () => {
-    setIsModalVisible(true);
+    setTrailerModalVisible(true);
   };
 
   const handleCancel = () => {
-    setIsModalVisible(false);
+    setTrailerModalVisible(false);
+  };
+  const addReview = () => {
+    setIsReviewModalVisible(false);
   };
   const addToWatchList = (
     id: number,
@@ -85,6 +90,7 @@ const Movie: FC = () => {
     );
   };
   return (
+      <>
     <div
       style={{
         backgroundImage: movie
@@ -107,7 +113,7 @@ const Movie: FC = () => {
           {officialTrailer && (
             <Modal
               title={`Official Trailer : ${movie.title}`}
-              visible={isModalVisible}
+              visible={isTrailerModalVisible}
               width={1000}
               onCancel={handleCancel}
               footer={null}
@@ -126,6 +132,7 @@ const Movie: FC = () => {
               />
             </Modal>
           )}
+          <AddReviewModal isModalVisible={isReviewModalVisible } setModalVisible={ setIsReviewModalVisible} onFinish={addReview}/>
           <div className="movie-card">
             {movie.poster_path ? (
               <img
@@ -184,14 +191,18 @@ const Movie: FC = () => {
                     <span>+WatchList</span>
                   </a>
                   <FontAwesomeIcon className="fa-icon" icon={faPenToSquare} />
-                  <span>+Review</span>
+                  <a onClick={()=>setIsReviewModalVisible(true)}>
+                    <span>+Review</span>
+                  </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
       )}
+      {id && <Reviews movieID={id}/>}
     </div>
+    </>
   );
 };
 

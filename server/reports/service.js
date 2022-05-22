@@ -4,7 +4,7 @@ const ReportDto = require('./dto')
 
 class ReportService {
     async getAll() {
-        const reports = await Report.find({ type: "Report" })
+        const reports = await Report.find({})
         return reports.map(report => new ReportDto(report.userID, report.reviewID, report.subject, report.text))
     }
     async get(id) {

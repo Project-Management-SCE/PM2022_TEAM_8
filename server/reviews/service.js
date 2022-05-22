@@ -5,7 +5,7 @@ const ReviewDto = require('./dto')
 
 class ReviewService {
 
-    async add(userID, movieID, text, recommendation) {
+    async add(userID, movieID, text, recommendation,email,movieTitle) {
         const checkExist = await Review.findOne({ userID: userID.id, movieID: movieID })
         if (checkExist) {
             throw new ApiError(409, 'Oops! You already reviewed this!')
@@ -15,14 +15,16 @@ class ReviewService {
                 userID: userID.id,
                 movieID,
                 text,
+                userEmail: email,
                 recommendation,
+                movieTitle
             })
         await newReview.save()
         return 'Success'
     }
     async get(id) {
         const reviews = await Review.find({ userID: id })
-        return reviews.map(review => new ReviewDto(review.userID, review.movieID, review.text,review.recommendation))
+        return reviews.map(review => new ReviewDto(review.userID, review.movieID, review.text,review.recommendation,review.userEmail))
     }
     async remove(userID, movieID) {
         const review = await Review.findOne({ userID: userID, movieID:movieID });
