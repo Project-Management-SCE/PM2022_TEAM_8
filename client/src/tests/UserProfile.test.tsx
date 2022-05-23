@@ -35,7 +35,10 @@ describe("Test user Profile functionality", () => {
                     type: 'ab',
                     phone: '12',
                     address: 'ab'
-                } }
+                } },
+            user: {
+                selected:"Dashboard"
+            }
         });
         render(<Provider store={store}><BrowserRouter><UserProfile/></BrowserRouter></Provider>);
 
@@ -56,7 +59,10 @@ describe("Test user Profile functionality", () => {
                     type: 'ab',
                     phone: '12',
                     address: 'ab'
-                } }
+                } },
+            user: {
+                selected:"Dashboard"
+            }
         });
         render(<Provider store={store}><BrowserRouter><UserProfile/></BrowserRouter></Provider>);
 

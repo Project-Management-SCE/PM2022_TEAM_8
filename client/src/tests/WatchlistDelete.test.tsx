@@ -65,7 +65,8 @@ describe("Test the removal of a movie from the user watchlist", () => {
                         title: 'Blackmail',
                     }
                 ],
-                isFetching: false
+                isFetching: false,
+                selected:"Watch List"
             },
             app:{
                 isLoading: false,

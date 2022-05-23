@@ -8,12 +8,14 @@ import AuthService from "../../api/internalAPI/authApi";
 let initialState = {
   watchlist: [] as Watchlist[],
   isFetching: false,
+  selected:"Dashboard"
 };
 
 export enum UserActions {
   SET_WATCHLIST_DATA,
   SET_LOADING,
   DELETE_CONTENT,
+    SET_SELECTED
 }
 
 const userReducer = (
@@ -23,6 +25,7 @@ const userReducer = (
   switch (action.type) {
     case UserActions.SET_WATCHLIST_DATA:
     case UserActions.SET_LOADING:
+    case UserActions.SET_SELECTED:
       return {
         ...state,
         ...action.payload,
@@ -54,6 +57,11 @@ export const userActions = {
       type: UserActions.DELETE_CONTENT,
       payload: { id },
     } as const),
+    setSelected: (selected:string) =>
+        ({
+            type: UserActions.SET_SELECTED,
+            payload: {selected}
+        } as const)
 };
 
 export const removeFromWatchList =

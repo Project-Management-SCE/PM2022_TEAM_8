@@ -5,7 +5,8 @@ import {ButtonGroup, ToggleButton} from "react-bootstrap";
 import profileImg from "../assets/icons/userProfile.png";
 import {IUser} from "../api/internalAPI/internalApiTypes";
 import {AppStateType} from "../redux/Store";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {userActions} from "../redux/reducers/user-reducer";
 type ReusableDashboardProps = {
   children: any;
 };
@@ -15,9 +16,12 @@ const DashboardRoutesReusableTemplate = ({
   const curr_user = useSelector<AppStateType>(
       (state) => state.auth.user
   ) as IUser;
-  const [selected, setSelected] = React.useState("Dashboard");
+  const selected = useSelector<AppStateType>(
+      (state) => state.user.selected
+  ) as string;
+  const dispatch =useDispatch();
   const handleSelect = (value: any) => {
-    setSelected(value);
+    dispatch(userActions.setSelected(value));
   };
   return (
     <div className="profile-container">
