@@ -37,7 +37,7 @@ const TvShow = () => {
         }
         try {
             id &&
-            ExternalApiService.getMovieVideos(id).then((response) => {
+            ExternalApiService.getTvShowsVideos(id).then((response) => {
                 setVideos(response.results as MovieVideos[]);
             });
         } catch (e) {
