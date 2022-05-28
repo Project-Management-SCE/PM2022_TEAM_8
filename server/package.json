@@ -7,7 +7,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "nyc --reporter=text mocha 'tests/*.js' --timeout 60000 --exit",
-    "nibble": "eslint-nibble /server/ --exclude 'node_modules'"
+    "nibble": "npx eslint-nibble \"./**/*.js\" --no-interactive  "
   },
   "keywords": [],
   "author": "",
