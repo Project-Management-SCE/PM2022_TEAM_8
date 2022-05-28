@@ -29,7 +29,7 @@ class Mailer{
             });
 
             return accessToken;
-    };
+    }
     static async sendMail(email, subject, token) {
             const accessToken = await Mailer.getAccessToken();
             const transporter = nodemailer.createTransport({
