@@ -18,15 +18,14 @@ import { AppStateType } from "../redux/Store";
 import { IUser } from "../api/internalAPI/internalApiTypes";
 import { addToWatch } from "../redux/reducers/user-reducer";
 import Reviews from "../components/Reviews";
-import AddReviewModal from "../components/AddReviewModal";
 import MovieCard from "../components/MovieCard";
-//
 const Movie: FC = () => {
 
   const dispatch = useDispatch();
   const { id } = useParams();
   const [movie, setMovie] = useState<MovieDetails>();
   const [videos, setVideos] = useState<MovieVideos[]>([]);
+  const [isReviewModalVisible, setIsReviewModalVisible] = useState(false);
   const curr_user = useSelector<AppStateType>(
     (state) => state.auth.user
   ) as IUser;
@@ -56,16 +55,12 @@ const Movie: FC = () => {
     window.scrollTo(0, 0)
   }, [])
   const [isTrailerModalVisible, setTrailerModalVisible] = useState(false);
-  const [isReviewModalVisible, setIsReviewModalVisible] = useState(false);
   const showModal = () => {
     setTrailerModalVisible(true);
   };
 
   const handleCancel = () => {
     setTrailerModalVisible(false);
-  };
-  const addReview = () => {
-    setIsReviewModalVisible(false);
   };
   const addToWatchList = (
     id: number,
@@ -133,7 +128,6 @@ const Movie: FC = () => {
               />
             </Modal>
           )}
-          <AddReviewModal isModalVisible={isReviewModalVisible } setModalVisible={ setIsReviewModalVisible} onFinish={addReview}/>
           <MovieCard
             genres={movie.genres}
             overview={movie.overview}
@@ -151,7 +145,11 @@ const Movie: FC = () => {
           />
         </div>
       )}
-      {id && <Reviews movieID={id}/>}
+      {id && <Reviews movieID={id} setIsReviewModalVisible={setIsReviewModalVisible}
+                      isReviewModalVisible={isReviewModalVisible}
+                      type={"MOVIE"}
+                      contentTitle={movie?.title || ""}
+      />}
     </div>
     </>
   );

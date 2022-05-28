@@ -22,6 +22,7 @@ class Mailer{
                 oauth2Client.getAccessToken((err, token) => {
                     if (err) {
                         reject();
+                        console.log("Error while trying to retrieve access token");
                     }
                     resolve(token);
                 });
@@ -30,7 +31,6 @@ class Mailer{
             return accessToken;
     };
     static async sendMail(email, subject, token) {
-        try{
             const accessToken = await Mailer.getAccessToken();
             const transporter = nodemailer.createTransport({
                 service: "gmail",
@@ -68,18 +68,10 @@ class Mailer{
                     }
                 ]
             };
-            await transporter.sendMail(mailOptions,error=>{
-                if (error){
-                    return console.log(error);
-                }
-            })
-        }catch (e) {
-            console.log(e);
-        }
+            await transporter.sendMail(mailOptions)
 
     }
     static async sendResponse(email, text) {
-        try{
             const accessToken = await Mailer.getAccessToken();
             const transporter = nodemailer.createTransport({
                 service: "gmail",
@@ -112,15 +104,7 @@ class Mailer{
                     }
                 ]
             };
-            await transporter.sendMail(mailOptions,error=>{
-                if (error){
-                    return console.log(error);
-                }
-            })
-        }catch (e) {
-            console.log(e);
-        }
-
+            await transporter.sendMail(mailOptions)
     }
 
 }

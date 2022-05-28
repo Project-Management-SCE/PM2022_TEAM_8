@@ -1,5 +1,5 @@
 import {BaseThunkType, InferActionsTypes} from '../Store';
-import {IUser} from "../../api/internalAPI/internalApiTypes";
+import {IReport, IReview, IUser} from "../../api/internalAPI/internalApiTypes";
 import UserService from "../../api/internalAPI/userApi";
 import {appActions} from "./app-reducer";
 import MessageService from "../../api/internalAPI/messageApi";
@@ -9,10 +9,15 @@ import AuthService from "../../api/internalAPI/authApi";
 let initialState = {
     users:[] as IUser[],
     messages:[] as Message[],
+    reviews:[] as IReview[],
+    reports :[] as IReport[],
     isFetching: false,
 };
 
 export enum UserActions {
+    SET_REPORTS,
+    DELETE_REVIEW,
+    SET_REVIEWS ,
     SET_USERS_DATA,
     SET_MESSAGES_DATA,
     UPDATE_MESSAGE,
@@ -24,6 +29,8 @@ export enum UserActions {
 const adminReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case UserActions.SET_USERS_DATA:
+        case UserActions.SET_REPORTS:
+        case UserActions.SET_REVIEWS:
         case UserActions.SET_MESSAGES_DATA:
         case UserActions.SET_LOADING:
             return {
@@ -51,6 +58,11 @@ const adminReducer = (state: InitialStateType = initialState, action: ActionsTyp
                 ...state,
                 messages: state.messages.map(message => message.ticketID === action.payload.ticketID? { ...message, status: action.payload.status}: message)
             }
+        case UserActions.DELETE_REVIEW:
+            return{
+                ...state,
+                reviews: state.reviews.filter(review => review.reviewID !== action.payload.reviewId)
+            }
         default:
             return state;
     }
@@ -59,6 +71,10 @@ export const adminActions = {
     setUsersData: (users:IUser[]) => ({
         type: UserActions.SET_USERS_DATA,
         payload: {users}
+    } as const),
+    setReviews: (reviews:IReview[]) => ({
+        type: UserActions.SET_REVIEWS,
+        payload: {reviews}
     } as const),
     setMessagesData: (messages:Message[]) => ({
         type: UserActions.SET_MESSAGES_DATA,
@@ -83,7 +99,15 @@ export const adminActions = {
     deleteUser: (email:string) => ({
         type: UserActions.DELETE_USER,
         payload: {email}
-    } as const)
+    } as const),
+    setReports: (reports:IReport[]) => ({
+        type: UserActions.SET_REPORTS,
+        payload: {reports}
+    } as const),
+    deleteReview: (reviewId:string) => ({
+        type: UserActions.DELETE_REVIEW,
+        payload: {reviewId}
+    } as const),
 }
 
 export const banUser = (email:string,date:Date): ThunkType => async (dispatch) => {
@@ -178,6 +202,46 @@ export const sendReply = (email:string,text:string,id:string): ThunkType => asyn
         dispatch(adminActions.setLoading(false))
     }
 }
+export const getReviews = (): ThunkType => async (dispatch) => {
+    try {
+        dispatch(adminActions.setLoading(true))
+        const data = await MessageService.getReportedReviews()
+        dispatch(adminActions.setReviews(data.reviews))
+    } catch (e: any) {
+        const msg = e.response?.data?.message || 'Error fetching reviews'
+        dispatch(appActions.setError(msg))
+    }finally {
+        dispatch(adminActions.setLoading(false))
+    }
+}
+
+export const getReports = (reviewId:string): ThunkType => async (dispatch) => {
+    try {
+        dispatch(adminActions.setLoading(true))
+        const data = await MessageService.getReports(reviewId)
+        dispatch(adminActions.setReports(data.reports))
+    } catch (e: any) {
+        const msg = e.response?.data?.message || 'Error fetching reports'
+        dispatch(appActions.setError(msg))
+    }finally {
+        dispatch(adminActions.setLoading(false))
+    }
+}
+
+export const deleteReview = (reviewId:string): ThunkType => async (dispatch) => {
+    try {
+        dispatch(adminActions.setLoading(true))
+        await MessageService.deleteReview(reviewId)
+        dispatch(adminActions.deleteReview(reviewId))
+        dispatch(appActions.setSuccess(`Review deleted successfully`))
+    } catch (e: any) {
+        const msg = e.response?.data?.message || 'Error deleting review'
+        dispatch(appActions.setError(msg))
+    }finally {
+        dispatch(adminActions.setLoading(false))
+    }
+}
+
 export type InitialStateType = typeof initialState
 type ActionsType = InferActionsTypes<typeof adminActions | typeof appActions>
 type ThunkType = BaseThunkType<ActionsType>

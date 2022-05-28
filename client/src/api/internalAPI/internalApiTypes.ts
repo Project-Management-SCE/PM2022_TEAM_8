@@ -20,6 +20,7 @@ export interface Watchlist{
 }
 export interface IReport {
     reviewID: string
+    reportedBy: string
     userID: string
     subject: string
     text: string
@@ -29,6 +30,13 @@ export interface IReview {
     reviewID: string
     userEmail: string
     userID: string
+    movieID: string
+    recommendation: boolean
+    text: string
+    movieTitle: string
+}
+export interface NewReview {
+    type: "TVSERIES" | "MOVIE"
     movieID: string
     recommendation: boolean
     text: string

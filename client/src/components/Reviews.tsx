@@ -1,156 +1,75 @@
 import {List, Comment} from 'antd';
-import React, {FC, useEffect} from 'react';
-import { IReview } from '../api/internalAPI/internalApiTypes';
+import React, {FC, useEffect, useState} from 'react';
+import {IReview, NewReview} from '../api/internalAPI/internalApiTypes';
 import "../Style/Reviews.css";
 import {faFlag, faThumbsDown, faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-const data = [
-    {
-        userEmail: "test2@gmail.com",
-        userID: "2",
-        movieID: "2",
-        recommendation: true,
-        movieTitle: "The Godfather",
-        text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        `
-    },
-    {
-        userEmail: "test2@gmail.com",
-        userID: "2",
-        movieID: "2",
-        recommendation: true,
-        movieTitle: "The Godfather",
-        text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        `
-    },
-    {
-        userEmail: "test2@gmail.com",
-        userID: "2",
-        movieID: "2",
-        recommendation: true,
-        movieTitle: "The Godfather",
-        text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        `
-    },
-    {
-        userEmail: "test2@gmail.com",
-        userID: "2",
-        movieID: "2",
-        movieTitle: "The Godfather",
-        recommendation: true,
-        text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        `
-    },
-    {
-        userEmail: "test2@gmail.com",
-        userID: "2",
-        movieID: "2",
-        movieTitle: "The Godfather",
-        recommendation: true,
-        text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        `
-    },
-    {
-        userEmail: "test2@gmail.com",
-        userID: "2",
-        movieID: "2",
-        movieTitle: "The Godfather",
-        recommendation: true,
-        text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        `
-    },
-    {
-        userEmail: "test2@gmail.com",
-        userID: "2",
-        movieID: "2",
-        movieTitle: "The Godfather",
-        recommendation: true,
-        text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda 
-        consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam 
-        molestiae non numquam omnis perferendis qui quos soluta, voluptatum.
-        `
-    },
-    {
-        userEmail: "test2@gmail.com",
-        userID: "2",
-        movieID: "1",
-        movieTitle: "The Godfather",
-        recommendation: false,
-        text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, assumenda " +
-            "consequatur debitis earum eius esse ex excepturi, facere hic impedit laboriosam " +
-            "molestiae non numquam omnis perferendis qui quos soluta, voluptatum."
-    },
-] as IReview[];
+import messageApi from '../api/internalAPI/messageApi';
+import AddReviewModal from "./AddReviewModal";
+import {useDispatch} from "react-redux";
+import {appActions} from "../redux/reducers/app-reducer";
+import AddReportModal from "./AddReportModal";
+
 interface ReviewsProps {
     movieID: string;
+    contentTitle:string;
+    type: "TVSERIES" | "MOVIE";
+    isReviewModalVisible: boolean;
+    setIsReviewModalVisible: (isReviewModalVisible: boolean) => void;
 }
-const Reviews:FC<ReviewsProps> = ({movieID}) => {
+const Reviews:FC<ReviewsProps> = ({movieID,setIsReviewModalVisible,isReviewModalVisible,contentTitle,type}) => {
+    const [reviews, setReviews] = React.useState<IReview[]>([]);
+    const [currentReviewId, setReviewId] = React.useState("");
+    const [isReportVisible, setReportVisible] = useState(false);
+    const onReport = (reviewId: string) => {
+        setReviewId(reviewId);
+        setReportVisible(true);
+    };
+    const dispatch = useDispatch()
+    const addReview = async (newReview:NewReview) => {
+        try {
+            const data  = await messageApi.addReview(newReview)
+            setReviews([...reviews,data.review])
+            dispatch(appActions.setSuccess("Review added successfully"))
+        }catch (e:any) {
+            dispatch(appActions.setError(e.response?.data?.message || "Error adding review"))
+        }finally {
+            setIsReviewModalVisible(false);
+        }
+
+    };
+    const addReport = async (reviewId :string, subject :string, text:string) => {
+        try {
+            await messageApi.addReport(reviewId,subject,text)
+            dispatch(appActions.setSuccess("Reported successfully"))
+        }catch (e:any) {
+            dispatch(appActions.setError(e.response?.data?.message || "Error reporting"))
+        }
+
+    };
     useEffect(() => {
-        console.log(movieID);
+        messageApi.getReviewsByMovie(movieID).
+       then(data => {
+            console.log(data);
+            setReviews(data.reviews)});
     }, [movieID]);
     return (
         <div className={"reviews-container"}>
+            <AddReviewModal isModalVisible={isReviewModalVisible }
+                            setModalVisible={ setIsReviewModalVisible}
+                            onFinish={addReview}
+                            contentId={movieID}
+                            contentTitle={contentTitle}
+                            type={type}
+            />
+            <AddReportModal isModalVisible={isReportVisible} setModalVisible={setReportVisible} onFinish={addReport} reviewId={currentReviewId} />
         <List<IReview>
             className="review-list"
             bordered={true}
             rowKey={(item: IReview) => item.userEmail}
-            header={`${data.length} Reviews`}
+            header={`${reviews.length} Reviews`}
             itemLayout="horizontal"
-            dataSource={data}
+            dataSource={reviews}
             renderItem={rev => (
                     <Comment
                         className={'review-item'}
@@ -160,7 +79,7 @@ const Reviews:FC<ReviewsProps> = ({movieID}) => {
                         </>
                        }
                         content={<>
-                            <FontAwesomeIcon  className="like-icon review-report" icon={faFlag} />
+                            <FontAwesomeIcon onClick={()=>onReport(rev.reviewID)} className="like-icon review-report" icon={faFlag} />
                             { rev.text}
                         </>}
                         actions={[

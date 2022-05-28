@@ -2,14 +2,21 @@ import React, {FC, useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faClose, faThumbsDown, faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 import { Modal } from 'antd';
+import {NewReview} from "../api/internalAPI/internalApiTypes";
 
 
 interface AddReviewModalProps {
     isModalVisible: boolean;
     setModalVisible: (value:boolean) => void;
-    onFinish: () => void;
+    onFinish: (review:NewReview) => void;
+    type: "TVSERIES" | "MOVIE"
+    contentId: string;
+    contentTitle: string;
+
 }
-const AddReviewModal:FC<AddReviewModalProps> = ({isModalVisible,setModalVisible,onFinish}) => {
+const AddReviewModal:FC<AddReviewModalProps> = ({isModalVisible,
+                                                    setModalVisible,onFinish,
+                                                    type,contentId,contentTitle}) => {
     const [text,setText] = useState('');
     const [recommend,setRecommend] = useState(false);
     const colorRec = recommend ? '#52c41a' : '#989898';
@@ -26,7 +33,17 @@ const AddReviewModal:FC<AddReviewModalProps> = ({isModalVisible,setModalVisible,
             bodyStyle={{ background: "#eeeeee" }}
         >
             <div className="container">
-                <form onSubmit={onFinish}>
+                <form onSubmit={(e) => {
+                    e.preventDefault();
+                    onFinish({
+                    type,
+                    movieID: contentId,
+                    recommendation: recommend,
+                    text,
+                    movieTitle: contentTitle
+                    })
+                }
+                }>
                     <div className="textAreaDiv">
                      <textarea
                          data-testid="text"

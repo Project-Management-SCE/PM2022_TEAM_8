@@ -1,17 +1,20 @@
 import { BaseThunkType, InferActionsTypes } from "../Store";
-import { IUser, Watchlist } from "../../api/internalAPI/internalApiTypes";
+import {IReview, IUser, Watchlist} from "../../api/internalAPI/internalApiTypes";
 import UserService from "../../api/internalAPI/userApi";
 import { appActions } from "./app-reducer";
 import { authActions } from "./auth-reducer";
 import AuthService from "../../api/internalAPI/authApi";
+import MessageService from "../../api/internalAPI/messageApi";
 
 let initialState = {
   watchlist: [] as Watchlist[],
   isFetching: false,
-  selected:"Dashboard"
+  selected:"Dashboard",
+  reviews: [] as IReview[],
 };
 
 export enum UserActions {
+    SET_REVIEWS,
   SET_WATCHLIST_DATA,
   SET_LOADING,
   DELETE_CONTENT,
@@ -25,6 +28,7 @@ const userReducer = (
   switch (action.type) {
     case UserActions.SET_WATCHLIST_DATA:
     case UserActions.SET_LOADING:
+    case UserActions.SET_REVIEWS:
     case UserActions.SET_SELECTED:
       return {
         ...state,
@@ -61,6 +65,11 @@ export const userActions = {
         ({
             type: UserActions.SET_SELECTED,
             payload: {selected}
+        } as const),
+    setReviews: (reviews:IReview[]) =>
+        ({
+            type: UserActions.SET_REVIEWS,
+            payload: {reviews}
         } as const)
 };
 
@@ -166,6 +175,21 @@ export const resetPassword =
       dispatch(appActions.setSuccess("Password reset!"));
     } catch (e: any) {
       const msg = e.response?.data?.message || "Password reset failed!";
+      dispatch(appActions.setError(msg));
+    } finally {
+      dispatch(userActions.setLoading(false));
+    }
+  };
+
+export const getReviews =
+  (id: string): ThunkType =>
+  async (dispatch) => {
+    try {
+      dispatch(userActions.setLoading(true));
+      const data = await MessageService.getReviewsByUser(id);
+      dispatch(userActions.setReviews(data.reviews));
+    } catch (e: any) {
+      const msg = e.response?.data?.message || "Error fetching reviews";
       dispatch(appActions.setError(msg));
     } finally {
       dispatch(userActions.setLoading(false));

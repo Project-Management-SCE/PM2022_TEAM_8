@@ -3,29 +3,34 @@ const ApiError = require('../exceptions/api-error')
 const ReportDto = require('./dto')
 
 class ReportService {
-    async getAll() {
+    async getReportedReviewIds() {
         const reports = await Report.find({})
-        return reports.map(report => new ReportDto(report.userID, report.reviewID, report.subject, report.text))
+        let reviewIds = reports.map(report => report.reviewID)
+        const uniqueReviewIds = new Set(reviewIds)
+        reviewIds = [...uniqueReviewIds]
+        console.log(reviewIds);
+        return reviewIds
+
     }
     async get(id) {
         const reports = await Report.find({ reviewID: id })
-        return reports.map(report => new ReportDto(report.userID, report.reviewID, report.subject, report.text))
+        return reports.map(report => new ReportDto(report.reviewID, report.subject, report.text,report.reportedBy))
     }
 
-    async report(userID, reviewID, subject, text) {
-        const checkExist = await Report.findOne({ userID: userID.id, reviewID: reviewID.reviewId })
+    async report(reviewID, subject, text,reportedBy) {
+        const checkExist = await Report.findOne({reviewID,reportedBy })
         if (checkExist) {
             throw new ApiError(409, 'Cannot report the same content twice!')
         }
         const newReport = await new Report(
             {
-                userID: userID,
-                reviewID: reviewID,
+                reviewID,
                 subject,
-                text
+                text,
+                reportedBy
             })
         await newReport.save()
-        return 'Success'
+        return newReport
     }
 }
 

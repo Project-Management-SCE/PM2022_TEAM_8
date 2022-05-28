@@ -1,4 +1,5 @@
 const messageService = require('./service');
+const mailer = require("../utils/mailer");
 
 class messageController {
 
@@ -14,8 +15,8 @@ class messageController {
     async sendReply(req, res, next) {
         try {
             const { email, text } = req.body
-            const msg = await messageService.sendReply(email, text)
-            res.json(msg)
+            await mailer.sendResponse(email, text)
+            res.json({"Success": "Email sent"})
         } catch (err) {
             next(err);
         }

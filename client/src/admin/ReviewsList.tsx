@@ -1,61 +1,16 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Table, Space } from "antd";
 import "./admin.css";
 import ReportsModal from "../components/ReportsModal";
 import {IReview} from "../api/internalAPI/internalApiTypes";
-
-
-
-
-const data = [
-  {
-    reviewID:"231421",
-    userID: "12",
-    movieID: "2",
-    recommendation: true,
-    movieTitle: " Wonder-Woman 2021",
-    text: "My review stinks enough for you to wipe me to hell",
-    userEmail: "taloh13@gmail.com",
-  },
-  {
-    reviewID:"231421",
-    movieID: "1",
-    userID: "1",
-    recommendation: true,
-    movieTitle: " Wonder-Woman 2031",
-    text: "My review stinks enough for you to wipe me to hell",
-    userEmail: "taloh23@gmail.com",
-  },
-  {
-   reviewID:"231421",
-    movieID: "1",
-    userID: "1",
-    recommendation: true,
-    movieTitle: " Wonder-Woman 2022",
-    text: ` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consequatur cumque dignissimos
-     dolores fugiat, quos suscipit tempora tenetur unde voluptates. Adipisci dolor 
-     eos nemo perferendis perspiciatis quia ratione, sunt veritatis?
-     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consequatur cumque dignissimos
-     dolores fugiat, quos suscipit tempora tenetur unde voluptates. Adipisci dolor 
-     eos nemo perferendis perspiciatis quia ratione, sunt veritatis?
-     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consequatur cumque dignissimos
-     dolores fugiat, quos suscipit tempora tenetur unde voluptates. Adipisci dolor 
-     eos nemo perferendis perspiciatis quia ratione, sunt veritatis?
-     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consequatur cumque dignissimos
-     dolores fugiat, quos suscipit tempora tenetur unde voluptates. Adipisci dolor 
-     eos nemo perferendis perspiciatis quia ratione, sunt veritatis?
-     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consequatur cumque dignissimos
-     dolores fugiat, quos suscipit tempora tenetur unde voluptates. Adipisci dolor 
-     eos nemo perferendis perspiciatis quia ratione, sunt veritatis?
-     `,
-    userEmail: "taloh23@gmail.com",
-  }
-] as IReview[];
-
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../redux/Store";
+import {deleteReview, getReviews} from "../redux/reducers/admin-reducer";
 
 export const ReviewsList = () => {
   const [visible, setVisible] = useState(false);
   const [currentReviewID, setCurrentReviewID] = useState("");
+  const dispatch = useDispatch();
   const handleClose = () => {
     setCurrentReviewID("");
     setVisible(false);
@@ -63,6 +18,9 @@ export const ReviewsList = () => {
   const handleOpen = (id: string) => {
     setCurrentReviewID(id);
     setVisible(true);
+  };
+  const onDelete = (id: string) => {
+    dispatch(deleteReview(id));
   };
   const columns = [
     {
@@ -87,22 +45,25 @@ export const ReviewsList = () => {
       key: "action",
       render: (
           _: any,
-          report: IReview
+          review: IReview
       ) => (
           <Space size="middle">
-            <a onClick={()=>handleOpen(report.reviewID)}>Reports</a>
-            <a>Delete</a>
+            <a onClick={()=>handleOpen(review.reviewID)}>Reports</a>
+            <a onClick={()=>onDelete(review.reviewID)}>Delete</a>
           </Space>
       ),
     },
   ];
-
+  useEffect(() => {
+    dispatch(getReviews());
+  }, []);
+ const reviews = useSelector<AppStateType>(state => state.admin.reviews) as IReview[];
   return (
     <div>
       <div className="info_container">
         {currentReviewID && <ReportsModal setModalVisible={handleClose} isModalVisible={visible} reviewID={currentReviewID}/>}
         <h2>Reviews List</h2>
-        <Table columns={columns} dataSource={data} pagination={false}/>
+        <Table columns={columns} dataSource={reviews} pagination={false}/>
       </div>
     </div>
   );

@@ -9,18 +9,10 @@ class ReportController {
             next(err)
         }
     }
-    async getAll(req, res, next) {
-        try {
-            const reports = await ReportService.getAll();
-            res.json({ reports });
-        } catch (err) {
-            next(err)
-        }
-    }
     async report(req, res, next) {
         try {
-            const { userID, reviewID, subject, text } = req.body;
-            await ReportService.report(userID, reviewID, subject, text);
+            const { reviewId, subject, text } = req.body;
+            await ReportService.report(reviewId, subject, text,req.user.email);
             res.json({ Result: "Success" });
         } catch (err) {
             next(err)

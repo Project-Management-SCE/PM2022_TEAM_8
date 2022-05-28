@@ -1,5 +1,4 @@
 const Message = require('./model')
-const mailer = require("../utils/mailer");
 const ApiError = require("../exceptions/api-error");
 const MessageDto = require("./dto");
 
@@ -13,10 +12,6 @@ class MessageService {
             })
         await newMessage.save()
         return 'Success'
-    }
-    async sendReply(email, text) {
-        await mailer.sendResponse(email, text)
-        return "Reply sent"
     }
 
     async markClosed(id) {

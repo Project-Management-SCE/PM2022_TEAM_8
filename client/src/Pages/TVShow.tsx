@@ -10,7 +10,6 @@ import {addToWatch} from "../redux/reducers/user-reducer";
 import {Modal} from "antd";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faClose} from "@fortawesome/free-solid-svg-icons";
-import AddReviewModal from "../components/AddReviewModal";
 import MovieCard from "../components/MovieCard";
 import Reviews from "../components/Reviews";
 
@@ -55,9 +54,6 @@ const TvShow = () => {
 
     const handleCancel = () => {
         setTrailerModalVisible(false);
-    };
-    const addReview = () => {
-        setIsReviewModalVisible(false);
     };
     const addToWatchList = (
         id: number,
@@ -125,7 +121,6 @@ const TvShow = () => {
                                 />
                             </Modal>
                         )}
-                        <AddReviewModal isModalVisible={isReviewModalVisible } setModalVisible={ setIsReviewModalVisible} onFinish={addReview}/>
                         <MovieCard
                             genres={tvShow.genres}
                             overview={tvShow.overview}
@@ -143,7 +138,11 @@ const TvShow = () => {
                         />
                     </div>
                 )}
-                {id && <Reviews movieID={id}/>}
+                {id && <Reviews movieID={id} setIsReviewModalVisible={setIsReviewModalVisible}
+                                isReviewModalVisible={isReviewModalVisible}
+                                type={"TVSERIES"}
+                                contentTitle={tvShow?.name || ""}
+                />}
             </div>
         </>
     );
