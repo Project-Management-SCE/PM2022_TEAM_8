@@ -2,4 +2,4 @@ cd server
 set -x
 npm test
 npm install --no-save eslint-nibble 
-npm run -s nibble 
+npm run nibble -s
