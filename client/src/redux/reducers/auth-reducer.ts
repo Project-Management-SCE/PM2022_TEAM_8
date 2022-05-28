@@ -67,7 +67,7 @@ export const login = (email: string, password: string ,isAdminLogin:boolean = fa
             dispatch(appActions.setSuccess('Login successful'))
         }
     } catch (e: any) {
-        const msg = e.response?.data?.message || 'Incorrect login or password'
+        const msg = e.response?.data?.message || 'Incorrect login or password!!'
         dispatch(appActions.setError(msg))
     }
 }
