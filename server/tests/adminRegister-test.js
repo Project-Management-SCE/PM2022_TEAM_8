@@ -28,7 +28,7 @@ describe('Register Admin', () => {
 
     });
     describe('/POST Register Admin with invalid credentials', () => {
-        it('it should fail with status 400 , because \"admin\" is not a valid email', (done) => {
+        it('it should fail with status 400 , because admin is not a valid email', (done) => {
             let credentials = {
                 email: "admin",
                 password: "admin",
